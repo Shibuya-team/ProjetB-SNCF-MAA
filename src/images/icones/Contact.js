@@ -8,7 +8,9 @@ const Contact = props => (
       strokeLinejoin="round"
       strokeMiterlimit="2"
       clipRule="evenodd"
-      viewBox={props.size}
+      viewBox= "0 -5 10 10"
+      width="26"
+      height="26"
     >
       <path
         fill={props.color}
