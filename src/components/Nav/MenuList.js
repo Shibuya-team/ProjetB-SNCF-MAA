@@ -35,12 +35,7 @@ const color = {
 
 
 
-const size = {
-	small: "0 0 512 512",
-	medium: "0 0 256 256",
-	large: "0 0 128 128",
-	xlarge: "0 0 64 64",
-};
+
 
 function MenuList() {
 	return (
@@ -49,15 +44,15 @@ function MenuList() {
 				<ul>
 					<li>
                     <Contact  color={color.plum} />
-						<a href="#">CONTACT</a>
+						<a href="#contact">CONTACT</a>
 					</li>
 					<li>
                     <Info  color={color.plum} />
-						<a href="#">INFO</a>
+						<a href="#info">INFO</a>
 					</li>
 					<li>
                     <Space  color={color.plum} />
-						<a href="#">MON ESPACE</a>
+						<a href="#espace">MON ESPACE</a>
 					</li>
 				</ul>
 			</Container>

@@ -2,9 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import "./Accordeon.css";
 
-const Box = styled.div`
-	
-`;
 
 const Accordeon = () => {
 	return (
