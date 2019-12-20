@@ -4,9 +4,8 @@ const app = express();
 const PORT = 5000;
 const bodyParser = require("body-parser");
 const sequelize = require("./database/config/connect");
-let token = null;
-let expires_in = 0;
 const secrets = require("./secrets");
+// const User = require("./models/user");
 
 sequelize
   .authenticate()
@@ -24,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello Back !");
 });
 
-if (token === null) {
+const getNewToken = (token, expires_time) => {
   axios
     .post(
       "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
@@ -39,9 +38,36 @@ if (token === null) {
     )
     .then(res => {
       token = res.data.access_token;
-      expires_in = res.data.expires_in;
+      expires_time = new Date().now() / 1000 + res.data.expires_in;
+      // envoyer ces deux variables dans stockage données : champs : "token" et "token_created_time"
     })
     .catch(err => console.log(err.message));
-}
+};
+
+// fonction appelée à chaque fois que le client valide une recherche "itinéraire" ou "around me", pour récupérer son token ou en générer un nouveau
+const getToken = () => {
+  let token; // récupérer champ "token" dans la table "user"
+  let expires_time; // récupérer champ "token_created_time" dans la table "user"
+  if (token === "" || token === null || !token) {
+    getNewToken(token, expires_time);
+  } else {
+    const dateNow = new Date().now() / 1000;
+    if (dateNow - expires_time >= 0) {
+      getNewToken(token, expires_time);
+    }
+  }
+  return token;
+};
+
+// à compléter
+const search = () => {
+  const token = getToken();
+  axios
+    .post()
+    .then(res => {
+      const results = res.data;
+    })
+    .catch(err => console.log(err.message));
+};
 
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
