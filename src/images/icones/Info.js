@@ -7,7 +7,9 @@ const Info = props => (
       strokeLinejoin="round"
       strokeMiterlimit="2"
       clipRule="evenodd"
-      viewBox={props.size}
+      viewBox= "0 -7 10 13"
+      width="28"
+      height="28"
     >
       <path
         fill={props.color}

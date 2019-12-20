@@ -1,13 +1,14 @@
 import React from "react";
 
-const MobiliteFirstLogo = props => (
+const MobiliteFirstLogo = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
       strokeLinejoin="round"
       strokeMiterlimit="2"
       clipRule="evenodd"
-      viewBox="0 0 34 14"
+      viewBox="0 0 100 15"
+   
     >
       <g fillRule="nonzero">
         <g fill="#5353a2">
