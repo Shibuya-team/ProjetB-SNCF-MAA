@@ -1,5 +1,9 @@
 body {
     background: #78C4D2;
+    padding:0px;
+    margin: 0px;
+    width: 100%;
+    align-content: center;
   }
   body h1 {
     position: fixed;
@@ -18,7 +22,7 @@ body {
   body input + label {
     position: fixed;
     top: 25px;
-    right: 20px;
+    right: 40px;
     height: 20px;
     width: 15px;
     z-index: 5;
