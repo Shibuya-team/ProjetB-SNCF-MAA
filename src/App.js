@@ -4,6 +4,7 @@ import Theme from "./components/Theme";
 import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";
 import LandingPage from "./components/LandingPage/LandingPage";
+import Footer from "./components/Footer/Footer";
 
 const Container = styled.div`
 	width: 100%;
@@ -27,6 +28,7 @@ function App() {
 				<Container>
 					<LandingPage />
 				</Container>
+				<Footer/>
 			</Theme>
 		</>
 	);
