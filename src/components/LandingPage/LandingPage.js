@@ -1,6 +1,5 @@
 import React from 'react';
-import Quotes from '../../images/icones/Quotes';
-import Transportation from '../../images/Transportation';
+import Accordeon from './Accordeon'
 
 
 
@@ -11,10 +10,7 @@ const LandingPage = () => {
     return ( 
 <>
 
-<Quotes />
-<h2>COMMANDEZ</h2>
-<p>votre trajet multi-modal</p>
-<Transportation />
+<Accordeon/>
 
 
 
