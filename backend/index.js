@@ -5,7 +5,7 @@ const PORT = 5000;
 const bodyParser = require("body-parser");
 const sequelize = require("./database/config/connect");
 const secrets = require("./secrets");
-// const User = require("./models/user");
+const mock = require("./mockData");
 
 sequelize
   .authenticate()
@@ -38,20 +38,21 @@ const getNewToken = (token, expires_time) => {
     )
     .then(res => {
       token = res.data.access_token;
-      expires_time = new Date().now() / 1000 + res.data.expires_in;
-      // envoyer ces deux variables dans stockage données : champs : "token" et "token_created_time"
+      expires_time = Math.floor(Date.now()) / 1000 + res.data.expires_in;
+
+      });
     })
     .catch(err => console.log(err.message));
 };
 
-// fonction appelée à chaque fois que le client valide une recherche "itinéraire" ou "around me", pour récupérer son token ou en générer un nouveau
 const getToken = () => {
-  let token; // récupérer champ "token" dans la table "user"
-  let expires_time; // récupérer champ "token_created_time" dans la table "user"
+
+  let token = User.findAll({where : {id: mock.userId}}).then(user => ); 
+  let expires_time; 
   if (token === "" || token === null || !token) {
     getNewToken(token, expires_time);
   } else {
-    const dateNow = new Date().now() / 1000;
+    const dateNow = Math.floor(Date.now()) / 1000;
     if (dateNow - expires_time >= 0) {
       getNewToken(token, expires_time);
     }
