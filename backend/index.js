@@ -2,11 +2,11 @@ const express = require("express");
 const axios = require("axios");
 const app = express();
 const PORT = 5000;
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const sequelize = require("./database/config/connect");
 const secrets = require("./secrets");
-const mock = require("./mockData");
-const User = require("./database/models/").User;
+// const mock = require("./mockData");
+// const User = require("./database/models/").User;
 
 sequelize
   .authenticate()
@@ -24,7 +24,9 @@ app.get("/", (req, res) => {
   res.send("Hello Back !");
 });
 
-const getNewToken = (token, expires_time) => {
+const getNewToken = () => {
+  let token = "";
+  let expires_time = 0;
   axios
     .post(
       "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
@@ -45,6 +47,7 @@ const getNewToken = (token, expires_time) => {
       // envoyer ces deux variables dans stockage données : champs : "token" et "token_created_time"
     })
     .catch(err => console.log(err.message));
+  return token;
 };
 
 // fonction appelée à chaque fois que le client valide une recherche "itinéraire" ou "around me", pour récupérer son token ou en générer un nouveau
@@ -63,15 +66,15 @@ const getNewToken = (token, expires_time) => {
 // };
 
 // à compléter
-const search = () => {
-  const token = getNewToken();
-  console.log(token);
+const search = async () => {
+  const token = await getNewToken();
+  console.log("token 2:" + token);
   let searchId = "";
   // let resItinerary = {};
   // Obtention des résultats
   app.get("/itinerary/search/", (req, res) => {
-    function getSearchId() {
-      return axios
+    async function getSearchId() {
+      return await axios
         .post(
           "https://api.maas-dev.aws.vsct.fr/master/search/itinerary",
           { headers: `Bearer ${token}` },
@@ -93,7 +96,7 @@ const search = () => {
         )
         .then(res => {
           searchId = res.data.searchId;
-          console.log(searchId);
+          console.log("3: " + searchId);
           res.send(searchId);
         })
         .catch(err => console.log(err.message));
@@ -114,8 +117,10 @@ const search = () => {
     // axios
     //   .all([getSearchId(), getItineraryResults()])
     //   .then(axios.spread(function(searchId, itinerary) {}));
+
     getSearchId();
-    console.log(getSearchId());
+    console.log("4 : " + getSearchId());
+    return searchId;
   });
 };
 
