@@ -1,43 +1,78 @@
 import React from "react";
-import styled from "styled-components";
+import {
+	Accordion,
+	AccordionItem,
+	AccordionItemHeading,
+	AccordionItemButton,
+	AccordionItemPanel,
+} from "react-accessible-accordion";
 import "./Accordeon.css";
+import Quotes from "../../images/icones/Quotes";
+import Transportation from "../../images/Transportation";
+import styled from "styled-components";
+import MobiliteFirstLogo from "../../images/MobiliteFirstLogo";
+import FormTravel from "../FormTravel/FormTravel";
+import FormArroundMe from "../FormArroundMe/FormArroundMe";
 
+const Container = styled.div`
+ width: 100%;
+ padding-right:0px;
+ padding-left:20px;
+ margin:0px;
+}
+ p{
+     padding:0px;
+     margin-top:0px;
+ }
+ h2{
+     padding:0px;
+     margin:0px;
+ }
+ `;
 
-const Accordeon = () => {
+export default function Accordeon() {
 	return (
 		<>
-        <section id="about">
-  <h2><a href="#about">About Us</a></h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-</section>
-			<div className="accordion horizontal">
-    <section>
-        <h2>About Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-    </section>
- 
-    <section>
-        <h2>Services</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-    </section>
- 
-    <section>
-        <h2>Blog</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-    </section>
- 
-    <section>
-        <h2>Portfolio</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-    </section>
- 
-    <section>
-        <h2>Contact</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse id lobortis massa. Nunc viverra velit leo, sit amet elementum mi. Fusce posuere nunc a mi tempus malesuada. Curabitur facilisis rhoncus eros eget placerat. Aliquam semper mauris sit amet justo tempor nec lacinia magna molestie. Etiam placerat congue dolor vitae adipiscing. Aliquam ac erat lorem, ut iaculis justo. Etiam mattis dignissim gravida. Aliquam nec justo ante, non semper mi. Nulla consectetur interdum massa, vel porta enim vulputate sed. Maecenas elit quam, egestas eget placerat non, fringilla vel eros. Nam vehicula elementum nulla sed consequat. Phasellus eu erat enim. Praesent at magna non massa dapibus scelerisque in eu lorem.</p>
-    </section>
-</div>
+			<Accordion allowZeroExpanded={true} preExpanded={"mobility"}>
+				<AccordionItem uuid="mobility">
+					<AccordionItemHeading>
+						<AccordionItemButton className="">
+							<Container>
+								<MobiliteFirstLogo />
+							</Container>
+						</AccordionItemButton>
+					</AccordionItemHeading>
+					<AccordionItemPanel>
+						<Container>
+							<Quotes />
+							<h2>COMMANDEZ</h2>
+							<p>votre trajet multi-modal</p>
+							<Transportation />
+						</Container>
+					</AccordionItemPanel>
+				</AccordionItem>
+				<AccordionItem >
+				<AccordionItemHeading>
+					<AccordionItemButton className="bg-color-plum">
+						<h2>Rechercher un itinéraire </h2>
+					</AccordionItemButton>
+				</AccordionItemHeading>
+				<AccordionItemPanel>		
+			<FormTravel />
+			</AccordionItemPanel>
+			</AccordionItem>
+			<AccordionItem >
+				<AccordionItemHeading>
+					<AccordionItemButton className="bg-color-orange">
+						<h2>Autour de moi</h2>
+					</AccordionItemButton>
+				</AccordionItemHeading>
+				<AccordionItemPanel>
+			<FormArroundMe />
+
+			</AccordionItemPanel>
+			</AccordionItem>
+            </Accordion>
 		</>
 	);
-};
-
-export default Accordeon;
+}
