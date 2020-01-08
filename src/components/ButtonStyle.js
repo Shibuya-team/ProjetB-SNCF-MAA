@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  width: ${props => (props.big ? 100 : 50)}%;
-  height: 50px;
+  width: ${props => (props.big ? 100 : 40)}%;
+  height: 4em;
   outline: none;
   padding: 0 20px;
   border-radius: 4px;
@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   &.purple {
     background-color: ${props => (props.onClick ? '#5353A2' : '#FF8B66')}
     & span {
-      font-size:14px;
+      font-size:1.5em;
       color: white;
 
     }
@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   &.gold {
     background-color: #FF8B66;
     & span {
-      font-size:14px;
+      font-size:2em;
       color: white;
     }
   }

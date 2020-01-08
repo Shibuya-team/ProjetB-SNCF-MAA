@@ -1,7 +1,5 @@
 import React from "react";
 import "../LandingPage/Accordeon.css";
-import ButtonStyle from "../ButtonStyle";
-import Datepicker from './DatePicker'
 import styled from "styled-components";
 
 
@@ -12,7 +10,7 @@ border-top: none;
 border-left: none;
 border-right: none;
 border-bottom: 1px solid #6767AD;
-font-size: 18px;
+font-size: 1.3em;
 outline: none;
 padding:20px;
 margin:10px;
@@ -28,11 +26,7 @@ color: #241F5D;
 function FormTravel() {
 	return <>
 
-		
-				<StyledInput  placeholder='Adresse de départ '/>
-        <StyledInput  placeholder='Adresse de destination '/>
-	   <Datepicker />
-        <ButtonStyle label='VALIDER'/>
+	
 	
 	</>;
 }
