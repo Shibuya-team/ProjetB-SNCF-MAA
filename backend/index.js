@@ -1,13 +1,9 @@
 const express = require("express");
 const axios = require("axios");
-const util = require("util");
 const app = express();
 const PORT = 5000;
-// const bodyParser = require("body-parser");
 const sequelize = require("./database/config/connect");
 const secrets = require("./secrets");
-// const mock = require("./mockData");
-// const User = require("./database/models/").User;
 
 sequelize
   .authenticate()
@@ -23,6 +19,7 @@ sequelize
 
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
 
+// TOKEN
 const getNewToken = async () => {
   let token = "";
   let expires_time = 0;
@@ -44,8 +41,6 @@ const getNewToken = async () => {
       console.log(
         "OK ! un nouveau token d'accès vient d'être généré avec succés."
       );
-      // console.log("token : " + token);
-      // console.log("enregistré à :" + expires_time);
       // envoyer ces deux variables dans stockage données : champs : "token" et "token_created_time"
     })
     .catch(err => {
@@ -55,22 +50,7 @@ const getNewToken = async () => {
   return token;
 };
 
-// // fonction appelée à chaque fois que le client valide une recherche "itinéraire" ou "around me", pour récupérer son token ou en générer un nouveau
-// // const getToken = () => {
-// //   let token = User.findAll({ where: { id: mock.userId } }).then(user => {}); // récupérer champ "token" dans la table "user"
-// //   let expires_time = User.findAll({}); // récupérer champ "token_created_time" dans la table "user"
-// //   if (token === "" || token === null || !token) {
-// //     getNewToken(token, expires_time);
-// //   } else {
-// //     const dateNow = Math.floor(Date.now() / 1000);
-// //     if (dateNow - expires_time >= 0) {
-// //       getNewToken(token, expires_time);
-// //     }
-// //   }
-// //   return token;
-// // };
-
-// à compléter : fonction de validation de la recherche
+// SEARCH ITINERARY
 const searchItinerary = async () => {
   let searchId = null;
   let resItinerary = {};
@@ -82,6 +62,7 @@ const searchItinerary = async () => {
       .post(
         "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
         {
+          // données en dur, à remplacer
           destination: {
             latitude: 48.9595466,
             longitude: 2.3424024
@@ -107,7 +88,6 @@ const searchItinerary = async () => {
       })
       .catch(err => {
         console.log("Échec searchId ! " + err);
-        // console.log("Échec searchId ! " + util.inspect(err.response.config));
       });
   };
 
