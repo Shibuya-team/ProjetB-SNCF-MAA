@@ -70,6 +70,7 @@ const getNewToken = async () => {
 // //   return token;
 // // };
 
+// SEARCH ITINERARY
 // à compléter : fonction de validation de la recherche
 const searchItinerary = async () => {
   let searchId = null;
@@ -144,36 +145,68 @@ app.get("/search/itinerary", async (req, response) => {
   response.send(resItinerary);
 });
 
-app.get("/test", async (req, res) => {
-  const token = await getNewToken;
+// SEARCH AROUND ME
+const searchAroundMe = async () => {
+  let searchId = null;
+  let resAroundme = {};
 
-  axios
-    .post(
-      "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
-      {
+  const newtoken = await getNewToken();
+
+  const getSearchId = async () => {
+    await axios
+      .post(
+        "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
+        {
+          origin: {
+            latitude: 48.8534,
+            longitude: 2.3488
+          },
+          //exemple pour une recherche dans un rayon de 200m
+          radius: 200
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${newtoken}`,
+            "x-api-key": secrets.apiKey,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      )
+      .then(res => {
+        searchId = res.data.searchId;
+        console.log("OK ! searchId obtenu avec succès : " + searchId);
+      })
+      .catch(err => {
+        console.log("Échec searchId ! " + err);
+      });
+  };
+
+  const getAroundMeResults = async () => {
+    await getSearchId();
+    console.log("token utilisé : ", newtoken);
+    console.log("searchId utilisé : ", searchId);
+    return await axios
+      .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
-          "x-api-key": secrets.apiKey,
+          Accept: "application/json",
+          Authorization: `Bearer ${newtoken}`,
           "Content-Type": "application/json"
         }
-      },
-      {
-        destination: {
-          latitude: 48.9595466,
-          longitude: 2.3424024
-        },
-        origin: {
-          latitude: 48.8534,
-          longitude: 2.3488
-        }
-      }
-    )
-    .then(result => {
-      console.log(res);
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.json(err);
-    });
+      })
+      .then(res => {
+        resAroundme = res.data;
+        console.log("Succès resAroundMe : " + resAroundme);
+      })
+      .catch(err => {
+        console.log("Échec resAroundMe ! " + err);
+      });
+  };
+  await getAroundMeResults();
+  return resAroundme;
+};
+
+app.get("/search/aroundme", async (req, response) => {
+  const resAroundMe = await searchAroundMe();
+  console.log(resAroundMe);
+  response.send(resAroundMe);
 });
