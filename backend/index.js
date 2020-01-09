@@ -21,13 +21,6 @@ sequelize
     );
   });
 
-// app.get("/token", async (req, res) => {
-//   const token = await getNewToken();
-
-//   console.log(token);
-//   res.send(token);
-// });
-
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
 
 const getNewToken = async () => {
@@ -48,6 +41,9 @@ const getNewToken = async () => {
     .then(res => {
       token = res.data.access_token;
       expires_time = Math.floor(Date.now() / 1000) + res.data.expires_in;
+      console.log(
+        "OK ! un nouveau token d'accès vient d'être généré avec succés."
+      );
       // console.log("token : " + token);
       // console.log("enregistré à :" + expires_time);
       // envoyer ces deux variables dans stockage données : champs : "token" et "token_created_time"
@@ -75,21 +71,16 @@ const getNewToken = async () => {
 // // };
 
 // à compléter : fonction de validation de la recherche
-
-const search = async () => {
+const searchItinerary = async () => {
   let searchId = null;
   let resItinerary = {};
 
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {
-    console.log("getSearchId newtoken : ", newtoken);
-
-    // "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary" -H  "accept: application/json" -H  "Content-Type: application/json" -H "Authorization: Bearer " -d "{\"destination\":{\"latitude\":0,\"longitude\":0},\"mobilityTypes\":[\"VEHICLE_WITH_DRIVER\"],\"origin\":{\"latitude\":0,\"longitude\":0},\"partners\":[\"string\"],\"searchDate\":\"2020-01-09T13:54:20.026Z\"}"
     await axios
       .post(
         "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
-
         {
           destination: {
             latitude: 48.9595466,
@@ -99,6 +90,7 @@ const search = async () => {
             latitude: 48.8534,
             longitude: 2.3488
           }
+          // "searchDate": "2020-01-03T09:54:20.026Z"
         },
         {
           headers: {
@@ -111,72 +103,43 @@ const search = async () => {
       )
       .then(res => {
         searchId = res.data.searchId;
-        console.log("OK ! searchId : " + searchId);
+        console.log("OK ! searchId obtenu avec succès : " + searchId);
       })
       .catch(err => {
-        console.log(
-          "Échec search hjgjgj! " + util.inspect(err.response.config)
-        );
+        console.log("Échec searchId ! " + err);
+        // console.log("Échec searchId ! " + util.inspect(err.response.config));
       });
   };
 
   const getItineraryResults = async () => {
     await getSearchId();
-    console.log("search", searchId);
+    console.log("token utilisé : ", newtoken);
+    console.log("searchId utilisé : ", searchId);
     return await axios
       .get(
         `https://api.maas-dev.aws.vsct.fr/enc/search/itinerary/${searchId}`,
         {
-          headers: `Bearer ${newtoken}`
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${newtoken}`,
+            "Content-Type": "application/json"
+          }
         }
       )
       .then(res => {
         resItinerary = res.data;
-        console.log("resItinerary : " + resItinerary);
+        console.log("Succès resItinerary : " + resItinerary);
       })
       .catch(err => {
         console.log("Échec resItinerary ! " + err);
       });
   };
-  return await getItineraryResults();
+  await getItineraryResults();
+  return resItinerary;
 };
 
-app.get("/search", async (req, response) => {
-  const resItinerary = await search();
+app.get("/search/itinerary", async (req, response) => {
+  const resItinerary = await searchItinerary();
   console.log(resItinerary);
   response.send(resItinerary);
-});
-
-app.get("/test", async (req, res) => {
-  const token = await getNewToken;
-
-  axios
-    .post(
-      "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "x-api-key": "IxcoQOJ2xe4sqEl9bwKpH1EwxPPJhTLc1xxvEgjp",
-          "Content-Type": "application/json"
-        }
-      },
-      {
-        destination: {
-          latitude: 48.9595466,
-          longitude: 2.3424024
-        },
-        origin: {
-          latitude: 48.8534,
-          longitude: 2.3488
-        }
-      }
-    )
-    .then(result => {
-      console.log(res);
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.json(err);
-    });
 });
