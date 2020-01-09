@@ -7,9 +7,9 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer";
 
 const Container = styled.div`
-max-width: 2440px;
-margin-left: auto;
-margin-right: auto;
+	max-width: 2440px;
+	margin-left: auto;
+	margin-right: auto;
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -20,19 +20,19 @@ margin-right: auto;
 	background-color: ${(props) => props.theme.colors.emerald};
 	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-	fontsize: ${(props) => props.theme.fontSizes.xlarge};
+	
 `;
 
 function App() {
 	return (
 		<>
 			<Theme>
-				<MenuBurger />
 				<Container>
+					<MenuBurger />
+
 					<LandingPage />
-					</Container>
-				<Footer/>
-				
+				</Container>
+				<Footer />
 			</Theme>
 		</>
 	);

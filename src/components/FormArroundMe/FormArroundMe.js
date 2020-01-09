@@ -17,8 +17,7 @@ padding:20px;
 margin:10px;
 background: rgba(255, 255, 255, 0); 
 color: #241F5D;
-::placeholder{
-    color:#6767AD;
+
 }
 
 `;
