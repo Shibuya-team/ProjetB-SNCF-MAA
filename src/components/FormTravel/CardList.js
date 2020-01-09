@@ -5,6 +5,7 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 
+
 const color = {
 	grey: "#EBE8E8",
 	oldpink: "#F0DBD8",
@@ -22,10 +23,10 @@ const color = {
 };
 
 const size = {
-	small: "20px",
-	medium: "30px",
-	large: "40px",
-	xlarge: "50px",
+	small: "1em",
+	medium: "2em",
+	large: "4em",
+	xlarge: "5em",
 };
 
 const ContainerCard = styled.div`
@@ -45,7 +46,7 @@ const ContainerCard = styled.div`
 	background-color: ${(props) => props.theme.colors.asura};
 	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-	fontsize: ${(props) => props.theme.fontSizes.large};
+	
 `;
 const ContainerTitreLine = styled.div`
 	width: 100%;
@@ -57,8 +58,8 @@ const ContainerTitreLine = styled.div`
 	padding: 10px 0 10px 0;
 	background-color: ${(props) => props.theme.colors.grey};
 	color: ${(props) => props.theme.colors.white};
-	font-family: ${(props) => props.theme.fonts[0]};
-	fontsize: ${(props) => props.theme.fontSizes.medium};
+	font-family: ${(props) => props.theme.fonts[2]};
+	fontsize: ${(props) => props.theme.fontSizes.large};
 `;
 const ContainerLine = styled.div`
 	width: 100%;
@@ -68,7 +69,17 @@ const ContainerLine = styled.div`
 	padding: 10px 0 10px 0;
 	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-	fontsize: ${(props) => props.theme.fontSizes.medium};
+	fontsize: ${(props) => props.theme.fontSizes.small};
+`;
+const ContainerPrice = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding: 10px 0 10px 0;
+	color: ${(props) => props.theme.colors.white};
+	font-family: ${(props) => props.theme.fonts[0]};
+	fontsize: ${(props) => props.theme.fontSizes.xlarge};
 `;
 
 function CardList() {
@@ -80,11 +91,12 @@ function CardList() {
 					EXECUTIVE
 				</ContainerTitreLine>
                 <ContainerLine>
-                <Travellers size={size.small} color={color.purple} />X4
+                <Travellers size={size.small} color={color.purple} />X4<Luggage size={size.small} color={color.purple} />X2
                 </ContainerLine>
-                <ContainerLine>
-				<Luggage size={size.small} color={color.purple} />X2
-                </ContainerLine>
+                <ContainerPrice >
+				45.00€
+                </ContainerPrice>
+                (Prix estimé)
 				
 				<ButtonStyle style={{marginBottom:'auto',
 		

@@ -5,7 +5,7 @@ const StyledButton = styled.button`
   width: ${props => (props.big ? 100 : 40)}%;
   height: 4em;
   outline: none;
-  padding: 0 20px;
+  padding: 0 2em;
   border-radius: 4px;
   margin: 20px;
   border-style:none;
@@ -25,21 +25,21 @@ const StyledButton = styled.button`
   &.gold {
     background-color: #FF8B66;
     & span {
-      font-size:2em;
+      font-size:1.5em;
       color: white;
     }
   }
   &.purpleoutline {
     border: 2px solid #5353A2;
     & span {
-      font-size:14px;
+      font-size:1.5em;
       color: #5353A2;
     }
   }
   &.goldoutline {
     border: 2px solid #FF8B66;
     & span {
-      font-size:14px;
+      font-size:1.5em;
       color: #FF8B66;
     }
   }
