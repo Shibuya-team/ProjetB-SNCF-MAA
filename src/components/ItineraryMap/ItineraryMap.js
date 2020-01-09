@@ -56,9 +56,7 @@ export const ItineraryMap = () => {
 	return (
 		<>
 		<Container>
-			<GoogleMapProvider Options={{
-						styles: require(`./MapStyle.json`),
-					}}>
+			<GoogleMapProvider >
 			
 			<StandaloneAutocomplete
     id="departure"
@@ -103,9 +101,7 @@ export const ItineraryMap = () => {
    <Datepicker />
   <ButtonStyle label='VALIDER'/>
 				<MapBox
-					defaultOptions={{
-						styles: require(`./MapStyle.json`),
-					}}
+					
 					apiKey={secrets.apiKey}
 					 
 					regionParam="FR"

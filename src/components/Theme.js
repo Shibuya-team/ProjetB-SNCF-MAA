@@ -24,9 +24,9 @@ const theme = {
 
   fontSizes: {
     small: "1em",
-    medium: "2em",
-    large: "3em",
-    xlarge:"5em"
+    medium: "1.5em",
+    large: "2em",
+    xlarge:"3em"
   }
 };
 

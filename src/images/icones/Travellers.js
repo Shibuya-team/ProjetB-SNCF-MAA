@@ -1,17 +1,23 @@
 import React from "react";
 
-const Travellers= props => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={props.size}
- 
-      viewBox="0 0 515.556 515.556"
-    >
-      <path 
-      fill={props.color}
-      d="M348.918 37.751c50.334 50.334 50.334 131.942 0 182.276s-131.942 50.334-182.276 0-50.334-131.942 0-182.276c50.334-50.335 131.942-50.335 182.276 0M455.486 350.669c-117.498-79.391-277.917-79.391-395.415 0-17.433 11.769-27.848 31.656-27.848 53.211v111.676h451.111V403.88c0-21.555-10.416-41.442-27.848-53.211z"></path>
-    </svg>
-  );
+const Travellers= props => ( 
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  fillRule="evenodd"
+  strokeLinejoin="round"
+  strokeMiterlimit="2"
+  clipRule="evenodd"
+  viewBox="0 0 5 5"
+  width={props.size}
+>
+  <path fill="none" d="M0 0H4.031V4.049H0z"></path>
+  <path
+    fillRule="nonzero"
+    fill={props.color}
+    d="M2.714.57a.878.878 0 010 1.243.882.882 0 01-1.245 0 .878.878 0 010-1.243.882.882 0 011.245 0M3.442 2.703a2.45 2.45 0 00-2.701 0 .437.437 0 00-.19.363v.762h3.081v-.762a.437.437 0 00-.19-.363z"
+  ></path>
+</svg>
+ );
 
 
 export default Travellers;

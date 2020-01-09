@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   &.purple {
     background-color: ${props => (props.onClick ? '#5353A2' : '#FF8B66')}
     & span {
-      font-size:1.5em;
+      font-size:1.3em;
       color: white;
 
     }
@@ -25,21 +25,21 @@ const StyledButton = styled.button`
   &.gold {
     background-color: #FF8B66;
     & span {
-      font-size:1.5em;
+      font-size:1.3em;
       color: white;
     }
   }
   &.purpleoutline {
     border: 2px solid #5353A2;
     & span {
-      font-size:1.5em;
+      font-size:1.3em;
       color: #5353A2;
     }
   }
   &.goldoutline {
     border: 2px solid #FF8B66;
     & span {
-      font-size:1.5em;
+      font-size:1.3em;
       color: #FF8B66;
     }
   }
