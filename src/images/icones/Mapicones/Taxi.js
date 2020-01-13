@@ -7,7 +7,9 @@ const Taxi = props => (
       strokeLinejoin="round"
       strokeMiterlimit="2"
       clipRule="evenodd"
-      viewBox={props.size}
+      viewBox="0 0 7 4"
+      width={props.size}
+  
     >
       <path
         fill={props.color}
