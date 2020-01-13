@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import DateTimePicker from "react-datetime-picker";
 
@@ -9,17 +9,32 @@ const StyledInput = styled.div`
 `;
 
 function DatePicker() {
-  const dateNow = new Date();
-  const [dateTime, setDateTime] = useState({ date: dateNow });
+  const [dateTime, setDateTime] = useState({ date: null });
+
+  useEffect(() => {
+    initializeDate();
+  }, []);
 
   const handleDateTime = value => {
     setDateTime({ date: value });
   };
 
+  const initializeDate = event => {
+    setDateTime({ date: new Date() });
+  };
+
   return (
     <>
       <StyledInput>
-        <DateTimePicker value={dateTime.date} onChange={handleDateTime} />
+        <DateTimePicker
+          value={dateTime.date}
+          onChange={handleDateTime}
+          showLeadingZeros={true}
+          required={true}
+          disableClock={true}
+          minDate={new Date()}
+          clearIcon={false}
+        />
       </StyledInput>
     </>
   );
