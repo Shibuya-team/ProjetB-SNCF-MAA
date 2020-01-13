@@ -9,6 +9,7 @@ const Buildings = () => (
       strokeMiterlimit="2"
       clipRule="evenodd"
       viewBox="0 0 173 81"
+      width = "100%"
     >
       <clipPath id="a">
         <path d="M82.054 -6.805H173.324V48.258H82.054z"></path>
