@@ -5,14 +5,14 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 
-class Departure extends React.Component {
+class Arrival extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { departure: { address: "", lat: null, lng: null } };
+    this.state = { arrival: { address: "", lat: null, lng: null } };
   }
 
   handleDeparture = address => {
-    this.setState({ departure: { address: address } });
+    this.setState({ arrival: { address: address } });
   };
 
   handleSelect = address => {
@@ -20,13 +20,13 @@ class Departure extends React.Component {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         this.setState({
-          departure: { address: address, lat: latLng.lat, lng: latLng.lng }
+          arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
         });
         console.log(
-          "Success departure address",
-          `latitude : ${this.state.departure.lat}`,
-          `longitude : ${this.state.departure.lng}`,
-          `address : ${this.state.departure.address}`
+          "Success arrival address",
+          `latitude : ${this.state.arrival.lat}`,
+          `longitude : ${this.state.arrival.lng}`,
+          `address : ${this.state.arrival.address}`
         );
       })
       // .then(address => this.setState({ departure: address }))
@@ -37,10 +37,10 @@ class Departure extends React.Component {
     return (
       <>
         <PlacesAutocomplete
-          value={this.state.departure.address}
+          value={this.state.arrival.address}
           onChange={this.handleDeparture}
           onSelect={this.handleSelect}
-          shouldFetchSuggestions={this.state.departure.address.length > 3}
+          shouldFetchSuggestions={this.state.arrival.address.length > 3}
         >
           {({
             getInputProps,
@@ -115,4 +115,4 @@ class Departure extends React.Component {
   }
 }
 
-export default Departure;
+export default Arrival;
