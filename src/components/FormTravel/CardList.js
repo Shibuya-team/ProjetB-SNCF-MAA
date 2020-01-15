@@ -127,7 +127,7 @@ function CardList() {
                 <ContainerPrice >
 				45.00€
                 </ContainerPrice>
-                (Prix estimé)
+       
 				<ButtonStyle style={{marginBottom:'auto',
 		
 	}} big="true" label="COMMANDER" />
@@ -146,7 +146,7 @@ function CardList() {
                 <ContainerPrice >
 				45.00€
                 </ContainerPrice>
-                (Prix estimé)
+             
 				<ButtonStyle style={{marginBottom:'auto',
 		
 		
@@ -166,7 +166,7 @@ function CardList() {
                 <ContainerPrice >
 				45.00€
                 </ContainerPrice>
-                (Prix estimé)
+       
 				<ButtonStyle style={{marginBottom:'auto',
 		
 		
