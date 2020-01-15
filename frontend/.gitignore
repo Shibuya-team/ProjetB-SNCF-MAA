@@ -26,5 +26,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/secrets.json
-src/backend/secrets.json
+
 node_modules
