@@ -12,6 +12,7 @@ import Taxi from "../../images/icones/Mapicones/Taxi";
 import CoDriving from "../../images/icones/Mapicones/CoDriving";
 // import styled from "styled-components";
 import secrets from "../../secrets";
+import { useState } from "react";
 
 const color = {
   grey: "#EBE8E8",
@@ -36,7 +37,8 @@ const size = {
   xlarge: "300px"
 };
 
-export const ItineraryMap = () => {
+export const ItineraryMap = props => {
+  const { globalState, setGlobalState } = props;
   return (
     <>
       <GoogleMapProvider>
@@ -61,6 +63,8 @@ export const ItineraryMap = () => {
           onCenterChanged={() => {
             console.log("The center of the map has changed.");
           }}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
         />
         <Marker
           id="marker"

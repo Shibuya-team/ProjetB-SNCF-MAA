@@ -32,7 +32,8 @@ const Container = styled.div`
  }
  `;
 
-export default function Accordeon() {
+export default function Accordeon(props) {
+  const { globalState, setGlobalState } = props;
   return (
     <>
       <Accordion allowZeroExpanded={true} preExpanded={"mobility"}>
@@ -60,8 +61,14 @@ export default function Accordeon() {
             </AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
-            <FormTravel />
-            <ItineraryMap />
+            <FormTravel
+              globalState={globalState}
+              setGlobalState={setGlobalState}
+            />
+            <ItineraryMap
+              globalState={globalState}
+              setGlobalState={setGlobalState}
+            />
           </AccordionItemPanel>
         </AccordionItem>
         <AccordionItem>
@@ -71,7 +78,10 @@ export default function Accordeon() {
             </AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
-            <FormArroundMe />
+            <FormArroundMe
+              globalState={globalState}
+              setGlobalState={setGlobalState}
+            />
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>

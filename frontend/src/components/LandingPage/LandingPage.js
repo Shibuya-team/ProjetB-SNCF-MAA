@@ -1,26 +1,14 @@
-import React from 'react';
-import Accordeon from './Accordeon'
+import React from "react";
+import Accordeon from "./Accordeon";
 
+const LandingPage = props => {
+  const { globalState, setGlobalState } = props;
 
+  return (
+    <>
+      <Accordeon globalState={globalState} setGlobalState={setGlobalState} />
+    </>
+  );
+};
 
-
-
-
-const LandingPage = () => {
-    return ( 
-<>
-
-<Accordeon/>
-
-
-
-
-
-</>
-
-     );
-}
-
-
- 
 export default LandingPage;

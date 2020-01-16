@@ -6,12 +6,14 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 class Arrival extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { arrival: { address: "", lat: null, lng: null } };
+  constructor({ globalState, setGlobalState }) {
+    super({ globalState, setGlobalState });
+    this.state = { ...globalState };
+    this.handleArrival = this.handleArrival.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
-  handleDeparture = address => {
+  handleArrival = address => {
     this.setState({ arrival: { address: address } });
   };
 
@@ -28,6 +30,7 @@ class Arrival extends React.Component {
           `longitude : ${this.state.arrival.lng}`,
           `address : ${this.state.arrival.address}`
         );
+        console.log("globalState : ", this.state);
       })
       // .then(address => this.setState({ departure: address }))
       .catch(error => console.error("Error", error));
@@ -38,7 +41,7 @@ class Arrival extends React.Component {
       <>
         <PlacesAutocomplete
           value={this.state.arrival.address}
-          onChange={this.handleDeparture}
+          onChange={this.handleArrival}
           onSelect={this.handleSelect}
           shouldFetchSuggestions={this.state.arrival.address.length > 3}
         >

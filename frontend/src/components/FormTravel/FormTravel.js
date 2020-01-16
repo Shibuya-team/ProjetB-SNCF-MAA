@@ -32,15 +32,21 @@ const Container = styled.div`
   }
 `;
 
-function FormTravel() {
+function FormTravel(props) {
+  const { globalState, setGlobalState } = props;
+
   return (
     <>
       <Container>
-        <Departure />
-        <Arrival />
-        <Datepicker />
-        <ButtonStyle label="VALIDER" />
-        <CardList />
+        <Departure globalState={globalState} setGlobalState={setGlobalState} />
+        <Arrival globalState={globalState} setGlobalState={setGlobalState} />
+        <Datepicker globalState={globalState} setGlobalState={setGlobalState} />
+        <ButtonStyle
+          label="VALIDER"
+          globalState={globalState}
+          setGlobalState={setGlobalState}
+        />
+        <CardList globalState={globalState} setGlobalState={setGlobalState} />
       </Container>
     </>
   );
