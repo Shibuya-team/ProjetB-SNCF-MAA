@@ -28,37 +28,27 @@ app.get("/", (req, res) => {
 	res.send("Hello Back !");
 });
 
-app.get("/user", (req, res) => {
-	User.create({
-		firstName: "hadibéré",
-		lastName: "CAMARA",
-		email: "hadibere@gmail.com",
-	});
-	res.send("User ajoutée");
-});
-
 app.get("/getNewToken", async (req, res) => {
-	Token.findAll().then(async () => {
-		Token.findOrCreate({
-			where: {
+	Token.findOne({}).then(async (tokenCreate) => {
+		if (!tokenCreate) {
+			Token.create({
 				token: await getNewToken(),
-			},
-		});
+			});
+		}
+
+		if (tokenCreate && tokenCreate.createdAt) {
+			const result = Math.round(
+				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
+			);
+			console.log(result);
+			if (result >= 200) {
+				Token.destroy({
+					where: {},
+				});
+			}
+		}
 	});
 	res.sendStatus(200);
-});
-
-app.get("/api", (req, res) => {
-	getNewToken();
-	res.sendStatus(200);
-});
-
-// Supression TEST //
-app.get("/delete", (req, res) => {
-	User.destroy({
-		where: {},
-	});
-	res.send("Delete");
 });
 
 app.get("/tokend", (req, res) => {
@@ -91,21 +81,6 @@ const getNewToken = async () => {
 		})
 		.catch((err) => console.log(err.message));
 
-	return token;
-};
-
-// fonction appelée à chaque fois que le client valide une recherche "itinéraire" ou "around me", pour récupérer son token ou en générer un nouveau
-const getToken = () => {
-	//let token = User.findAll({ where: { id: mock.userId } }).then((user) => {}); // récupérer champ "token" dans la table "user"
-	let expires_time = User.findAll({}); // récupérer champ "token_created_time" dans la table "user"
-	if (token === "" || token === null || !token) {
-		getNewToken(token, expires_time);
-	} else {
-		const dateNow = Math.floor(Date.now() / 1000);
-		if (dateNow - expires_time >= 0) {
-			getNewToken(token, expires_time);
-		}
-	}
 	return token;
 };
 
