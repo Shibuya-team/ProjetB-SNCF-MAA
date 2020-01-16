@@ -14,7 +14,8 @@ import styled from "styled-components";
 import secrets from "../../secrets"
 import ButtonStyle from "../ButtonStyle";
 import Datepicker from '../FormTravel/DatePicker'
-import CardList from '../FormTravel/CardList'
+import CardList from '../FormTravel/CardList';
+
 
 
 
