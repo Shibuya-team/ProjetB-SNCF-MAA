@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+=======
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+
+
+>>>>>>> 77db03eb... Réorganisation du repo : re-création des fichiers .gitgnore, secrets, env
 # dependencies
 /node_modules
 /.pnp
@@ -10,8 +18,9 @@
 
 # production
 /build
-/src/backend/node_modules
-/src/backend/.env
+node_modules
+.env
+secrets.json
 
 # misc
 .DS_Store
@@ -19,12 +28,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-
+.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-secrets.json
-src/secrets.json
-src/backend/secrets.json
-src/backend/.env
-.env
