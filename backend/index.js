@@ -80,7 +80,6 @@ const searchAroundMe = async () => {
       )
       .then(res => {
         searchId = res.data.searchId;
-        console.log("OK ! searchId obtenu avec succès : " + searchId);
       })
       .catch(err => {
         console.log("Échec searchId ! " + err);
@@ -89,8 +88,6 @@ const searchAroundMe = async () => {
 
   const getAroundMeResults = async () => {
     await getSearchId();
-    console.log("token utilisé : ", newtoken);
-    console.log("searchId utilisé : ", searchId);
     return await axios
       .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
         headers: {
@@ -101,7 +98,6 @@ const searchAroundMe = async () => {
       })
       .then(res => {
         resAroundMe = res.data;
-        console.log("Succès resAroundMe : " + resAroundMe);
       })
       .catch(err => {
         console.log("Échec resAroundMe ! " + err);
@@ -113,6 +109,5 @@ const searchAroundMe = async () => {
 
 app.get("/search/aroundme", async (req, response) => {
   const resAroundMe = await searchAroundMe();
-  console.log(resAroundMe);
   response.send(resAroundMe);
 });
