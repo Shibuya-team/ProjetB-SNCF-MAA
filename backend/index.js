@@ -71,7 +71,7 @@ const searchItinerary = async () => {
             longitude: 2.34093
           }
           // mobilityTypes: ["VEHICLE_WITH_DRIVER", "BUS"],
-          // searchDate: "2020-01-22T10:08:20.026Z"
+          // searchDate: "2020-01-31T19:08:20.026Z"
         },
         {
           headers: {
