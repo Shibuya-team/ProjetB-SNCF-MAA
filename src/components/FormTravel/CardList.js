@@ -106,78 +106,55 @@ const ContainerPrice = styled.div`
 
 
 const CardList = () => {
-    return ( 
-<Containerlist>
-​
-    {Data.results.map((results,index)=>{
-        return (<div>
-            <div key={index} >
-                        <Moment format="DD-MM-YYYY HH:mm">
-                        {results.departureDateTime}
-                        </Moment>
-                      </div>
+    return (
+        <Containerlist>
+            {Data.results.map((results,index) => {
+                console.log(results.segments[0].proposals.length)
+                return (
+                    <div>
+                        <div key={index} >
+                            <Moment format="DD-MM-YYYY HH:mm">
+                                {results.departureDateTime}
+                            </Moment>
+                        </div>
                         <ContainerTitle>
-                        <ul>
-                            <li>DEPART:</li>
-                            <li>ARRIVEE:</li>
-                        </ul>
+                            <ul>
+                                <li>DEPART:</li>
+                                <li>ARRIVEE:</li>
+                            </ul>
                         </ContainerTitle>
-​
-​
-                        {results.segments.map(segment => {
-                            return (segment.proposals.map(proposal => {
-                                console.log(proposal)
-                  if (proposal.fleetType === "VTC")
-                  {   
-                  return (<ContainerCard><ContainerTitreLine><Vtc size={size.medium} color={color.white} /></ContainerTitreLine>
-              
-              
-                  EXECUTIVE
-                  <ContainerLine>
-                  <Travellers size={size.small} color={color.purple} /> X 
-                  </ContainerLine>
-                  <ContainerLine>
-                      
-                  <Luggage size={size.small} color={color.purple} />X{results.luggageCapacity}
-                  </ContainerLine>
-                  <ContainerPrice >
-                  {results.amount}€{results.type="ESTIMATED"?<span>Prix estimé</span>:""}
-                  </ContainerPrice>
-                 
-                  <ButtonStyle style={{marginBottom:'auto',
-          
-          
-      }} big="true" label="COMMANDER" />
-              
-    
-                      
-                  </ContainerCard>)}
-                  else {
-                    return (<ContainerCard><ContainerTitreLine><Taxi size={size.medium} color={color.white} /></ContainerTitreLine>
-                    
-                EXECUTIVE
-                <ContainerLine>
-                <Travellers size={size.small} color={color.purple} /> X 
-                </ContainerLine>
-                <ContainerLine>
-                    
-                <Luggage size={size.small} color={color.purple} />X{results.luggageCapacity}
-                </ContainerLine>
-                <ContainerPrice >
-                {results.amount}€{results.type="ESTIMATED"?<span>Prix estimé</span>:""}
-                </ContainerPrice>
-               
-                <ButtonStyle style={{marginBottom:'auto',
-        
-        
-    }} big="true" label="COMMANDER" />
-    </ContainerCard>)}
-                            })
-                        )})}
-        </div>)
-    })}
-</Containerlist>
-     );
+                            {results.segments[0].proposals.map(proposal => {
+                                return (
+                                    <ContainerCard>
+                                        <ContainerTitreLine>
+                                            {proposal.fleetType === "VTC" ? <Vtc size={size.medium} color={color.white} /> : <Taxi size={size.medium} color={color.white} />}
+                                        </ContainerTitreLine>
+                                        <ContainerLine>
+                                            <div>
+                                                {proposal.carWithDriverAttributes.passengerCapacity}
+                                                <Travellers size={size.small} color={color.purple} />
+                                            </div>
+                                            <div>
+                                                {proposal.carWithDriverAttributes.luggageCapacity}
+                                                <Luggage size={size.small} color={color.purple}/>
+                                            </div>
+                                            <div>
+                                                {proposal.price.amount}€ 
+                                                <span>Prix estimé</span>
+                                            </div>
+                                        </ContainerLine>
+                                        <ButtonStyle
+                                            style={{marginBottom:'auto'}}
+                                            big="true"
+                                            label="COMMANDER" />
+                                    </ContainerCard>
+                                )
+                            })}
+                    </div>
+                )
+            })}
+        </Containerlist>
+    )
 }
  
 export default CardList;
