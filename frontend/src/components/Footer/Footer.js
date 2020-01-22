@@ -2,9 +2,7 @@ import React from "react";
 import Buildings from "../../images/Buildings";
 
 function Footer() {
-	return <>
-	<Buildings/>
-	</>;
+  return <Buildings />;
 }
 
 export default Footer;

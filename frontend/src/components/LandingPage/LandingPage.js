@@ -1,26 +1,8 @@
-import React from 'react';
-import Accordeon from './Accordeon'
-
-
-
-
-
+import React from "react";
+import Accordeon from "./Accordeon";
 
 const LandingPage = () => {
-    return ( 
-<>
+  return <Accordeon />;
+};
 
-<Accordeon/>
-
-
-
-
-
-</>
-
-     );
-}
-
-
- 
 export default LandingPage;
