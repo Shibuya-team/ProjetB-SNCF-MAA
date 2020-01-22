@@ -56,7 +56,6 @@ const searchItinerary = async () => {
   let resItinerary = {};
 
   const newtoken = await getNewToken();
-
   const getSearchId = async () => {
     await axios
       .post(
@@ -64,14 +63,15 @@ const searchItinerary = async () => {
         {
           // données en dur, à remplacer
           destination: {
-            latitude: 48.9595466,
-            longitude: 2.3424024
+            latitude: 48.8971,
+            longitude: 2.3247
           },
           origin: {
-            latitude: 48.8534,
-            longitude: 2.3488
+            latitude: 48.8599,
+            longitude: 2.34093
           }
-          // "searchDate": "2020-01-03T09:54:20.026Z"
+          // mobilityTypes: ["VEHICLE_WITH_DRIVER", "BUS"],
+          // searchDate: "2020-01-22T10:08:20.026Z"
         },
         {
           headers: {
@@ -102,7 +102,8 @@ const searchItinerary = async () => {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "x-api-key": secrets.apiKey
           }
         }
       )
