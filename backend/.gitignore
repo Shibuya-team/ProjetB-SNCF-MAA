@@ -1,13 +1,19 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 =======
+=======
+>>>>>>> 9def5d7f63a57b9480ea1fbc23d2b1d7d227792a
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 
 
+<<<<<<< HEAD
 >>>>>>> 77db03eb... Réorganisation du repo : re-création des fichiers .gitgnore, secrets, env
+=======
+>>>>>>> 9def5d7f63a57b9480ea1fbc23d2b1d7d227792a
 # dependencies
 /node_modules
 /.pnp

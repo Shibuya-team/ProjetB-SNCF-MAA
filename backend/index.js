@@ -93,8 +93,12 @@ const searchAroundMe = async () => {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${newtoken}`,
+<<<<<<< HEAD
           "Content-Type": "application/json",
           "x-api-key": secrets.apiKey
+=======
+          "Content-Type": "application/json"
+>>>>>>> 9def5d7f63a57b9480ea1fbc23d2b1d7d227792a
         }
       })
       .then(res => {
