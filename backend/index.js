@@ -12,6 +12,11 @@ const cors = require("cors");
 app.use(cors());
 app.options("*", cors());
 
+const PORT = 5000;
+const bodyParser = require("body-parser");
+const sequelize = require("./database/config/connect");
+
+
 sequelize
 	.authenticate()
 	.then(() => {
