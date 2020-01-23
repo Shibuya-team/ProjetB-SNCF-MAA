@@ -52,29 +52,27 @@ export default function Accordeon() {
 						</Container>
 					</AccordionItemPanel>
 				</AccordionItem>
-				<AccordionItem >
-				<AccordionItemHeading>
-					<AccordionItemButton className="bg-color-plum">
-						<h2>Rechercher un itinéraire </h2>
-					</AccordionItemButton>
-				</AccordionItemHeading>
-				<AccordionItemPanel>		
-		
-			<ItineraryMap/>
-			</AccordionItemPanel>
-			</AccordionItem>
-			<AccordionItem >
-				<AccordionItemHeading>
-					<AccordionItemButton className="bg-color-orange">
-						<h2>Autour de moi</h2>
-					</AccordionItemButton>
-				</AccordionItemHeading>
-				<AccordionItemPanel>
-			<FormArroundMe />
-
-			</AccordionItemPanel>
-			</AccordionItem>
-            </Accordion>
+				<AccordionItem>
+					<AccordionItemHeading>
+						<AccordionItemButton className="bg-color-plum">
+							<h2>Rechercher un itinéraire </h2>
+						</AccordionItemButton>
+					</AccordionItemHeading>
+					<AccordionItemPanel>
+						<ItineraryMap />
+					</AccordionItemPanel>
+				</AccordionItem>
+				<AccordionItem>
+					<AccordionItemHeading>
+						<AccordionItemButton className="bg-color-orange">
+							<h2>Autour de moi</h2>
+						</AccordionItemButton>
+					</AccordionItemHeading>
+					<AccordionItemPanel>
+						<FormArroundMe />
+					</AccordionItemPanel>
+				</AccordionItem>
+			</Accordion>
 		</>
 	);
 }
