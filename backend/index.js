@@ -12,10 +12,6 @@ const cors = require("cors");
 app.use(cors());
 app.options("*", cors());
 
-const PORT = 5000;
-const bodyParser = require("body-parser");
-const sequelize = require("./database/config/connect");
-
 
 sequelize
 	.authenticate()
@@ -45,8 +41,7 @@ app.get("/getNewToken", async (req, res) => {
 			const result = Math.round(
 				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
 			);
-			console.log(result);
-			if (result >= 200) {
+			if (result >= 3600) {
 				Token.destroy({
 					where: {},
 				});
