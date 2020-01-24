@@ -54,7 +54,7 @@ class Arrival extends React.Component {
             <div>
               <input
                 id="departure"
-                placeholder="Adresse d'arrivée'"
+                placeholder="Adresse d'arrivée"
                 style={{
                   lineHeight: "1.2em",
                   width: "250px",
