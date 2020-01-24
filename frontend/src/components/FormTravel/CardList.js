@@ -6,7 +6,8 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-import Data from "../../Data.js"; 
+import Data from "../../Data"; 
+
 import Moment from 'react-moment';
 
 const color = {
@@ -86,7 +87,7 @@ const ContainerTitreLine = styled.div`
 const ContainerLine = styled.div`
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	git checkout devjustify-content: center;
 	flex-direction: row;
 	padding: 10px 0 10px 0;
 	color: ${(props) => props.theme.colors.purple};
@@ -111,8 +112,8 @@ const CardList = () => {
             {Data.results.map((results,index) => {
                 console.log(results.segments[0].proposals.length)
                 return (
-                    <div>
-                        <div key={index} >
+                    <div key={index}>
+                        <div>
                             <Moment format="DD-MM-YYYY HH:mm">
                                 {results.departureDateTime}
                             </Moment>
@@ -123,9 +124,9 @@ const CardList = () => {
                                 <li>ARRIVEE:</li>
                             </ul>
                         </ContainerTitle>
-                            {results.segments[0].proposals.map(proposal => {
+                            {results.segments[0].proposals.map((proposal,index) => {
                                 return (
-                                    <ContainerCard>
+                                    <ContainerCard key={index+"proposal"}>
                                         <ContainerTitreLine>
                                             {proposal.fleetType === "VTC" ? <Vtc size={size.medium} color={color.white} /> : <Taxi size={size.medium} color={color.white} />}
                                         </ContainerTitreLine>
@@ -139,10 +140,10 @@ const CardList = () => {
                                                 <Luggage size={size.small} color={color.purple}/>
                                             </div>
                                             <div>
-                                                {proposal.price.amount}€ 
+                                                {proposal.price.amount / 100}€ 
                                                 <span>Prix estimé</span>
                                             </div>
-                                        </ContainerLine>
+                                       </ContainerLine>
                                         <ButtonStyle
                                             style={{marginBottom:'auto'}}
                                             big="true"
