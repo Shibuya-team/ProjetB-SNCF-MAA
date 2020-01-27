@@ -70,28 +70,27 @@ app.get("/getNewToken", async (req, res) => {
 	res.sendStatus(200);
 });
 
+
 // SEARCH ITINERARY
 const searchItinerary = async () => {
   let searchId = null;
-  let resItinerary = {};
 
   const newtoken = await getNewToken();
+
   const getSearchId = async () => {
     await axios
       .post(
         "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
         {
-          // données en dur, à remplacer
           destination: {
-            latitude: 48.8971,
-            longitude: 2.3247
+            latitude: 48.9595466,
+            longitude: 2.3424024
           },
           origin: {
-            latitude: 48.8599,
-            longitude: 2.34093
+            latitude: 48.8534,
+            longitude: 2.3488
           }
-          // mobilityTypes: ["VEHICLE_WITH_DRIVER", "BUS"],
-          // searchDate: "2020-01-31T19:08:20.026Z"
+          // "searchDate": "2020-01-03T09:54:20.026Z"
         },
         {
           headers: {
@@ -119,56 +118,21 @@ const searchItinerary = async () => {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "Content-Type": "application/json",
-            "x-api-key": secrets.apiKey
+            "Content-Type": "application/json"
           }
         }
       )
       .then(res => {
-        resItinerary = res.data;
+        return res.data;
       })
       .catch(err => {
         console.log("Échec resItinerary ! " + err);
       });
   };
-  await getItineraryResults();
-  return resItinerary;
+
+  return await getItineraryResults();
 };
 
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary();
   response.send(resItinerary);
-});
-
-app.get("/test", async (req, res) => {
-  const token = await getNewToken;
-  axios
-    .post(
-      "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "x-api-key": secrets.apiKey,
-          "Content-Type": "application/json"
-        }
-      },
-      {
-        destination: {
-          latitude: 48.9595466,
-          longitude: 2.3424024
-        },
-        origin: {
-          latitude: 48.8534,
-          longitude: 2.3488
-        }
-      }
-    )
-    .then(result => {
-      console.log(res);
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.json(err);
-    });
-});

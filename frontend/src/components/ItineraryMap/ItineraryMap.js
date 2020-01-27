@@ -16,6 +16,7 @@ import ButtonStyle from "../ButtonStyle";
 import Datepicker from "../FormTravel/DatePicker";
 import CardList from "../FormTravel/CardList";
 
+
 const color = {
   grey: "#EBE8E8",
   oldpink: "#F0DBD8",
