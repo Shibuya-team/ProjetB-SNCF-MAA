@@ -5,7 +5,7 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-
+import media from "styled-media-query";
 
 const color = {
 	grey: "#EBE8E8",
@@ -31,31 +31,28 @@ const size = {
 };
 
 const ContainerTitle = styled.div`
-	
-    text-align: left;
- 
-    color: ${(props) => props.theme.colors.white};
+	text-align: left;
+
+	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    padding: 0 20px 0 20px;
-		
+	font-size: ${(props) => props.theme.fontSizes.small};
+	padding: 0 20px 0 20px;
 `;
 
 const Containerlist = styled.div`
 	display: flex;
-    justify-content: left;
-    flex-wrap: wrap;
-background-color: ${(props) => props.theme.colors.asura};		
+	justify-content: center;
+	flex-wrap: wrap;
+	background-color: ${(props) => props.theme.colors.asura};
 `;
-
 
 const ContainerCard = styled.div`
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 5px;
-    margin:10px ;
-    padding-bottom:0;
-	width: 45%;
+	margin: 10px;
+	padding-bottom: 0;
+	width: 30%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -66,14 +63,16 @@ const ContainerCard = styled.div`
 	background-color: ${(props) => props.theme.colors.salmon};
 	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-	
+	${media.lessThan("small")`
+    width: 100%;
+  `}
 `;
 const ContainerTitreLine = styled.div`
 	width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	flex-direction: column;
 	padding: 10px 0 10px 0;
 	background-color: ${(props) => props.theme.colors.orange};
@@ -105,74 +104,77 @@ const ContainerPrice = styled.div`
 function CardList() {
 	return (
 		<>
-        <ContainerTitle>
-                <ul>
-                    <li>DEPART:</li>
-                    <li>ARRIVEE:</li>
-                </ul>
-                
-            </ContainerTitle>
-        <Containerlist>
-            	<ContainerCard>
-				<ContainerTitreLine>
-					<Vtc size={size.medium} color={color.white} />
-					EXECUTIVE
-				</ContainerTitreLine>
-                <ContainerLine>
-                <Travellers size={size.small} color={color.purple} />X4
-                </ContainerLine>
-                <ContainerLine>
-                <Luggage size={size.small} color={color.purple} />X2
-                </ContainerLine>
-                <ContainerPrice >
-				45.00€
-                </ContainerPrice>
-                (Prix estimé)
-				<ButtonStyle style={{marginBottom:'auto',
-		
-	}} big="true" label="COMMANDER" />
-			</ContainerCard>
-			<ContainerCard>
-				<ContainerTitreLine>
-					<Taxi size={size.medium} color={color.white} />
-					EXECUTIVE
-				</ContainerTitreLine>
-                <ContainerLine>
-                <Travellers size={size.small} color={color.purple} />X4
-                </ContainerLine>
-                <ContainerLine>
-                <Luggage size={size.small} color={color.purple} />X2
-                </ContainerLine>
-                <ContainerPrice >
-				45.00€
-                </ContainerPrice>
-                (Prix estimé)
-				<ButtonStyle style={{marginBottom:'auto',
-		
-		
-	}} big="true" label="COMMANDER" />
-			</ContainerCard>
-            <ContainerCard>
-				<ContainerTitreLine>
-					<Taxi size={size.medium} color={color.white} />
-					EXECUTIVE
-				</ContainerTitreLine>
-                <ContainerLine>
-                <Travellers size={size.small} color={color.purple} />X4
-                </ContainerLine>
-                <ContainerLine>
-                <Luggage size={size.small} color={color.purple} />X2
-                </ContainerLine>
-                <ContainerPrice >
-				45.00€
-                </ContainerPrice>
-                (Prix estimé)
-				<ButtonStyle style={{marginBottom:'auto',
-		
-		
-	}} big="true" label="COMMANDER" />
-			</ContainerCard>
-            </Containerlist>
+			<ContainerTitle>
+				<ul>
+					<li>DEPART:</li>
+					<li>ARRIVEE:</li>
+				</ul>
+			</ContainerTitle>
+			<Containerlist>
+				<ContainerCard>
+					<ContainerTitreLine>
+						<Vtc size={size.medium} color={color.white} />
+						EXECUTIVE
+					</ContainerTitreLine>
+					<ContainerLine>
+						<Travellers size={size.small} color={color.purple} />
+						X4
+					</ContainerLine>
+					<ContainerLine>
+						<Luggage size={size.small} color={color.purple} />
+						X2
+					</ContainerLine>
+					<ContainerPrice>45.00€</ContainerPrice>
+					(Prix estimé)
+					<ButtonStyle
+						style={{ marginBottom: "auto" }}
+						big="true"
+						label="COMMANDER"
+					/>
+				</ContainerCard>
+				<ContainerCard>
+					<ContainerTitreLine>
+						<Taxi size={size.medium} color={color.white} />
+						EXECUTIVE
+					</ContainerTitreLine>
+					<ContainerLine>
+						<Travellers size={size.small} color={color.purple} />
+						X4
+					</ContainerLine>
+					<ContainerLine>
+						<Luggage size={size.small} color={color.purple} />
+						X2
+					</ContainerLine>
+					<ContainerPrice>45.00€</ContainerPrice>
+					(Prix estimé)
+					<ButtonStyle
+						style={{ marginBottom: "auto" }}
+						big="true"
+						label="COMMANDER"
+					/>
+				</ContainerCard>
+				<ContainerCard>
+					<ContainerTitreLine>
+						<Taxi size={size.medium} color={color.white} />
+						EXECUTIVE
+					</ContainerTitreLine>
+					<ContainerLine>
+						<Travellers size={size.small} color={color.purple} />
+						X4
+					</ContainerLine>
+					<ContainerLine>
+						<Luggage size={size.small} color={color.purple} />
+						X2
+					</ContainerLine>
+					<ContainerPrice>45.00€</ContainerPrice>
+					(Prix estimé)
+					<ButtonStyle
+						style={{ marginBottom: "auto" }}
+						big="true"
+						label="COMMANDER"
+					/>
+				</ContainerCard>
+			</Containerlist>
 		</>
 	);
 }

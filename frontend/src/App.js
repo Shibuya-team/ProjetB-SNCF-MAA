@@ -1,5 +1,4 @@
 import React from "react";
-
 import Theme from "./components/Theme";
 import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";
@@ -20,7 +19,6 @@ const Container = styled.div`
 	background-color: ${(props) => props.theme.colors.emerald};
 	color: ${(props) => props.theme.colors.white};
 	font-family: ${(props) => props.theme.fonts[0]};
-	
 `;
 
 function App() {
