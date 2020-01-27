@@ -32,59 +32,46 @@ const Container = styled.div`
  }
  `;
 
-export default function Accordeon(props) {
-  const { globalState, setGlobalState } = props;
+export default function Accordeon() {
   return (
-    <>
-      <Accordion allowZeroExpanded={true} preExpanded={"mobility"}>
-        <AccordionItem uuid="mobility">
-          <AccordionItemHeading>
-            <AccordionItemButton className="">
-              <Container>
-                <MobiliteFirstLogo />
-              </Container>
-            </AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel>
+    <Accordion allowZeroExpanded={true} preExpanded={"mobility"}>
+      <AccordionItem uuid="mobility">
+        <AccordionItemHeading>
+          <AccordionItemButton className="">
             <Container>
-              <Quotes />
-              <h2>COMMANDEZ</h2>
-              <p>votre trajet multi-modal</p>
-              <Transportation />
+              <MobiliteFirstLogo />
             </Container>
-          </AccordionItemPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionItemHeading>
-            <AccordionItemButton className="bg-color-plum">
-              <h2>Rechercher un itinéraire </h2>
-            </AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel>
-            <FormTravel
-              globalState={globalState}
-              setGlobalState={setGlobalState}
-            />
-            <ItineraryMap
-              globalState={globalState}
-              setGlobalState={setGlobalState}
-            />
-          </AccordionItemPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionItemHeading>
-            <AccordionItemButton className="bg-color-orange">
-              <h2>Autour de moi</h2>
-            </AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel>
-            <FormArroundMe
-              globalState={globalState}
-              setGlobalState={setGlobalState}
-            />
-          </AccordionItemPanel>
-        </AccordionItem>
-      </Accordion>
-    </>
+          </AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <Container>
+            <Quotes />
+            <h2>COMMANDEZ</h2>
+            <p>votre trajet multi-modal</p>
+            <Transportation />
+          </Container>
+        </AccordionItemPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionItemHeading>
+          <AccordionItemButton className="bg-color-plum">
+            <h2>Rechercher un itinéraire </h2>
+          </AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <ItineraryMap />
+        </AccordionItemPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionItemHeading>
+          <AccordionItemButton className="bg-color-orange">
+            <h2>Autour de moi</h2>
+          </AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <FormArroundMe />
+        </AccordionItemPanel>
+      </AccordionItem>
+    </Accordion>
   );
 }

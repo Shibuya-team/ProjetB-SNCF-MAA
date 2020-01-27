@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Theme from "./components/Theme";
 import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";
@@ -6,6 +6,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer";
 import secrets from "./secrets";
 import Script from "react-load-script";
+import axios from "axios";
 
 const Container = styled.div`
   max-width: 2440px;
@@ -45,6 +46,14 @@ function App() {
     date: null
   });
   console.log(globalState);
+  
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/getNewToken")
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err.message));
+	}, []);
+
   return (
     <>
       <Theme>
@@ -57,8 +66,6 @@ function App() {
           />
           {googleApiScript.scriptLoaded === true ? (
             <LandingPage
-              globalState={globalState}
-              setGlobalState={setGlobalState}
             />
           ) : (
             <p>Chargement...</p>
