@@ -23,16 +23,14 @@ const Container = styled.div`
 
 function App() {
 	return (
-		<>
-			<Theme>
-				<Container>
-					<MenuBurger />
+		<Theme>
+			<Container>
+				<MenuBurger />
 
-					<LandingPage />
-				</Container>
-				<Footer />
-			</Theme>
-		</>
+				<LandingPage />
+			</Container>
+			<Footer />
+		</Theme>
 	);
 }
 

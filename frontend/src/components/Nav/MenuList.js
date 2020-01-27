@@ -1,21 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Contact from "../../images/icones/Contact"
-import Space from "../../images/icones/Space"
-import Info from "../../images/icones/Info"
+import Contact from "../../images/icones/Contact";
+import Space from "../../images/icones/Space";
+import Info from "../../images/icones/Info";
 
 const Container = styled.div`
-
 	text-align: left;
 	a {
-        color: ${(props) => props.theme.colors.plum};
-        fontsize: ${(props) => props.theme.fontSizes.xlarge};
-        font-family: ${(props) => props.theme.fonts[1]};
+		color: ${(props) => props.theme.colors.plum};
+		fontsize: ${(props) => props.theme.fontSizes.xlarge};
+		font-family: ${(props) => props.theme.fonts[1]};
 	}
-	
-	
 `;
-
 
 const color = {
 	grey: "#EBE8E8",
@@ -33,30 +29,24 @@ const color = {
 	white: "#FFFFFF",
 };
 
-
-
-
-
 function MenuList() {
 	return (
-		<>
-			<Container>
-				<ul>
-					<li>
-                    <Contact  color={color.plum} />
-						<a href="#contact">CONTACT</a>
-					</li>
-					<li>
-                    <Info  color={color.plum} />
-						<a href="#info">INFO</a>
-					</li>
-					<li>
-                    <Space  color={color.plum} />
-						<a href="#espace">MON ESPACE</a>
-					</li>
-				</ul>
-			</Container>
-		</>
+		<Container>
+			<ul>
+				<li>
+					<Contact color={color.plum} />
+					<a href="#contact">CONTACT</a>
+				</li>
+				<li>
+					<Info color={color.plum} />
+					<a href="#info">INFO</a>
+				</li>
+				<li>
+					<Space color={color.plum} />
+					<a href="#espace">MON ESPACE</a>
+				</li>
+			</ul>
+		</Container>
 	);
 }
 
