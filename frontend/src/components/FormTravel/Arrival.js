@@ -4,46 +4,48 @@ import PlacesAutocomplete, {
   // geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
+import useGlobal, { connect } from "../../global-state-management/store";
 
-class Arrival extends React.Component {
-  constructor({ globalState, setGlobalState }) {
-    super({ globalState, setGlobalState });
-    this.state = { ...globalState };
-    this.handleArrival = this.handleArrival.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-  }
+export class Arrival extends React.Component {
+  // constructor({ globalState, setGlobalState }) {
+  //   super({ ...this.props, globalState, setGlobalState });
+  //   this.handleArrival = this.handleArrival.bind(this);
+  //   this.handleSelect = this.handleSelect.bind(this);
+  // }
 
-  handleArrival = address => {
-    this.setState({ arrival: { address: address } });
-  };
+  // handleArrival = address => {
+  //   this.setState({ arrival: { address: address } });
+  // };
 
-  handleSelect = address => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        this.setState({
-          arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
-        });
-        console.log(
-          "Success arrival address",
-          `latitude : ${this.state.arrival.lat}`,
-          `longitude : ${this.state.arrival.lng}`,
-          `address : ${this.state.arrival.address}`
-        );
-        console.log("globalState : ", this.state);
-      })
-      // .then(address => this.setState({ departure: address }))
-      .catch(error => console.error("Error", error));
-  };
+  // handleSelect = address => {
+  //   geocodeByAddress(address)
+  //     .then(results => getLatLng(results[0]))
+  //     .then(latLng => {
+  //       this.setGlobalState({
+  //         arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
+  //       });
+  //       console.log(
+  //         "Success arrival address",
+  //         `latitude : ${this.globalState.arrival.lat}`,
+  //         `longitude : ${this.globalState.arrival.lng}`,
+  //         `address : ${this.globalState.arrival.address}`
+  //       );
+  //       console.log("globalState : ", this.globalState);
+  //     })
+  //     // .then(address => this.setState({ departure: address }))
+  //     .catch(error => console.error("Error", error));
+  // };
 
   render() {
+    const { state, actions } = this.props;
     return (
       <>
+        {console.log(state)}
         <PlacesAutocomplete
-          value={this.state.arrival.address}
-          onChange={this.handleArrival}
-          onSelect={this.handleSelect}
-          shouldFetchSuggestions={this.state.arrival.address.length > 3}
+          value={state.arrival.address}
+          onChange={actions.arrivalActions.handleArrival}
+          onSelect={actions.arrivalActions.handleSelect}
+          shouldFetchSuggestions={state.arrival.address.length > 1}
         >
           {({
             getInputProps,
@@ -118,4 +120,4 @@ class Arrival extends React.Component {
   }
 }
 
-export default Arrival;
+export default connect(Arrival);

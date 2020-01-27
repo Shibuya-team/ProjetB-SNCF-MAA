@@ -1,7 +1,12 @@
 import React from "react";
+import ButtonStyle from "../ButtonStyle";
 
 function Valid() {
-	return <></>;
+  return (
+    <>
+      <ButtonStyle label="VALIDER" />
+    </>
+  );
 }
 
 export default Valid;

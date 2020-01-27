@@ -4,46 +4,19 @@ import PlacesAutocomplete, {
   // geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
+import useGlobal, { connect } from "../../global-state-management/store";
+import styled from "styled-components";
 
-class Departure extends React.Component {
-  constructor({ globalState, setGlobalState }) {
-    super({ globalState, setGlobalState });
-    this.state = { ...globalState };
-    this.handleDeparture = this.handleDeparture.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-  }
-
-  handleDeparture = address => {
-    this.setState({ departure: { address: address } });
-  };
-
-  handleSelect = address => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        this.setState({
-          departure: { address: address, lat: latLng.lat, lng: latLng.lng }
-        });
-        console.log(
-          "Success departure address",
-          `latitude : ${this.state.departure.lat}`,
-          `longitude : ${this.state.departure.lng}`,
-          `address : ${this.state.departure.address}`
-        );
-        console.log("globalState : ", this.state);
-      })
-      // .then(address => this.setState({ departure: address }))
-      .catch(error => console.error("Error", error));
-  };
-
+export class Departure extends React.Component {
   render() {
+    const { state, actions } = this.props;
     return (
       <>
         <PlacesAutocomplete
-          value={this.state.departure.address}
-          onChange={this.handleDeparture}
-          onSelect={this.handleSelect}
-          shouldFetchSuggestions={this.state.departure.address.length > 3}
+          value={state.departure.address}
+          onChange={actions.departureActions.handleDeparture}
+          onSelect={actions.departureActions.handleSelect}
+          shouldFetchSuggestions={state.departure.address.length > 1}
         >
           {({
             getInputProps,
@@ -70,7 +43,6 @@ class Departure extends React.Component {
                   color: "#241F5D"
                 }}
                 {...getInputProps({
-                  // placeholder: "Search Places ...",
                   className: "location-search-input"
                 })}
               />
@@ -89,13 +61,21 @@ class Departure extends React.Component {
                         lineHeight: "1.2em",
                         width: "250px",
                         color: "#241F5D",
-                        backgroundColor: "rgba(255, 255, 255, 50)",
-                        cursor: "pointer"
+                        backgroundColor: "rgba(255, 255, 255, 20)",
+                        cursor: "pointer",
+                        fontSize: "1.3em",
+                        outline: "none",
+                        padding: "5px"
                       }
                     : {
+                        lineHeight: "1.2em",
+                        width: "250px",
                         color: "#241F5D",
-                        backgroundColor: "rgba(255, 255, 255, 50)",
-                        cursor: "pointer"
+                        backgroundColor: "rgba(255, 255, 255, 20)",
+                        cursor: "pointer",
+                        fontSize: "1.3em",
+                        outline: "none",
+                        padding: "5px"
                       };
 
                   return (
@@ -118,4 +98,4 @@ class Departure extends React.Component {
   }
 }
 
-export default Departure;
+export default connect(Departure);

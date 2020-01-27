@@ -1,11 +1,12 @@
 import React from "react";
 import "../LandingPage/Accordeon.css";
 import styled from "styled-components";
-import ButtonStyle from "../ButtonStyle";
 import Datepicker from "./DatePicker";
 import CardList from "./CardList";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
+import Valid from "./Valid";
+import useGlobal from "../../global-state-management/store";
 
 // const StyledInput = styled.input`
 // line-height:  1.2em ;
@@ -32,21 +33,15 @@ const Container = styled.div`
   }
 `;
 
-function FormTravel(props) {
-  const { globalState, setGlobalState } = props;
-
+function FormTravel() {
   return (
     <>
       <Container>
-        <Departure globalState={globalState} setGlobalState={setGlobalState} />
-        <Arrival globalState={globalState} setGlobalState={setGlobalState} />
-        <Datepicker globalState={globalState} setGlobalState={setGlobalState} />
-        <ButtonStyle
-          label="VALIDER"
-          globalState={globalState}
-          setGlobalState={setGlobalState}
-        />
-        <CardList globalState={globalState} setGlobalState={setGlobalState} />
+        <Departure />
+        <Arrival />
+        <Datepicker />
+        <Valid />
+        <CardList />
       </Container>
     </>
   );
