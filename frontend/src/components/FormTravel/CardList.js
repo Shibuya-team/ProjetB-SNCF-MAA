@@ -87,7 +87,7 @@ const ContainerTitreLine = styled.div`
 const ContainerLine = styled.div`
 	width: 100%;
 	display: flex;
-	git checkout devjustify-content: center;
+	justify-content: center;
 	flex-direction: row;
 	padding: 10px 0 10px 0;
 	color: ${(props) => props.theme.colors.purple};
@@ -110,7 +110,6 @@ const CardList = () => {
     return (
         <Containerlist>
             {Data.results.map((results,index) => {
-                console.log(results.segments[0].proposals.length)
                 return (
                     <div key={index}>
                         <div>
@@ -141,7 +140,7 @@ const CardList = () => {
                                             </div>
                                             <div>
                                                 {proposal.price.amount / 100}€ 
-                                                <span>Prix estimé</span>
+                                                <span>Prix</span>
                                             </div>
                                        </ContainerLine>
                                         <ButtonStyle
