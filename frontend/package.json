@@ -16,7 +16,8 @@
     "react-scripts": "3.3.0",
     "styled-components": "^4.4.1",
     "styled-media-query": "^2.1.2",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "use-global-hook": "^0.1.12"
   },
   "scripts": {
     "start": "react-scripts start",
