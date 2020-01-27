@@ -70,17 +70,72 @@ app.get("/getNewToken", async (req, res) => {
 	res.sendStatus(200);
 });
 
-
-// SEARCH ITINERARY
-const searchItinerary = async () => {
+// SEARCH AROUNDME
+const searchAroundMe = async () => {
   let searchId = null;
-
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {
     await axios
       .post(
-        "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
+          "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
+        {
+          // données en dur, à remplacer
+          origin: {
+            latitude: 48.8534,
+            longitude: 2.3488
+          },
+          radius: 1000
+        },
+        {
+          headers: {
+            // accept: "application/json",
+            Authorization: `Bearer ${newtoken}`,
+            "x-api-key": secrets.apiKey,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      )
+      .then(res => {
+        searchId = res.data.searchId;
+      })
+      .catch(err => {
+        console.log("Échec searchId ! " + err);
+      });
+  };
+  
+    const getAroundMeResults = async () => {
+    await getSearchId();
+    return await axios
+      .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${newtoken}`,
+          "Content-Type": "application/json",
+          "x-api-key": secrets.apiKey
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        console.log("Échec resAroundMe ! " + err);
+      });
+  };
+  
+  return await getAroundMeResults();
+};
+
+
+// SEARCH ITINERARY
+const searchItinerary = async () => {
+  let searchId = null;
+  const newtoken = await getNewToken();
+
+  const getSearchId = async () => {
+    await axios
+      .post(
+          "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
         {
           destination: {
             latitude: 48.9595466,
@@ -108,8 +163,8 @@ const searchItinerary = async () => {
         console.log("Échec searchId ! " + err);
       });
   };
-
-  const getItineraryResults = async () => {
+  
+    const getItineraryResults = async () => {
     await getSearchId();
     return await axios
       .get(
@@ -133,6 +188,14 @@ const searchItinerary = async () => {
   return await getItineraryResults();
 };
 
+
+// ROUTES
+app.get("/search/aroundme", async (req, response) => {
+  const resAroundMe = await searchAroundMe();
+  response.send(resAroundMe);
+});
+
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary();
   response.send(resItinerary);
+
