@@ -7,7 +7,6 @@ import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
 import Data from "../../Data";
-
 import Moment from "react-moment";
 
 const color = {
@@ -118,6 +117,7 @@ const CardList = () => {
                 <li>ARRIVEE:</li>
               </ul>
             </ContainerTitle>
+
             {results.segments[0].proposals.map((proposal, index) => {
               return (
                 <ContainerCard key={index + "proposal"}>
