@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const axios = require("axios");
-const PORT = 5000;
+const PORT = 5000 || process.env.PORT;
 const sequelize = require("./database/config/connect");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
