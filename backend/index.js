@@ -28,46 +28,46 @@ sequelize
 
 // TOKEN
 const getNewToken = async () => {
-	const token = await axios
-		.post(
-			"https://auth.maas-dev.aws.vsct.fr/oauth2/token",
-			"grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
-			{
-				headers: {
-					Authorization: secrets.auth,
-					"Content-Type": "application/x-www-form-urlencoded",
-					"x-api-key": secrets.apiKey,
-				},
-			},
-		)
-		.then((res) => {
-			return res.data.access_token;
-		})
-		.catch((err) => console.log(err.message));
+  const token = await axios
+    .post(
+      "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
+      "grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
+      {
+        headers: {
+          Authorization: secrets.auth,
+          "Content-Type": "application/x-www-form-urlencoded",
+          "x-api-key": secrets.apiKey
+        }
+      }
+    )
+    .then(res => {
+      return res.data.access_token;
+    })
+    .catch(err => console.log(err.message));
 
-	return token;
+  return token;
 };
 
 app.get("/getNewToken", async (req, res) => {
-	Token.findOne({}).then(async (tokenCreate) => {
-		if (!tokenCreate) {
-			Token.create({
-				token: await getNewToken(),
-			});
-		}
+  Token.findOne({}).then(async tokenCreate => {
+    if (!tokenCreate) {
+      Token.create({
+        token: await getNewToken()
+      });
+    }
 
-		if (tokenCreate && tokenCreate.createdAt) {
-			const result = Math.round(
-				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
-			);
-			if (result >= 3600) {
-				Token.destroy({
-					where: {},
-				});
-			}
-		}
-	});
-	res.sendStatus(200);
+    if (tokenCreate && tokenCreate.createdAt) {
+      const result = Math.round(
+        (Date.now() - Date.parse(tokenCreate.createdAt)) / 1000
+      );
+      if (result >= 3600) {
+        Token.destroy({
+          where: {}
+        });
+      }
+    }
+  });
+  res.sendStatus(200);
 });
 
 // SEARCH AROUNDME
@@ -78,7 +78,7 @@ const searchAroundMe = async () => {
   const getSearchId = async () => {
     await axios
       .post(
-          "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
+        "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
         {
           // données en dur, à remplacer
           origin: {
@@ -103,8 +103,8 @@ const searchAroundMe = async () => {
         console.log("Échec searchId ! " + err);
       });
   };
-  
-    const getAroundMeResults = async () => {
+
+  const getAroundMeResults = async () => {
     await getSearchId();
     return await axios
       .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
@@ -122,10 +122,9 @@ const searchAroundMe = async () => {
         console.log("Échec resAroundMe ! " + err);
       });
   };
-  
+
   return await getAroundMeResults();
 };
-
 
 // SEARCH ITINERARY
 const searchItinerary = async () => {
@@ -135,7 +134,7 @@ const searchItinerary = async () => {
   const getSearchId = async () => {
     await axios
       .post(
-          "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
+        "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
         {
           destination: {
             latitude: 48.9595466,
@@ -163,8 +162,8 @@ const searchItinerary = async () => {
         console.log("Échec searchId ! " + err);
       });
   };
-  
-    const getItineraryResults = async () => {
+
+  const getItineraryResults = async () => {
     await getSearchId();
     return await axios
       .get(
@@ -188,7 +187,6 @@ const searchItinerary = async () => {
   return await getItineraryResults();
 };
 
-
 // ROUTES
 app.get("/search/aroundme", async (req, response) => {
   const resAroundMe = await searchAroundMe();
@@ -198,4 +196,4 @@ app.get("/search/aroundme", async (req, response) => {
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary();
   response.send(resItinerary);
-
+});
