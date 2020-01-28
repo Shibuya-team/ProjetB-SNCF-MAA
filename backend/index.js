@@ -1,7 +1,6 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
-const axios = require("axios");
 const PORT = 5000;
 const sequelize = require("./database/config/connect");
 const secrets = require("./secrets");
