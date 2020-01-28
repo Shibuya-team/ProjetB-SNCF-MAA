@@ -1,7 +1,7 @@
 import React from "react";
 
-function Valid() {
+function Hour() {
 	return <></>;
 }
 
-export default Valid;
+export default Hour;
