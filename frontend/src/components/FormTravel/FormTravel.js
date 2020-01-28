@@ -6,7 +6,6 @@ import CardList from "./CardList";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
 import Valid from "./Valid";
-import useGlobal from "../../global-state-management/store";
 
 // const StyledInput = styled.input`
 // line-height:  1.2em ;

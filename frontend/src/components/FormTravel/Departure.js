@@ -4,8 +4,7 @@ import PlacesAutocomplete, {
   // geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
-import useGlobal, { connect } from "../../global-state-management/store";
-import styled from "styled-components";
+import { connect } from "../../global-state-management/store";
 
 export class Departure extends React.Component {
   render() {
@@ -13,10 +12,10 @@ export class Departure extends React.Component {
     return (
       <>
         <PlacesAutocomplete
-          value={state.departure.address}
+          value={state.itinerary.departure.address}
           onChange={actions.departureActions.handleDeparture}
           onSelect={actions.departureActions.handleSelect}
-          shouldFetchSuggestions={state.departure.address.length > 1}
+          shouldFetchSuggestions={state.itinerary.departure.address.length > 1}
         >
           {({
             getInputProps,
@@ -46,8 +45,15 @@ export class Departure extends React.Component {
                   className: "location-search-input"
                 })}
               />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
+              <div
+                className="autocomplete-dropdown-container"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+              >
+                {loading && <div>Chargement...</div>}
                 {suggestions.map(suggestion => {
                   const placeName = suggestion.active
                     ? suggestion.description

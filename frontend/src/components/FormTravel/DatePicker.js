@@ -10,14 +10,8 @@ const StyledInput = styled.div`
 `;
 
 function DatePicker() {
-  // const [dateTime, setDateTime] = useState({ date: new Date() });
-
-  // const handleDateTime = value => {
-  //   setDateTime({ date: value });
-  // };
-
   const [date, datePickerActions] = useGlobal(
-    state => state.date,
+    state => state.itinerary.date,
     actions => actions.datePickerActions
   );
   return (

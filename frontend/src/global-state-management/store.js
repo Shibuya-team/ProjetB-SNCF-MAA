@@ -4,9 +4,23 @@ import * as actions from "./actions";
 
 const placeStateInit = { address: "", lat: null, lng: null };
 const initialState = {
-  departure: { ...placeStateInit },
-  arrival: { ...placeStateInit },
-  date: new Date()
+  itinerary: {
+    departure: { ...placeStateInit },
+    arrival: { ...placeStateInit },
+    date: new Date()
+  },
+  formTravel: {
+    isValid: false,
+    message: ""
+  },
+  aroundme: {
+    origin: { ...placeStateInit },
+    date: new Date()
+  },
+  googleApiScript: {
+    scriptLoaded: false,
+    scriptError: false
+  }
 };
 
 const useGlobal = useGlobalHook(React, initialState, actions);

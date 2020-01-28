@@ -59,6 +59,7 @@ export default function Accordeon() {
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel>
+          <FormTravel />
           <ItineraryMap />
         </AccordionItemPanel>
       </AccordionItem>

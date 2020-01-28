@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import secrets from "./secrets";
 import Script from "react-load-script";
 import axios from "axios";
+import useGlobal from "./global-state-management/store";
 
 const Container = styled.div`
   max-width: 2440px;
@@ -26,33 +27,17 @@ const Container = styled.div`
 
 function App() {
   //Script loading
-  const [googleApiScript, setGoogleApiScript] = useState({
-    googleApiScript: { scriptLoaded: false, scriptError: false }
-  });
+  const [googleApiScript, googleApiScriptActions] = useGlobal(
+    state => state.googleApiScript,
+    actions => actions.googleApiScriptActions
+  );
 
-  const handleScriptError = () => {
-    setGoogleApiScript({ scriptError: true });
-    console.log("Library for Google API is not loaded !");
-  };
-  const handleScriptLoad = () => {
-    setGoogleApiScript({ scriptLoaded: true });
-    console.log("Library for Google API successfully loaded !");
-  };
-
-  const placeStateInit = { address: "", lat: null, lng: null };
-  const [globalState, setGlobalState] = useState({
-    departure: { ...placeStateInit },
-    arrival: { ...placeStateInit },
-    date: null
-  });
-  console.log(globalState);
-  
-	useEffect(() => {
-		axios
-			.get("http://localhost:5000/getNewToken")
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err.message));
-	}, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/getNewToken")
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err.message));
+  }, []);
 
   return (
     <>
@@ -61,12 +46,11 @@ function App() {
           <MenuBurger />
           <Script
             url={`https://maps.googleapis.com/maps/api/js?key=${secrets.apiKey}&libraries=places&region=FR`}
-            onError={handleScriptError}
-            onLoad={handleScriptLoad}
+            onError={googleApiScriptActions.handleScriptError}
+            onLoad={googleApiScriptActions.handleScriptLoad}
           />
           {googleApiScript.scriptLoaded === true ? (
-            <LandingPage
-            />
+            <LandingPage />
           ) : (
             <p>Chargement...</p>
           )}

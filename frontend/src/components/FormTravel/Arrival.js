@@ -4,48 +4,19 @@ import PlacesAutocomplete, {
   // geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
-import useGlobal, { connect } from "../../global-state-management/store";
+import { connect } from "../../global-state-management/store";
 
 export class Arrival extends React.Component {
-  // constructor({ globalState, setGlobalState }) {
-  //   super({ ...this.props, globalState, setGlobalState });
-  //   this.handleArrival = this.handleArrival.bind(this);
-  //   this.handleSelect = this.handleSelect.bind(this);
-  // }
-
-  // handleArrival = address => {
-  //   this.setState({ arrival: { address: address } });
-  // };
-
-  // handleSelect = address => {
-  //   geocodeByAddress(address)
-  //     .then(results => getLatLng(results[0]))
-  //     .then(latLng => {
-  //       this.setGlobalState({
-  //         arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
-  //       });
-  //       console.log(
-  //         "Success arrival address",
-  //         `latitude : ${this.globalState.arrival.lat}`,
-  //         `longitude : ${this.globalState.arrival.lng}`,
-  //         `address : ${this.globalState.arrival.address}`
-  //       );
-  //       console.log("globalState : ", this.globalState);
-  //     })
-  //     // .then(address => this.setState({ departure: address }))
-  //     .catch(error => console.error("Error", error));
-  // };
-
   render() {
     const { state, actions } = this.props;
     return (
       <>
         {console.log(state)}
         <PlacesAutocomplete
-          value={state.arrival.address}
+          value={state.itinerary.arrival.address}
           onChange={actions.arrivalActions.handleArrival}
           onSelect={actions.arrivalActions.handleSelect}
-          shouldFetchSuggestions={state.arrival.address.length > 1}
+          shouldFetchSuggestions={state.itinerary.arrival.address.length > 1}
         >
           {({
             getInputProps,
@@ -76,8 +47,15 @@ export class Arrival extends React.Component {
                   className: "location-search-input"
                 })}
               />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
+              <div
+                className="autocomplete-dropdown-container"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+              >
+                {loading && <div>Chargement...</div>}
                 {suggestions.map(suggestion => {
                   const placeName = suggestion.active
                     ? suggestion.description
@@ -91,13 +69,21 @@ export class Arrival extends React.Component {
                         lineHeight: "1.2em",
                         width: "250px",
                         color: "#241F5D",
-                        backgroundColor: "rgba(255, 255, 255, 50)",
-                        cursor: "pointer"
+                        backgroundColor: "rgba(255, 255, 255, 20)",
+                        cursor: "pointer",
+                        fontSize: "1.3em",
+                        outline: "none",
+                        padding: "5px"
                       }
                     : {
+                        lineHeight: "1.2em",
+                        width: "250px",
                         color: "#241F5D",
-                        backgroundColor: "rgba(255, 255, 255, 50)",
-                        cursor: "pointer"
+                        backgroundColor: "rgba(255, 255, 255, 20)",
+                        cursor: "pointer",
+                        fontSize: "1.3em",
+                        outline: "none",
+                        padding: "5px"
                       };
 
                   return (
