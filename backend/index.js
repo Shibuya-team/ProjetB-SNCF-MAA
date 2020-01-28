@@ -1,10 +1,8 @@
 const express = require("express");
-const axios = require("axios");
 const app = express();
 const axios = require("axios");
 const PORT = 5000;
 const sequelize = require("./database/config/connect");
-const secrets = require("./secrets");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
 const cors = require("cors");
@@ -91,7 +89,7 @@ const searchAroundMe = async () => {
           headers: {
             // accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "x-api-key": secrets.apiKey,
+            "x-api-key": process.env.API_KEY,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         }
@@ -112,7 +110,7 @@ const searchAroundMe = async () => {
           Accept: "application/json",
           Authorization: `Bearer ${newtoken}`,
           "Content-Type": "application/json",
-          "x-api-key": secrets.apiKey
+          "x-api-key": process.env.API_KEY
         }
       })
       .then(res => {
@@ -151,7 +149,7 @@ const searchItinerary = async () => {
           headers: {
             // accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "x-api-key": secrets.apiKey,
+            "x-api-key": process.env.API_KEY,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         }
@@ -173,7 +171,8 @@ const searchItinerary = async () => {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "x-api-key": process.env.API_KEY
           }
         }
       )
@@ -198,4 +197,8 @@ app.get("/search/aroundme", async (req, response) => {
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary();
   response.send(resItinerary);
+});
 
+app.get("/", async (req, response) => {
+ response.json('backend home')
+});

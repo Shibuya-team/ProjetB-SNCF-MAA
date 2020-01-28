@@ -6,8 +6,13 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
+<<<<<<< Updated upstream
 import Data from "../../Data";
 import Moment from "react-moment";
+=======
+import Data from "../../Data"; 
+import Moment from 'react-moment';
+>>>>>>> Stashed changes
 
 const color = {
   grey: "#EBE8E8",
