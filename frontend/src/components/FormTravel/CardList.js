@@ -143,7 +143,7 @@ const CardList = () => {
                         .slice(0, -2)},${proposal.price.amount
                         .toString()
                         .slice(-2)}`}
-                      <span>Prix</span>
+                      <span>€</span>
                     </div>
                   </ContainerLine>
                   <ButtonStyle

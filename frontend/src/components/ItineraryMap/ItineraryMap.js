@@ -12,7 +12,7 @@ import Taxi from "../../images/icones/Mapicones/Taxi";
 import CoDriving from "../../images/icones/Mapicones/CoDriving";
 // import styled from "styled-components";
 import secrets from "../../secrets";
-import { useState } from "react";
+import useGlobal from "../../global-state-management/store";
 
 const color = {
   grey: "#EBE8E8",
@@ -38,7 +38,18 @@ const size = {
 };
 
 export const ItineraryMap = props => {
-  const { globalState, setGlobalState } = props;
+  const [center, itineraryMapActions] = useGlobal(
+    state => state.itineraryMap.center,
+    actions => actions.itineraryMapActions
+  );
+  const [itineraryArrival, arrivalActions] = useGlobal(
+    state => state.itinerary.arrival,
+    actions => actions.arrivalActions
+  );
+  const [itineraryDeparture, departureActions] = useGlobal(
+    state => state.itinerary.departure,
+    actions => actions.departureActions
+  );
   return (
     <>
       <GoogleMapProvider>
@@ -47,7 +58,7 @@ export const ItineraryMap = props => {
           regionParam="FR"
           languageParam="FR"
           opts={{
-            center: { lat: 48.9333, lng: 2.3667 },
+            center,
             zoom: 12
           }}
           style={{
@@ -63,15 +74,16 @@ export const ItineraryMap = props => {
           onCenterChanged={() => {
             console.log("The center of the map has changed.");
           }}
-          globalState={globalState}
-          setGlobalState={setGlobalState}
         />
         <Marker
           id="marker"
           opts={{
             draggable: false,
             label: "Départ",
-            position: { lat: 48.9333, lng: 2.3667 }
+            position: {
+              lat: itineraryDeparture.lat,
+              lng: itineraryDeparture.lng
+            }
           }}
         />
         <Marker
@@ -79,7 +91,7 @@ export const ItineraryMap = props => {
           opts={{
             draggable: false,
             label: "Arrivée",
-            position: { lat: 48.95, lng: 2.3167 }
+            position: { lat: itineraryArrival.lat, lng: itineraryArrival.lng }
           }}
         />
         <InfoWindow anchorId="marker" opts={{}} visible>
@@ -95,10 +107,8 @@ export const ItineraryMap = props => {
           id="polyline"
           opts={{
             path: [
-              { lat: 48.9333, lng: 2.3667 },
-              { lat: 48.9167, lng: 2.3833 },
-              { lat: 48.9, lng: 2.3333 },
-              { lat: 48.95, lng: 2.3167 }
+              { lat: itineraryDeparture.lat, lng: itineraryDeparture.lng },
+              { lat: itineraryArrival.lat, lng: itineraryArrival.lng }
             ],
             strokeColor: "orange"
           }}

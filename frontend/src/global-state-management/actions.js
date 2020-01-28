@@ -32,6 +32,7 @@ export const arrivalActions = {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         store.setState({
+          ...store.state,
           itinerary: {
             ...store.state.itinerary,
             arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
@@ -60,9 +61,17 @@ export const departureActions = {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         store.setState({
+          ...store.state,
           itinerary: {
             ...store.state.itinerary,
             departure: { address: address, lat: latLng.lat, lng: latLng.lng }
+          },
+          itineraryMap: {
+            ...store.state.itineraryMap,
+            center: {
+              lat: latLng.lat,
+              lng: latLng.lng
+            }
           }
         });
         console.log(
@@ -101,3 +110,5 @@ export const validFormTravelActions = {
     }
   }
 };
+
+export const itineraryMapActions = {};
