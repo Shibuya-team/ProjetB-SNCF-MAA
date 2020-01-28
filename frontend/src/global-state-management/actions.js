@@ -23,7 +23,10 @@ export const arrivalActions = {
   handleArrival: (store, address) => {
     console.log(store.state);
     store.setState({
-      itinerary: { ...store.state.itinerary, arrival: { address: address } }
+      itinerary: {
+        ...store.state.itinerary,
+        arrival: { ...store.state.itinerary.arrival, address: address }
+      }
     });
     console.log(store.state);
   },
@@ -53,7 +56,10 @@ export const arrivalActions = {
 export const departureActions = {
   handleDeparture: (store, address) => {
     store.setState({
-      itinerary: { ...store.state.itinerary, departure: { address: address } }
+      itinerary: {
+        ...store.state.itinerary,
+        departure: { ...store.state.itinerary.departure, address: address }
+      }
     });
   },
   handleSelect: (store, address) => {
