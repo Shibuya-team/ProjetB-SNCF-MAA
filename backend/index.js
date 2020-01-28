@@ -128,6 +128,7 @@ const searchAroundMe = async () => {
 // SEARCH ITINERARY
 const searchItinerary = async () => {
   let searchId = null;
+
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+
 import Theme from "./components/Theme";
 import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";

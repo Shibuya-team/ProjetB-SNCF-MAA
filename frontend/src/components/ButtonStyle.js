@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledButton = styled.button`
   width: ${props => (props.big ? 100 : 40)}%;
@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   
   }
   &.purple {
-    background-color: ${props => (props.onClick ? "#5353A2" : "#FF8B66")}
+    background-color: ${props => (props.onClick ? '#5353A2' : '#FF8B66')}
     & span {
       font-size:1.3em;
       color: white;
@@ -50,8 +50,7 @@ const ButtonStyle = props => (
     big={props.big}
     className={props.theme}
     onClick={props.onClick}
-    style={props.style}
-  >
+    style={props.style}>
     {props.label && <span>{props.label}</span>}
   </StyledButton>
 );
@@ -61,7 +60,7 @@ ButtonStyle.defaultProps = {
   label: undefined,
   onClick: () => {},
   style: {},
-  theme: "purple"
+  theme: 'purple',
 };
 
 export default ButtonStyle;
