@@ -15,19 +15,17 @@ function DatePicker() {
     actions => actions.datePickerActions
   );
   return (
-    <>
-      <StyledInput>
-        <DateTimePicker
-          value={date}
-          onChange={datePickerActions.handleDateTime}
-          showLeadingZeros={true}
-          required={true}
-          disableClock={true}
-          minDate={new Date()}
-          clearIcon={false}
-        />
-      </StyledInput>
-    </>
+    <StyledInput>
+      <DateTimePicker
+        value={date}
+        onChange={datePickerActions.handleDateTime}
+        showLeadingZeros={true}
+        required={true}
+        disableClock={true}
+        minDate={new Date()}
+        clearIcon={false}
+      />
+    </StyledInput>
   );
 }
 
