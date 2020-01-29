@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import Theme from "./components/Theme";
 import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";
@@ -24,6 +23,9 @@ const Container = styled.div`
   background-color: ${props => props.theme.colors.emerald};
   color: ${props => props.theme.colors.white};
   font-family: ${props => props.theme.fonts[0]};
+  & .footer {
+    align-self: bottom;
+  }
 `;
 
 function App() {
@@ -55,8 +57,8 @@ function App() {
           ) : (
             <p>Chargement...</p>
           )}
+          <Footer id="footer" />
         </Container>
-        <Footer />
       </Theme>
     </>
   );

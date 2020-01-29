@@ -6,11 +6,9 @@ import {
   Polyline,
   OverlayView,
   InfoWindow
-  // StandaloneAutocomplete
 } from "@googlemap-react/core";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import CoDriving from "../../images/icones/Mapicones/CoDriving";
-// import styled from "styled-components";
 import secrets from "../../secrets";
 import useGlobal from "../../global-state-management/store";
 
@@ -94,15 +92,6 @@ export const ItineraryMap = props => {
             position: { lat: itineraryArrival.lat, lng: itineraryArrival.lng }
           }}
         />
-        <InfoWindow anchorId="marker" opts={{}} visible>
-          <button
-            onClick={() => {
-              alert("trouvez les taxis");
-            }}
-          >
-            <CoDriving size={size.small} color={color.purple} /> <h2>42€</h2>
-          </button>
-        </InfoWindow>
         <Polyline
           id="polyline"
           opts={{
@@ -113,10 +102,6 @@ export const ItineraryMap = props => {
             strokeColor: "orange"
           }}
         />
-        <OverlayView position={{ lat: 48.91, lng: 2.3667 }}>
-          <Taxi size={size.medium} color={color.purple} />
-          <h2>48€</h2> */}
-        </OverlayView>
       </GoogleMapProvider>
     </>
   );

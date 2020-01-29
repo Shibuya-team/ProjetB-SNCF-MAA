@@ -1,9 +1,5 @@
 import React from "react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  // geocodeByPlaceId,
-  getLatLng
-} from "react-places-autocomplete";
+import PlacesAutocomplete from "react-places-autocomplete";
 import { connect } from "../../global-state-management/store";
 
 export class Departure extends React.Component {

@@ -7,7 +7,7 @@ const MobiliteFirstLogo = () => (
     strokeLinejoin="round"
     strokeMiterlimit="2"
     clipRule="evenodd"
-    viewBox="0 0 100 15"
+    viewBox="-2 0 100 15"
     margin="20px"
   >
     <g fillRule="nonzero">

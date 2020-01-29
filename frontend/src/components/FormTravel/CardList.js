@@ -8,6 +8,7 @@ import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
 import Data from "../../Data";
 import Moment from "react-moment";
+import Media from "styled-media-query";
 
 const color = {
   grey: "#EBE8E8",
@@ -34,15 +35,16 @@ const size = {
 
 const ContainerTitle = styled.div`
   text-align: left;
-
   color: ${props => props.theme.colors.white};
   font-family: ${props => props.theme.fonts[0]};
   font-size: ${props => props.theme.fontSizes.small};
   padding: 0 20px 0 20px;
+  margin-top: 20px;
 `;
 
-const Containerlist = styled.div`
+const ContainerList = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: left;
   flex-wrap: wrap;
   background-color: ${props => props.theme.colors.asura};
@@ -65,6 +67,7 @@ const ContainerCard = styled.div`
   background-color: ${props => props.theme.colors.salmon};
   color: ${props => props.theme.colors.white};
   font-family: ${props => props.theme.fonts[0]};
+  ${Media.lessThan("small")`width=100%;`}
 `;
 const ContainerTitreLine = styled.div`
   width: 100%;
@@ -102,22 +105,21 @@ const ContainerPrice = styled.div`
 
 const CardList = () => {
   return (
-    <Containerlist>
+    <>
+      <Moment format="DD-MM-YYYY HH:mm">
+        {Data.results.departureDateTime}
+      </Moment>
+
+      {/* <ContainerTitle>
+        <ul>
+          <li>DEPART:</li>
+          <li>ARRIVEE:</li>
+        </ul>
+      </ContainerTitle> */}
+
       {Data.results.map((results, index) => {
         return (
-          <div key={index}>
-            <div>
-              <Moment format="DD-MM-YYYY HH:mm">
-                {results.departureDateTime}
-              </Moment>
-            </div>
-            <ContainerTitle>
-              <ul>
-                <li>DEPART:</li>
-                <li>ARRIVEE:</li>
-              </ul>
-            </ContainerTitle>
-
+          <ContainerList key={index}>
             {results.segments[0].proposals.map((proposal, index) => {
               return (
                 <ContainerCard key={index + "proposal"}>
@@ -129,23 +131,22 @@ const CardList = () => {
                     )}
                   </ContainerTitreLine>
                   <ContainerLine>
-                    <div>
-                      {proposal.carWithDriverAttributes.passengerCapacity}
-                      <Travellers size={size.small} color={color.purple} />
-                    </div>
-                    <div>
-                      {proposal.carWithDriverAttributes.luggageCapacity}
-                      <Luggage size={size.small} color={color.purple} />
-                    </div>
-                    <div>
-                      {`${proposal.price.amount
-                        .toString()
-                        .slice(0, -2)},${proposal.price.amount
-                        .toString()
-                        .slice(-2)}`}
-                      <span>€</span>
-                    </div>
+                    {proposal.carWithDriverAttributes.passengerCapacity}
+                    <Travellers size={size.small} color={color.purple} />
                   </ContainerLine>
+                  <ContainerLine>
+                    {proposal.carWithDriverAttributes.luggageCapacity}
+                    <Luggage size={size.small} color={color.purple} />
+                  </ContainerLine>
+                  <ContainerPrice>
+                    {`${proposal.price.amount
+                      .toString()
+                      .slice(0, -2)},${proposal.price.amount
+                      .toString()
+                      .slice(-2)}`}
+                    <span>€</span>
+                  </ContainerPrice>
+
                   <ButtonStyle
                     style={{ marginBottom: "auto" }}
                     big="true"
@@ -154,10 +155,10 @@ const CardList = () => {
                 </ContainerCard>
               );
             })}
-          </div>
+          </ContainerList>
         );
       })}
-    </Containerlist>
+    </>
   );
 };
 

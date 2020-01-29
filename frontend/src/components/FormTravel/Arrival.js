@@ -1,9 +1,5 @@
 import React from "react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  // geocodeByPlaceId,
-  getLatLng
-} from "react-places-autocomplete";
+import PlacesAutocomplete from "react-places-autocomplete";
 import { connect } from "../../global-state-management/store";
 
 export class Arrival extends React.Component {
@@ -43,7 +39,6 @@ export class Arrival extends React.Component {
                   color: "#241F5D"
                 }}
                 {...getInputProps({
-                  // placeholder: "Search Places ...",
                   className: "location-search-input"
                 })}
               />

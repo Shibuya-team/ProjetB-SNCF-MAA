@@ -6,6 +6,8 @@ import CardList from "./CardList";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
 import Valid from "./Valid";
+import ItineraryMap from "../ItineraryMap/ItineraryMap";
+import useGlobal from "../../global-state-management/store";
 
 // const StyledInput = styled.input`
 // line-height:  1.2em ;
@@ -33,6 +35,14 @@ const Container = styled.div`
 `;
 
 function FormTravel() {
+  const [itineraryArrival, arrivalActions] = useGlobal(
+    state => state.itinerary.arrival,
+    actions => actions.arrivalActions
+  );
+  const [itineraryDeparture, departureActions] = useGlobal(
+    state => state.itinerary.departure,
+    actions => actions.departureActions
+  );
   return (
     <>
       <Container>
@@ -40,7 +50,14 @@ function FormTravel() {
         <Arrival />
         <Datepicker />
         <Valid />
-        <CardList />
+        {itineraryDeparture.lat !== 0 && itineraryArrival.lat !== 0 ? (
+          <>
+            <ItineraryMap />
+            <CardList />
+          </>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );

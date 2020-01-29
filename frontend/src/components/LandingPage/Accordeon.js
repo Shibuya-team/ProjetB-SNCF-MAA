@@ -11,8 +11,7 @@ import Quotes from "../../images/icones/Quotes";
 import Transportation from "../../images/Transportation";
 import styled from "styled-components";
 import MobiliteFirstLogo from "../../images/MobiliteFirstLogo";
-import FormArroundMe from "../FormArroundMe/FormArroundMe";
-import ItineraryMap from "../ItineraryMap/ItineraryMap";
+import FormAroundMe from "../FormAroundMe/FormAroundMe";
 import FormTravel from "../FormTravel/FormTravel";
 
 const Container = styled.div`
@@ -60,7 +59,6 @@ export default function Accordeon() {
         </AccordionItemHeading>
         <AccordionItemPanel>
           <FormTravel />
-          <ItineraryMap />
         </AccordionItemPanel>
       </AccordionItem>
       <AccordionItem>
@@ -70,7 +68,7 @@ export default function Accordeon() {
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel>
-          <FormArroundMe />
+          <FormAroundMe />
         </AccordionItemPanel>
       </AccordionItem>
     </Accordion>
