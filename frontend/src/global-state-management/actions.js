@@ -17,14 +17,21 @@ export const googleApiScriptActions = {
 
 export const arrivalActions = {
   handleArrival: (store, address) => {
-    console.log(store.state);
-    store.setState({
-      itinerary: {
-        ...store.state.itinerary,
-        arrival: { ...store.state.itinerary.arrival, address: address }
-      }
-    });
-    console.log(store.state);
+    if (address !== "") {
+      store.setState({
+        itinerary: {
+          ...store.state.itinerary,
+          arrival: { ...store.state.itinerary.arrival, address: address }
+        }
+      });
+    } else {
+      store.setState({
+        itinerary: {
+          ...store.state.itinerary,
+          arrival: { address: "", lat: 0, lng: 0 }
+        }
+      });
+    }
   },
   handleSelect: (store, address) => {
     geocodeByAddress(address)
@@ -51,12 +58,21 @@ export const arrivalActions = {
 
 export const departureActions = {
   handleDeparture: (store, address) => {
-    store.setState({
-      itinerary: {
-        ...store.state.itinerary,
-        departure: { ...store.state.itinerary.departure, address: address }
-      }
-    });
+    if (address !== "") {
+      store.setState({
+        itinerary: {
+          ...store.state.itinerary,
+          departure: { ...store.state.itinerary.departure, address: address }
+        }
+      });
+    } else {
+      store.setState({
+        itinerary: {
+          ...store.state.itinerary,
+          departure: { address: "", lat: 0, lng: 0 }
+        }
+      });
+    }
   },
   handleSelect: (store, address) => {
     geocodeByAddress(address)
@@ -99,7 +115,9 @@ export const validFormTravelActions = {
     if (
       store.state.itinerary.departure.lat &&
       store.state.itinerary.departure.lng &&
-      store.state.itinerary.date
+      store.state.itinerary.date &&
+      store.state.itinerary.arrival.lat &&
+      store.state.itinerary.arrival.lng
     ) {
       store.setState({ formTravel: { isValid: true, message: "" } });
     } else {

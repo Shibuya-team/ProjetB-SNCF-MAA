@@ -14,7 +14,7 @@ function Valid() {
       </p>
       <ButtonStyle
         label="VALIDER"
-        onSubmit={validFormTravelActions.handleSubmit}
+        onClick={validFormTravelActions.handleSubmit}
       />
     </>
   );
