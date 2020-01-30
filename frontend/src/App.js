@@ -43,24 +43,22 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Theme>
-        <Container>
-          <MenuBurger />
-          <Script
-            url={`https://maps.googleapis.com/maps/api/js?key=${secrets.apiKey}&libraries=places&region=FR`}
-            onError={googleApiScriptActions.handleScriptError}
-            onLoad={googleApiScriptActions.handleScriptLoad}
-          />
-          {googleApiScript.scriptLoaded === true ? (
-            <LandingPage />
-          ) : (
-            <p>Chargement...</p>
-          )}
-          <Footer id="footer" />
-        </Container>
-      </Theme>
-    </>
+    <Theme>
+      <Container>
+        <MenuBurger />
+        <Script
+          url={`https://maps.googleapis.com/maps/api/js?key=${secrets.apiKey}&libraries=places&region=FR`}
+          onError={googleApiScriptActions.handleScriptError}
+          onLoad={googleApiScriptActions.handleScriptLoad}
+        />
+        {googleApiScript.scriptLoaded === true ? (
+          <LandingPage />
+        ) : (
+          <p>Chargement...</p>
+        )}
+        <Footer id="footer" />
+      </Container>
+    </Theme>
   );
 }
 

@@ -31,24 +31,22 @@ const color = {
 
 function MenuList() {
   return (
-    <>
-      <Container>
-        <ul>
-          <li>
-            <Contact color={color.plum} />
-            <a href="#contact">CONTACT</a>
-          </li>
-          <li>
-            <Info color={color.plum} />
-            <a href="#info">INFO</a>
-          </li>
-          <li>
-            <Space color={color.plum} />
-            <a href="#espace">MON ESPACE</a>
-          </li>
-        </ul>
-      </Container>
-    </>
+    <Container>
+      <ul>
+        <li>
+          <Contact color={color.plum} />
+          <a href="#contact">CONTACT</a>
+        </li>
+        <li>
+          <Info color={color.plum} />
+          <a href="#info">INFO</a>
+        </li>
+        <li>
+          <Space color={color.plum} />
+          <a href="#espace">MON ESPACE</a>
+        </li>
+      </ul>
+    </Container>
   );
 }
 
