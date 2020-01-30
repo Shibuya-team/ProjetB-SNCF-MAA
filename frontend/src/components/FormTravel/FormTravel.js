@@ -26,22 +26,20 @@ function FormTravel() {
   );
 
   return (
-    <>
-      <Container>
-        <Departure />
-        <Arrival />
-        <Datepicker />
-        <Valid />
-        {itineraryDeparture.lat !== 0 && itineraryArrival.lat !== 0 ? (
-          <>
-            <ItineraryMap />
-            <CardList />
-          </>
-        ) : (
-          <></>
-        )}
-      </Container>
-    </>
+    <Container>
+      <Departure />
+      <Arrival />
+      <Datepicker />
+      <Valid />
+      {itineraryDeparture.lat !== 0 && itineraryArrival.lat !== 0 ? (
+        <>
+          <ItineraryMap />
+          <CardList />
+        </>
+      ) : (
+        <></>
+      )}
+    </Container>
   );
 }
 
