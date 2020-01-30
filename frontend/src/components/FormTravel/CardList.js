@@ -6,9 +6,9 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-import Data from "../../Data";
 import Moment from "react-moment";
 import Media from "styled-media-query";
+import useGlobal from "../../global-state-management/store";
 
 const color = {
   grey: "#EBE8E8",
@@ -104,12 +104,27 @@ const ContainerPrice = styled.div`
 `;
 
 const CardList = () => {
+  const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
+  const submission = useGlobal(state => state.formTravel.submitted)[0];
   return (
     <>
-      <Moment format="DD-MM-YYYY HH:mm">
-        {Data.results.departureDateTime}
-      </Moment>
-
+      <ContainerLine>
+        {submission > 0 ? (
+          data.result && data.results.length > 0 ? (
+            data.wish && data.wish.searchDate ? (
+              <p>{data.wish.searchDate}</p>
+            ) : !data.wish.searchDate ? (
+              <p>{data.wish.createdAt}</p>
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
+      </ContainerLine>
       {/* <ContainerTitle>
         <ul>
           <li>DEPART:</li>
@@ -117,47 +132,58 @@ const CardList = () => {
         </ul>
       </ContainerTitle> */}
 
-      {Data.results.map((results, index) => {
-        return (
-          <ContainerList key={index}>
-            {results.segments[0].proposals.map((proposal, index) => {
-              return (
-                <ContainerCard key={index + "proposal"}>
-                  <ContainerTitreLine>
-                    {proposal.fleetType === "VTC" ? (
-                      <Vtc size={size.medium} color={color.white} />
-                    ) : (
-                      <Taxi size={size.medium} color={color.white} />
-                    )}
-                  </ContainerTitreLine>
-                  <ContainerLine>
-                    {proposal.carWithDriverAttributes.passengerCapacity}
-                    <Travellers size={size.small} color={color.purple} />
-                  </ContainerLine>
-                  <ContainerLine>
-                    {proposal.carWithDriverAttributes.luggageCapacity}
-                    <Luggage size={size.small} color={color.purple} />
-                  </ContainerLine>
-                  <ContainerPrice>
-                    {`${proposal.price.amount
-                      .toString()
-                      .slice(0, -2)},${proposal.price.amount
-                      .toString()
-                      .slice(-2)}`}
-                    <span>€</span>
-                  </ContainerPrice>
+      {data.results &&
+        data.results.map((results, index) => {
+          return (
+            <ContainerList key={index}>
+              {results.segments.map(
+                segment =>
+                  segment.proposals &&
+                  segment.proposals.map((proposal, index) => {
+                    return (
+                      <ContainerCard key={index + "proposal"}>
+                        <ContainerTitreLine>
+                          {proposal.fleetType === "VTC" ? (
+                            <Vtc size={size.medium} color={color.white} />
+                          ) : (
+                            <Taxi size={size.medium} color={color.white} />
+                          )}
+                        </ContainerTitreLine>
+                        <ContainerLine>
+                          {proposal.carWithDriverAttributes.passengerCapacity}
+                          <Travellers size={size.small} color={color.purple} />
+                        </ContainerLine>
+                        {proposal.carWithDriverAttributes.luggageCapacity ? (
+                          <ContainerLine>
+                            {proposal.carWithDriverAttributes.luggageCapacity}
+                            <Luggage size={size.small} color={color.purple} />
+                          </ContainerLine>
+                        ) : (
+                          ""
+                        )}
 
-                  <ButtonStyle
-                    style={{ marginBottom: "auto" }}
-                    big="true"
-                    label="COMMANDER"
-                  />
-                </ContainerCard>
-              );
-            })}
-          </ContainerList>
-        );
-      })}
+                        <ContainerPrice>
+                          {`${proposal.price.amount
+                            .toString()
+                            .slice(
+                              0,
+                              -2
+                            )},${proposal.price.amount.toString().slice(-2)}`}
+                          <span>€</span>
+                        </ContainerPrice>
+
+                        <ButtonStyle
+                          style={{ marginBottom: "auto" }}
+                          big="true"
+                          label="COMMANDER"
+                        />
+                      </ContainerCard>
+                    );
+                  })
+              )}
+            </ContainerList>
+          );
+        })}
     </>
   );
 };
