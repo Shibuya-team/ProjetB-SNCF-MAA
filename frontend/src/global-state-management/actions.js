@@ -203,19 +203,33 @@ export const validFormTravelActions = {
         }
       });
     }
+
+    const getManyResultsFromAPI = searchId => {
+      setInterval(
+        axios
+          .get(
+            `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}&searchId=${store.state.itineraryDataFromMaaS.searchId}`
+          )
+          .then(res => {
+            store.setState({ itineraryDataFromMaaS: res.data });
+          })
+          .catch(err => {
+            console.log(
+              "Échec de connexion server pour search/itinerary ! " + err
+            );
+          }),
+        400
+      );
+    };
     if (store.state.formTravel.isValid) {
-      axios
-        .get(
-          `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
-        )
-        .then(res => {
-          store.setState({ itineraryDataFromMaaS: res.data });
-        })
-        .catch(err => {
-          console.log(
-            "Échec de connexion server pour search/itinerary ! " + err
-          );
-        });
+      if (
+        store.state.itineraryDataFromMaaS.status !== "COMPLETE" ||
+        store.state.itineraryDataFromMaaS.status !== "ERROR"
+      ) {
+        getManyResultsFromAPI(store.state.itineraryDataFromMaaS.searchId);
+      } else {
+        clearInterval(getManyResultsFromAPI);
+      }
     }
   }
 };

@@ -41,7 +41,12 @@ const initialState = {
     },
     searchDate: ""
   },
-  itineraryDataFromMaaS: {}
+  itineraryDataFromMaaS: {
+    wish: {},
+    status: "",
+    results: [],
+    searchId: ""
+  }
 };
 
 const useGlobal = useGlobalHook(React, initialState, actions);
