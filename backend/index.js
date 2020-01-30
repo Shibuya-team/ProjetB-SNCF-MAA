@@ -69,7 +69,6 @@ app.get("/getNewToken", async (req, res) => {
 
 // SEARCH AROUNDME
 const searchAroundMe = async () => {
-	let searchId = null;
 	const newtoken = await getNewToken();
 
 	const getSearchId = async () => {
@@ -94,7 +93,7 @@ const searchAroundMe = async () => {
 				},
 			)
 			.then((res) => {
-				searchId = res.data.searchId;
+				return res.data.searchId;
 			})
 			.catch((err) => {
 				console.log("Échec searchId ! " + err);
@@ -102,7 +101,7 @@ const searchAroundMe = async () => {
 	};
 
 	const getAroundMeResults = async () => {
-		await getSearchId();
+		const searchId = await getSearchId();
 		return await axios
 			.get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
 				headers: {
@@ -125,8 +124,6 @@ const searchAroundMe = async () => {
 
 // SEARCH ITINERARY
 const searchItinerary = async () => {
-	let searchId = null;
-
 	const newtoken = await getNewToken();
 
 	const getSearchId = async () => {
@@ -154,7 +151,7 @@ const searchItinerary = async () => {
 				},
 			)
 			.then((res) => {
-				searchId = res.data.searchId;
+				return res.data.searchId;
 			})
 			.catch((err) => {
 				console.log("Échec searchId ! " + err);
@@ -162,7 +159,7 @@ const searchItinerary = async () => {
 	};
 
 	const getItineraryResults = async () => {
-		await getSearchId();
+		const searchId = await getSearchId();
 		return await axios
 			.get(
 				`https://api.maas-dev.aws.vsct.fr/enc/search/itinerary/${searchId}`,
