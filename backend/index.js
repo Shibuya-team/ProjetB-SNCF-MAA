@@ -141,7 +141,6 @@ const searchItinerary = async req => {
   const oriLat = req.query.oriLat;
   const oriLng = req.query.oriLng;
   const searchDate = req.query.searchDate;
-  console.log("backend", destLat, destLng, oriLat, oriLng, searchDate);
   const body =
     searchDate !== ""
       ? {
@@ -165,7 +164,6 @@ const searchItinerary = async req => {
             longitude: oriLng
           }
         };
-  console.log("body", body);
   const getSearchId = async () => {
     await axios
       .post("https://api.maas-dev.aws.vsct.fr/enc/search/itinerary", body, {
@@ -178,7 +176,6 @@ const searchItinerary = async req => {
       })
       .then(res => {
         searchId = res.data.searchId;
-        console.log("OK searchID", searchId);
       })
       .catch(err => {
         console.log("Échec searchId ! " + err);
@@ -199,7 +196,6 @@ const searchItinerary = async req => {
         }
       )
       .then(res => {
-        console.log("Ok resItinerary", res.data);
         return res.data;
       })
       .catch(err => {

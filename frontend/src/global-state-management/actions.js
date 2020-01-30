@@ -46,13 +46,6 @@ export const arrivalActions = {
             arrival: { address: address, lat: latLng.lat, lng: latLng.lng }
           }
         });
-        console.log(
-          "Success arrival address",
-          `latitude : ${store.state.itinerary.arrival.lat}`,
-          `longitude : ${store.state.itinerary.arrival.lng}`,
-          `address : ${store.state.itinerary.arrival.address}`
-        );
-        console.log("globalState : ", store.state);
       })
       .catch(error => console.error("Error", error));
   }
@@ -94,13 +87,6 @@ export const departureActions = {
             }
           }
         });
-        console.log(
-          "Success departure address",
-          `latitude : ${store.state.itinerary.departure.lat}`,
-          `longitude : ${store.state.itinerary.departure.lng}`,
-          `address : ${store.state.itinerary.departure.address}`
-        );
-        console.log("globalState : ", store.state);
       })
       .catch(error => console.error("Error", error));
   }
@@ -112,7 +98,6 @@ export const datePickerActions = {
     store.setState({
       itinerary: { ...store.state.itinerary, date: value, dateISO: dateISO }
     });
-    console.log(store.state.itinerary.date, store.state.itinerary.dateISO);
   },
   updateTimePicker: (store, value) => {
     if (value.valueOf() < new Date().valueOf()) {
@@ -220,9 +205,6 @@ export const validFormTravelActions = {
       axios
         .get(
           `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
-        )
-        .then(res =>
-          console.log("OK connexion server, route search/itinerary", res)
         )
         .catch(err => {
           console.log(
