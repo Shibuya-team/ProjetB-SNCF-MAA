@@ -15,7 +15,6 @@ function DatePicker() {
     state => state.itinerary.date,
     actions => actions.datePickerActions
   );
-  // const submission = useGlobal(state => state.formTravel.submitted)[0];
 
   return (
     <>
@@ -41,7 +40,6 @@ function DatePicker() {
             )}
           clearIcon={false}
         />
-        <p>{/* TEST : Compte : {submission} Date : {date.toString()} */}</p>
       </StyledInput>
     </>
   );

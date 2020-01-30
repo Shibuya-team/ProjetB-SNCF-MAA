@@ -7,7 +7,6 @@ function Valid() {
     state => state.formTravel,
     actions => actions.validFormTravelActions
   );
-  const [validItinerary] = useGlobal(state => state.infosToAPIMaaS);
 
   return (
     <>

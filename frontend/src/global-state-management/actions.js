@@ -115,11 +115,7 @@ export const datePickerActions = {
     console.log(store.state.itinerary.date, store.state.itinerary.dateISO);
   },
   updateTimePicker: (store, value) => {
-    if (
-      value.valueOf() < new Date().valueOf()
-      //  &&
-      // store.state.formTravel.submitted > 0
-    ) {
+    if (value.valueOf() < new Date().valueOf()) {
       store.setState({
         itinerary: {
           ...store.state.itinerary,
