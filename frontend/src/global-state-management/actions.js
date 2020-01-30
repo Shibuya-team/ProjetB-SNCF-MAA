@@ -94,13 +94,15 @@ export const departureActions = {
 
 export const datePickerActions = {
   handleDateTime: (store, value) => {
-    let dateISO = value.toISOString();
+    const value1 = value !== null ? value : new Date();
+    const dateISO = value1.toISOString();
     store.setState({
-      itinerary: { ...store.state.itinerary, date: value, dateISO: dateISO }
+      itinerary: { ...store.state.itinerary, date: value1, dateISO: dateISO }
     });
   },
   updateTimePicker: (store, value) => {
-    if (value.valueOf() < new Date().valueOf()) {
+    const value2 = value !== null ? value : new Date();
+    if (value2.valueOf() < new Date().valueOf()) {
       store.setState({
         itinerary: {
           ...store.state.itinerary,
