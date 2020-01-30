@@ -209,9 +209,7 @@ export const validFormTravelActions = {
           `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
         )
         .then(res => {
-          console.log("Réponse", res.data);
           store.setState({ itineraryDataFromMaaS: res.data });
-          console.log(store.state);
         })
         .catch(err => {
           console.log(

@@ -112,9 +112,9 @@ const CardList = () => {
         {submission > 0 ? (
           data.result && data.results.length > 0 ? (
             data.wish && data.wish.searchDate ? (
-              <p>{data.wish.searchDate}</p>
+              <Moment format="DD-MM-YYYY HH:mm">{data.wish.searchDate}</Moment>
             ) : !data.wish.searchDate ? (
-              <p>{data.wish.createdAt}</p>
+              <Moment format="DD-MM-YYYY HH:mm">{data.wish.createdAt}</Moment>
             ) : (
               ""
             )
@@ -125,6 +125,7 @@ const CardList = () => {
           ""
         )}
       </ContainerLine>
+
       {/* <ContainerTitle>
         <ul>
           <li>DEPART:</li>
