@@ -11,7 +11,12 @@ const cors = require("cors");
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
 
 app.use(cors());
-app.options("*", cors());
+app.options(
+  "*",
+  cors({
+    origin: "http://localhost:3000"
+  })
+);
 
 sequelize
   .authenticate()
@@ -70,7 +75,7 @@ app.get("/getNewToken", async (req, res) => {
 });
 
 // SEARCH AROUNDME
-const searchAroundMe = async () => {
+const searchAroundMe = async req => {
   let searchId = null;
   const newtoken = await getNewToken();
 
@@ -126,37 +131,54 @@ const searchAroundMe = async () => {
 };
 
 // SEARCH ITINERARY
-const searchItinerary = async () => {
+const searchItinerary = async req => {
   let searchId = null;
 
   const newtoken = await getNewToken();
 
-  const getSearchId = async () => {
-    await axios
-      .post(
-        "https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
-        {
+  const destLat = req.query.destLat;
+  const destLng = req.query.destLng;
+  const oriLat = req.query.oriLat;
+  const oriLng = req.query.oriLng;
+  const searchDate = req.query.searchDate;
+  console.log("backend", destLat, destLng, oriLat, oriLng, searchDate);
+  const body =
+    searchDate !== ""
+      ? {
           destination: {
-            latitude: 48.9595466,
-            longitude: 2.3424024
+            latitude: destLat,
+            longitude: destLng
           },
           origin: {
-            latitude: 48.8534,
-            longitude: 2.3488
-          }
-          // "searchDate": "2020-01-03T09:54:20.026Z"
-        },
-        {
-          headers: {
-            // accept: "application/json",
-            Authorization: `Bearer ${newtoken}`,
-            "x-api-key": secrets.apiKey,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
+            latitude: oriLat,
+            longitude: oriLng
+          },
+          searchDate: searchDate
         }
-      )
+      : {
+          destination: {
+            latitude: destLat,
+            longitude: destLng
+          },
+          origin: {
+            latitude: oriLat,
+            longitude: oriLng
+          }
+        };
+  console.log("body", body);
+  const getSearchId = async () => {
+    await axios
+      .post("https://api.maas-dev.aws.vsct.fr/enc/search/itinerary", body, {
+        headers: {
+          // accept: "application/json",
+          Authorization: `Bearer ${newtoken}`,
+          "x-api-key": secrets.apiKey,
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
       .then(res => {
         searchId = res.data.searchId;
+        console.log("OK searchID", searchId);
       })
       .catch(err => {
         console.log("Échec searchId ! " + err);
@@ -177,10 +199,12 @@ const searchItinerary = async () => {
         }
       )
       .then(res => {
+        console.log("Ok resItinerary", res.data);
         return res.data;
       })
       .catch(err => {
         console.log("Échec resItinerary ! " + err);
+        throw err;
       });
   };
 
@@ -189,11 +213,11 @@ const searchItinerary = async () => {
 
 // ROUTES
 app.get("/search/aroundme", async (req, response) => {
-  const resAroundMe = await searchAroundMe();
+  const resAroundMe = await searchAroundMe(req);
   response.send(resAroundMe);
 });
 
 app.get("/search/itinerary", async (req, response) => {
-  const resItinerary = await searchItinerary();
+  const resItinerary = await searchItinerary(req);
   response.send(resItinerary);
 });

@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import axios from "../../../backend/node_modules/axios";
 
 export const googleApiScriptActions = {
   handleScriptError: store => {
@@ -106,27 +108,131 @@ export const departureActions = {
 
 export const datePickerActions = {
   handleDateTime: (store, value) => {
-    store.setState({ itinerary: { ...store.state.itinerary, date: value } });
+    let dateISO = value.toISOString();
+    store.setState({
+      itinerary: { ...store.state.itinerary, date: value, dateISO: dateISO }
+    });
+    console.log(store.state.itinerary.date, store.state.itinerary.dateISO);
+  },
+  updateTimePicker: (store, value) => {
+    if (
+      value.valueOf() < new Date().valueOf()
+      //  &&
+      // store.state.formTravel.submitted > 0
+    ) {
+      store.setState({
+        itinerary: {
+          ...store.state.itinerary,
+          date: new Date(),
+          dateISO: ""
+        }
+      });
+    }
   }
 };
 
 export const validFormTravelActions = {
   handleSubmit: store => {
-    if (
+    const departureISValid =
       store.state.itinerary.departure.lat &&
-      store.state.itinerary.departure.lng &&
-      store.state.itinerary.date &&
-      store.state.itinerary.arrival.lat &&
-      store.state.itinerary.arrival.lng
+      store.state.itinerary.departure.lng;
+    const arrivalIsValid =
+      store.state.itinerary.arrival.lat && store.state.itinerary.arrival.lng;
+
+    if (
+      departureISValid &&
+      arrivalIsValid &&
+      (store.state.itinerary.dateISO === "" ||
+        new Date(store.state.itinerary.dateISO).valueOf() >
+          new Date().valueOf())
     ) {
-      store.setState({ formTravel: { isValid: true, message: "" } });
+      store.setState({
+        formTravel: {
+          isValid: true,
+          message: "",
+          submitted: store.state.formTravel.submitted + 1
+        }
+      });
+      store.setState({
+        infosToAPIMaaS: {
+          destination: {
+            lat: store.state.itinerary.arrival.lat,
+            lng: store.state.itinerary.arrival.lng
+          },
+          origin: {
+            lat: store.state.itinerary.departure.lat,
+            lng: store.state.itinerary.departure.lng
+          },
+          searchDate: store.state.itinerary.dateISO
+            ? store.state.itinerary.dateISO
+            : ""
+        }
+      });
+    } else if (
+      departureISValid &&
+      arrivalIsValid &&
+      store.state.itinerary.dateISO !== "" &&
+      new Date(store.state.itinerary.dateISO).valueOf() < new Date().valueOf()
+    ) {
+      store.setState({
+        formTravel: {
+          isValid: true,
+          message: "",
+          submitted: store.state.formTravel.submitted + 1
+        }
+      });
+      store.setState({
+        itinerary: { ...store.state.itinerary, date: new Date(), dateISO: "" }
+      });
+      store.setState({
+        infosToAPIMaaS: {
+          destination: {
+            lat: store.state.itinerary.arrival.lat,
+            lng: store.state.itinerary.arrival.lng
+          },
+          origin: {
+            lat: store.state.itinerary.departure.lat,
+            lng: store.state.itinerary.departure.lng
+          },
+          searchDate: ""
+        }
+      });
     } else {
       store.setState({
         formTravel: {
           isValid: false,
-          message: "Formulaire incomplet : veuillez remplir tous les champs."
+          message:
+            "Formulaire incomplet : veuillez remplir les champs de départ et d'arrivée",
+          submitted: store.state.formTravel.submitted + 1
         }
       });
+      store.setState({
+        infosToAPIMaaS: {
+          destination: {
+            lat: null,
+            lng: null
+          },
+          origin: {
+            lat: null,
+            lng: null
+          },
+          searchDate: ""
+        }
+      });
+    }
+    if (store.state.formTravel.isValid) {
+      axios
+        .get(
+          `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
+        )
+        .then(res =>
+          console.log("OK connexion server, route search/itinerary", res)
+        )
+        .catch(err => {
+          console.log(
+            "Échec de connexion server pour search/itinerary ! " + err
+          );
+        });
     }
   }
 };
