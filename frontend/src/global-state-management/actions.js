@@ -208,6 +208,10 @@ export const validFormTravelActions = {
         .get(
           `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
         )
+        .then(res => {
+          console.log(res.data);
+          return store.setState({ itineraryDataFromAPI: res.data });
+        })
         .catch(err => {
           console.log(
             "Échec de connexion server pour search/itinerary ! " + err

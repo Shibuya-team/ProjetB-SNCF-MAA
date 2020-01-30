@@ -40,7 +40,8 @@ const initialState = {
       lng: null
     },
     searchDate: ""
-  }
+  },
+  itineraryDataFromMaaS: {}
 };
 
 const useGlobal = useGlobalHook(React, initialState, actions);
