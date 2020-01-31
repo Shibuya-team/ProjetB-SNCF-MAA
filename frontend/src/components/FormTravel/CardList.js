@@ -101,24 +101,6 @@ const CardList = () => {
   const submission = useGlobal(state => state.formTravel.submitted)[0];
   return (
     <>
-      {/* <ContainerLine>
-        {submission > 0 ? (
-          data.result && data.results.length > 0 ? (
-            data.wish && data.wish.searchDate ? (
-              <Moment format="DD-MM-YYYY HH:mm">{data.wish.searchDate}</Moment>
-            ) : !data.wish.searchDate ? (
-              <Moment format="DD-MM-YYYY HH:mm">{data.wish.createdAt}</Moment>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        )}
-      </ContainerLine> */}
-
       {data.results &&
         data.results.map((results, index) => {
           return (

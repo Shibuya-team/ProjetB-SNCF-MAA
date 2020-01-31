@@ -220,36 +220,11 @@ export const validFormTravelActions = {
             itineraryDataFromMaaS: {
               wish: res.data.wish,
               status: res.data.status,
-              results:
-                // [
-                res.data.results,
-              // ...res.data.results,
-              // {
-              //   segments: [
-              //     ...res.data.results.segments,
-              //     {
-              //       proposals: [
-              //         ...store.state.itineraryDataFromMaaS.results.segments.proposals.concat(
-              //           res.data.results.segments.proposals
-              //         )
-              //       ]
-              //     }
-              //   ]
-              // }
-              // ],
+              results: res.data.results,
+
               searchId: res.data.searchId
             }
-            // store.state.itineraryDataFromMaaS.results.push(
-            //   res.data.results
           });
-          //   if (
-          //     store.state.itineraryDataFromMaaS.status !== "COMPLETE" ||
-          //     store.state.itineraryDataFromMaaS.status !== "ERROR" ||
-          //     store.state.itineraryDataFromMaaS.results.length <= 20
-          //   ) {
-          //     getManyResultsFromAPI(store.state.itineraryDataFromMaaS.searchId);
-          //   }
-          // })
         })
         .catch(err => {
           console.log(
