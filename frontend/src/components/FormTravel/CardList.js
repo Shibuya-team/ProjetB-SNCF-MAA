@@ -10,29 +10,17 @@ import Bus from "../../images/icones/Mapicones/Bus";
 import Moment from "react-moment";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
+import color from "../color";
+import size from "../size";
 
-const color = {
-  grey: "#EBE8E8",
-  oldpink: "#F0DBD8",
-  salmon: "#FFCAB8",
-  gold: "#F9C153",
-  purple: "#241F5D",
-  velvet: "#5353A2",
-  plum: "#6767AD",
-  emerald: "#78C4D2",
-  turquoise: "#7ED0DF",
-  asura: "#94DAD5",
-  orange: "#FF8B66",
-  brick: "#EB5933",
-  white: "#FFFFFF"
-};
-
-const size = {
-  small: "1em",
-  medium: "2em",
-  large: "4em",
-  xlarge: "5em"
-};
+const ContainerTitle = styled.div`
+  text-align: left;
+  color: ${props => props.theme.colors.white};
+  font-family: ${props => props.theme.fonts[0]};
+  font-size: ${props => props.theme.fontSizes.small};
+  padding: 0 20px 0 20px;
+  margin-top: 20px;
+`;
 
 const ContainerList = styled.div`
   display: flex;

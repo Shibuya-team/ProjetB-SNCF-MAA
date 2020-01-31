@@ -1,9 +1,9 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
-const PORT = 5000;
+require("dotenv").config();
+const PORT = process.env.PORT;
 const sequelize = require("./database/config/connect");
-const secrets = require("./secrets");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
 const cors = require("cors");
@@ -32,15 +32,15 @@ sequelize
 
 // TOKEN
 const getNewToken = async () => {
-  const token = await axios
+  return await axios
     .post(
       "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
       "grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
       {
         headers: {
-          Authorization: secrets.auth,
+          Authorization: process.env.AUTH,
           "Content-Type": "application/x-www-form-urlencoded",
-          "x-api-key": secrets.apiKey
+          "x-api-key": process.env.API_KEY
         }
       }
     )
@@ -48,8 +48,6 @@ const getNewToken = async () => {
       return res.data.access_token;
     })
     .catch(err => console.log(err.message));
-
-  return token;
 };
 
 app.get("/getNewToken", async (req, res) => {
@@ -75,7 +73,7 @@ app.get("/getNewToken", async (req, res) => {
 });
 
 // SEARCH AROUNDME
-const searchAroundMe = async req => {
+const searchAroundMe = async () => {
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {
@@ -94,7 +92,7 @@ const searchAroundMe = async req => {
           headers: {
             // accept: "application/json",
             Authorization: `Bearer ${newtoken}`,
-            "x-api-key": secrets.apiKey,
+            "x-api-key": process.env.API_KEY,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         }
@@ -115,7 +113,7 @@ const searchAroundMe = async req => {
           Accept: "application/json",
           Authorization: `Bearer ${newtoken}`,
           "Content-Type": "application/json",
-          "x-api-key": secrets.apiKey
+          "x-api-key": process.env.API_KEY
         }
       })
       .then(res => {
@@ -167,7 +165,7 @@ const searchItinerary = async req => {
         headers: {
           // accept: "application/json",
           Authorization: `Bearer ${newtoken}`,
-          "x-api-key": secrets.apiKey,
+          "x-api-key": process.env.API_KEY,
           "Content-Type": "application/x-www-form-urlencoded"
         }
       })
@@ -220,4 +218,8 @@ app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary(req);
   console.log(resItinerary);
   response.send(resItinerary);
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello Back");
 });
