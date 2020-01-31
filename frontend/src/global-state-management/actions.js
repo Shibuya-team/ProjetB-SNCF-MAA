@@ -221,7 +221,6 @@ export const validFormTravelActions = {
               wish: res.data.wish,
               status: res.data.status,
               results: res.data.results,
-
               searchId: res.data.searchId
             }
           });

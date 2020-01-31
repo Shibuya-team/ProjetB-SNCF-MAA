@@ -10,95 +10,83 @@ import Bus from "../../images/icones/Mapicones/Bus";
 import Moment from "react-moment";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
+import color from "../color";
+import size from "../size";
 
-const color = {
-  grey: "#EBE8E8",
-  oldpink: "#F0DBD8",
-  salmon: "#FFCAB8",
-  gold: "#F9C153",
-  purple: "#241F5D",
-  velvet: "#5353A2",
-  plum: "#6767AD",
-  emerald: "#78C4D2",
-  turquoise: "#7ED0DF",
-  asura: "#94DAD5",
-  orange: "#FF8B66",
-  brick: "#EB5933",
-  white: "#FFFFFF"
-};
-
-const size = {
-  small: "1em",
-  medium: "2em",
-  large: "4em",
-  xlarge: "5em"
-};
+const ContainerTitle = styled.div`
+	text-align: left;
+	color: ${(props) => props.theme.colors.white};
+	font-family: ${(props) => props.theme.fonts[0]};
+	font-size: ${(props) => props.theme.fontSizes.small};
+	padding: 0 20px 0 20px;
+	margin-top: 20px;
+`;
 
 const ContainerList = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-  background-color: ${props => props.theme.colors.asura};
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	flex-wrap: wrap;
+	background-color: ${(props) => props.theme.colors.asura};
 `;
 
 const ContainerCard = styled.div`
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 5px;
-  margin: 10px;
-  padding-bottom: 0;
-  width: 45%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-content: center;
-  text-align: center;
-  background-color: ${props => props.theme.colors.salmon};
-  color: ${props => props.theme.colors.white};
-  font-family: ${props => props.theme.fonts[0]};
-  ${Media.lessThan("small")`width=100%;`}
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 5px;
+	margin: 10px;
+	padding-bottom: 0;
+	width: 45%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: center;
+	text-align: center;
+	background-color: ${(props) => props.theme.colors.salmon};
+	color: ${(props) => props.theme.colors.white};
+	font-family: ${(props) => props.theme.fonts[0]};
+	${Media.lessThan("small")`width=100%;`}
 `;
 const ContainerTitreLine = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 10px 0 10px 0;
-  background-color: ${props => props.theme.colors.orange};
-  color: ${props => props.theme.colors.white};
-  font-family: ${props => props.theme.fonts[2]};
-  font-size: ${props => props.theme.fontSizes.small};
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	padding: 10px 0 10px 0;
+	background-color: ${(props) => props.theme.colors.orange};
+	color: ${(props) => props.theme.colors.white};
+	font-family: ${(props) => props.theme.fonts[2]};
+	font-size: ${(props) => props.theme.fontSizes.small};
 `;
 const ContainerLine = styled.div`
-  width: 100%;
-  height: 20 px;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  padding: 10px 0 10px 0;
-  color: ${props => props.theme.colors.purple};
-  font-family: ${props => props.theme.fonts[0]};
-  font-size: ${props => props.theme.fontSizes.medium};
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding: 10px 0 10px 0;
+	color: ${(props) => props.theme.colors.purple};
+	font-family: ${(props) => props.theme.fonts[0]};
+	font-size: ${(props) => props.theme.fontSizes.medium};
+
 `;
 const ContainerPrice = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  padding: 10px 0 10px 0;
-  color: ${props => props.theme.colors.brick};
-  font-family: ${props => props.theme.fonts[2]};
-  font-size: ${props => props.theme.fontSizes.large};
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding: 10px 0 10px 0;
+	color: ${(props) => props.theme.colors.brick};
+	font-family: ${(props) => props.theme.fonts[2]};
+	font-size: ${(props) => props.theme.fontSizes.large};
 `;
 
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
-  const submission = useGlobal(state => state.formTravel.submitted)[0];
+  
   return (
     <>
       {data.results &&
