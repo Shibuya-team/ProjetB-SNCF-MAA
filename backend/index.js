@@ -1,9 +1,9 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
-const PORT = 5000;
+require("dotenv").config();
+const PORT = process.env.PORT;
 const sequelize = require("./database/config/connect");
-const secrets = require("./secrets");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
 const cors = require("cors");
@@ -19,121 +19,116 @@ app.options(
 );
 
 sequelize
-  .authenticate()
-  .then(() => {
-    console.log("La connexion a été établie avec succès.");
-  })
-  .catch(err => {
-    console.error(
-      "Impossible de se connecter à la base de données :",
-      err.message
-    );
-  });
+	.authenticate()
+	.then(() => {
+		console.log("La connexion a été établie avec succès.");
+	})
+	.catch((err) => {
+		console.error(
+			"Impossible de se connecter à la base de données :",
+			err.message,
+		);
+	});
 
 // TOKEN
 const getNewToken = async () => {
-  const token = await axios
-    .post(
-      "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
-      "grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
-      {
-        headers: {
-          Authorization: secrets.auth,
-          "Content-Type": "application/x-www-form-urlencoded",
-          "x-api-key": secrets.apiKey
-        }
-      }
-    )
-    .then(res => {
-      return res.data.access_token;
-    })
-    .catch(err => console.log(err.message));
-
-  return token;
+	return await axios
+		.post(
+			"https://auth.maas-dev.aws.vsct.fr/oauth2/token",
+			"grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
+			{
+				headers: {
+					Authorization: process.env.AUTH,
+					"Content-Type": "application/x-www-form-urlencoded",
+					"x-api-key": process.env.API_KEY,
+				},
+			},
+		)
+		.then((res) => {
+			return res.data.access_token;
+		})
+		.catch((err) => console.log(err.message));
 };
 
 app.get("/getNewToken", async (req, res) => {
-  Token.findOne({}).then(async tokenCreate => {
-    if (!tokenCreate) {
-      Token.create({
-        token: await getNewToken()
-      });
-    }
+	Token.findOne({}).then(async (tokenCreate) => {
+		if (!tokenCreate) {
+			Token.create({
+				token: await getNewToken(),
+			});
+		}
 
-    if (tokenCreate && tokenCreate.createdAt) {
-      const result = Math.round(
-        (Date.now() - Date.parse(tokenCreate.createdAt)) / 1000
-      );
-      if (result >= 3600) {
-        Token.destroy({
-          where: {}
-        });
-      }
-    }
-  });
-  res.sendStatus(200);
+		if (tokenCreate && tokenCreate.createdAt) {
+			const result = Math.round(
+				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
+			);
+			if (result >= 3600) {
+				Token.destroy({
+					where: {},
+				});
+			}
+		}
+	});
+	res.sendStatus(200);
 });
 
 // SEARCH AROUNDME
 const searchAroundMe = async () => {
-  let searchId = null;
-  const newtoken = await getNewToken();
+	const newtoken = await getNewToken();
 
-  const getSearchId = async () => {
-    await axios
-      .post(
-        "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
-        {
-          // données en dur, à remplacer
-          origin: {
-            latitude: 48.8534,
-            longitude: 2.3488
-          },
-          radius: 1000
-        },
-        {
-          headers: {
-            // accept: "application/json",
-            Authorization: `Bearer ${newtoken}`,
-            "x-api-key": secrets.apiKey,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }
-      )
-      .then(res => {
-        searchId = res.data.searchId;
-      })
-      .catch(err => {
-        console.log("Échec searchId ! " + err);
-      });
-  };
+	const getSearchId = async () => {
+		return await axios
+			.post(
+				"https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
+				{
+					// données en dur, à remplacer
+					origin: {
+						latitude: 48.8534,
+						longitude: 2.3488,
+					},
+					radius: 1000,
+				},
+				{
+					headers: {
+						// accept: "application/json",
+						Authorization: `Bearer ${newtoken}`,
+						"x-api-key": process.env.API_KEY,
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+				},
+			)
+			.then((res) => {
+				return res.data.searchId;
+			})
+			.catch((err) => {
+				console.log("Échec searchId ! " + err);
+			});
+	};
 
-  const getAroundMeResults = async () => {
-    await getSearchId();
-    return await axios
-      .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${newtoken}`,
-          "Content-Type": "application/json",
-          "x-api-key": secrets.apiKey
-        }
-      })
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        console.log("Échec resAroundMe ! " + err);
-      });
-  };
+	const getAroundMeResults = async () => {
+		const searchId = await getSearchId();
+		return await axios
+			.get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
+				headers: {
+					Accept: "application/json",
+					Authorization: `Bearer ${newtoken}`,
+					"Content-Type": "application/json",
+					"x-api-key": process.env.API_KEY,
+				},
+			})
+			.then((res) => {
+				return res.data;
+			})
+			.catch((err) => {
+				console.log("Échec resAroundMe ! " + err);
+			});
+	};
 
-  return await getAroundMeResults();
+	return await getAroundMeResults();
 };
 
 // SEARCH ITINERARY
 const searchItinerary = async req => {
-  let searchId = null;
-
   const newtoken = await getNewToken();
 
   const destLat = req.query.destLat;
@@ -165,25 +160,28 @@ const searchItinerary = async req => {
           }
         };
   const getSearchId = async () => {
-    await axios
+    return await axios
       .post("https://api.maas-dev.aws.vsct.fr/enc/search/itinerary", body, {
         headers: {
           // accept: "application/json",
           Authorization: `Bearer ${newtoken}`,
-          "x-api-key": secrets.apiKey,
+          "x-api-key": process.env.API_KEY,
           "Content-Type": "application/x-www-form-urlencoded"
         }
       })
       .then(res => {
-        searchId = res.data.searchId;
+        return res.data.searchId;
       })
       .catch(err => {
         console.log("Échec searchId ! " + err);
       });
   };
 
-  const getItineraryResults = async () => {
-    await getSearchId();
+  const getItineraryResults = async req => {
+    const searchId =
+      req.query.searchId && req.query.searchId !== ""
+        ? req.query.searchId
+        : await getSearchId();
     return await axios
       .get(
         `https://api.maas-dev.aws.vsct.fr/enc/search/itinerary/${searchId}`,
@@ -204,7 +202,7 @@ const searchItinerary = async req => {
       });
   };
 
-  return await getItineraryResults();
+  return await getItineraryResults(req);
 };
 
 // ROUTES
@@ -216,4 +214,7 @@ app.get("/search/aroundme", async (req, response) => {
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary(req);
   response.send(resItinerary);
+
+app.get("/", (req, res) => {
+	res.send("Hello Back");
 });
