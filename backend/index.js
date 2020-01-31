@@ -75,7 +75,7 @@ app.get("/getNewToken", async (req, res) => {
 });
 
 // SEARCH AROUNDME
-const searchAroundMe = async req => {
+const searchAroundMe = async () => {
   let searchId = null;
   const newtoken = await getNewToken();
 

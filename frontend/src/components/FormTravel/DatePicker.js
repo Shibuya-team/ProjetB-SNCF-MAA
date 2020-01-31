@@ -17,31 +17,29 @@ function DatePicker() {
   );
 
   return (
-    <>
-      <StyledInput>
-        <DateTimePicker
-          value={date}
-          onChange={datePickerActions.handleDateTime}
-          showLeadingZeros={true}
-          required={false}
-          disableClock={true}
-          minDate={new Date()}
-          minTime={momentTz()
-            .tz("Europe/Paris")
-            .hours(
-              momentTz()
-                .tz("Europe/Paris")
-                .hour()
-            )
-            .minutes(
-              momentTz()
-                .tz("Europe/Paris")
-                .minutes()
-            )}
-          clearIcon={false}
-        />
-      </StyledInput>
-    </>
+    <StyledInput>
+      <DateTimePicker
+        value={date}
+        onChange={datePickerActions.handleDateTime}
+        showLeadingZeros={true}
+        required={false}
+        disableClock={true}
+        minDate={new Date()}
+        minTime={momentTz()
+          .tz("Europe/Paris")
+          .hours(
+            momentTz()
+              .tz("Europe/Paris")
+              .hour()
+          )
+          .minutes(
+            momentTz()
+              .tz("Europe/Paris")
+              .minutes()
+          )}
+        clearIcon={false}
+      />
+    </StyledInput>
   );
 }
 
