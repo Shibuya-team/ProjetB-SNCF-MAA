@@ -40,6 +40,12 @@ const initialState = {
       lng: null
     },
     searchDate: ""
+  },
+  itineraryDataFromMaaS: {
+    wish: {},
+    status: "",
+    results: [],
+    searchId: ""
   }
 };
 

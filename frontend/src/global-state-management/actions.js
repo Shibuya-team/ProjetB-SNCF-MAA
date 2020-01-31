@@ -85,6 +85,12 @@ export const departureActions = {
               lat: latLng.lat,
               lng: latLng.lng
             }
+          },
+          itineraryDataFromMaaS: {
+            wish: {},
+            status: "",
+            results: [],
+            searchId: ""
           }
         });
       })
@@ -203,16 +209,31 @@ export const validFormTravelActions = {
         }
       });
     }
-    if (store.state.formTravel.isValid) {
-      axios
+
+    const getManyResultsFromAPI = async () => {
+      return await axios
         .get(
-          `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}`
+          `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}&searchId=${store.state.itineraryDataFromMaaS.searchId}`
         )
+        .then(res => {
+          store.setState({
+            itineraryDataFromMaaS: {
+              wish: res.data.wish,
+              status: res.data.status,
+              results: res.data.results,
+              searchId: res.data.searchId
+            }
+          });
+        })
         .catch(err => {
           console.log(
             "Échec de connexion server pour search/itinerary ! " + err
           );
         });
+    };
+
+    if (store.state.formTravel.isValid) {
+      getManyResultsFromAPI();
     }
   }
 };

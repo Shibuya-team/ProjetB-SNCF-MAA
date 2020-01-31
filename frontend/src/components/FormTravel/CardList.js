@@ -6,9 +6,10 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-import Data from "../../Data";
+import Bus from "../../images/icones/Mapicones/Bus";
 import Moment from "react-moment";
 import Media from "styled-media-query";
+import useGlobal from "../../global-state-management/store";
 import color from "../color";
 import size from "../size";
 
@@ -70,6 +71,7 @@ const ContainerLine = styled.div`
 	color: ${(props) => props.theme.colors.purple};
 	font-family: ${(props) => props.theme.fonts[0]};
 	font-size: ${(props) => props.theme.fontSizes.medium};
+
 `;
 const ContainerPrice = styled.div`
 	width: 100%;
@@ -83,62 +85,104 @@ const ContainerPrice = styled.div`
 `;
 
 const CardList = () => {
-	return (
-		<>
-			<Moment format="DD-MM-YYYY HH:mm">
-				{Data.results.departureDateTime}
-			</Moment>
+  const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
+  
+  return (
+    <>
+      {data.results &&
+        data.results.map((results, index) => {
+          return (
+            <ContainerList key={index}>
+              {results.segments.map(
+                segment =>
+                  segment.proposals &&
+                  segment.proposals.map((proposal, index) => {
+                    return (
+                      <ContainerCard key={index + "proposal"}>
+                        {proposal.fleetType ? (
+                          <ContainerTitreLine>
+                            {proposal.fleetType === "VTC" ? (
+                              <Vtc size={size.medium} color={color.white} />
+                            ) : proposal.fleetType === "TAXI" ? (
+                              <Taxi size={size.medium} color={color.white} />
+                            ) : (
+                              <Bus size={size.medium} color={color.white} />
+                            )}
+                          </ContainerTitreLine>
+                        ) : proposal.mobilityType ? (
+                          <ContainerTitreLine>
+                            {proposal.mobilityType === "BUS" ? (
+                              <Bus size={size.medium} color={color.white} />
+                            ) : (
+                              ""
+                            )}
+                          </ContainerTitreLine>
+                        ) : (
+                          ""
+                        )}
+                        {proposal.carWithDriverAttributes ? (
+                          proposal.carWithDriverAttributes.passengerCapacity ? (
+                            <ContainerLine>
+                              {
+                                proposal.carWithDriverAttributes
+                                  .passengerCapacity
+                              }
+                              <Travellers
+                                size={size.small}
+                                color={color.purple}
+                              />
+                            </ContainerLine>
+                          ) : (
+                            <ContainerLine>
+                              <span style={{ height: "32.5px" }} />
+                            </ContainerLine>
+                          )
+                        ) : (
+                          <ContainerLine>
+                            <span style={{ height: "32.5px" }} />{" "}
+                          </ContainerLine>
+                        )}
+                        {proposal.carWithDriverAttributes ? (
+                          proposal.carWithDriverAttributes.luggageCapacity ? (
+                            <ContainerLine>
+                              {proposal.carWithDriverAttributes.luggageCapacity}
+                              <Luggage size={size.small} color={color.purple} />
+                            </ContainerLine>
+                          ) : (
+                            <ContainerLine>
+                              <span style={{ height: "32.5px" }} />{" "}
+                            </ContainerLine>
+                          )
+                        ) : (
+                          <ContainerLine>
+                            <span style={{ height: "32.5px" }} />{" "}
+                          </ContainerLine>
+                        )}
 
-			{/* <ContainerTitle>
-        <ul>
-          <li>DEPART:</li>
-          <li>ARRIVEE:</li>
-        </ul>
-      </ContainerTitle> */}
+                        <ContainerPrice>
+                          {`${proposal.price.amount
+                            .toString()
+                            .slice(
+                              0,
+                              -2
+                            )},${proposal.price.amount.toString().slice(-2)}`}
+                          <span>€</span>
+                        </ContainerPrice>
 
-			{Data.results.map((results, index) => {
-				return (
-					<ContainerList key={index}>
-						{results.segments[0].proposals.map((proposal, index) => {
-							return (
-								<ContainerCard key={index + "proposal"}>
-									<ContainerTitreLine>
-										{proposal.fleetType === "VTC" ? (
-											<Vtc size={size.medium} color={color.white} />
-										) : (
-											<Taxi size={size.medium} color={color.white} />
-										)}
-									</ContainerTitreLine>
-									<ContainerLine>
-										{proposal.carWithDriverAttributes.passengerCapacity}
-										<Travellers size={size.small} color={color.purple} />
-									</ContainerLine>
-									<ContainerLine>
-										{proposal.carWithDriverAttributes.luggageCapacity}
-										<Luggage size={size.small} color={color.purple} />
-									</ContainerLine>
-									<ContainerPrice>
-										{`${proposal.price.amount
-											.toString()
-											.slice(0, -2)},${proposal.price.amount
-											.toString()
-											.slice(-2)}`}
-										<span>€</span>
-									</ContainerPrice>
-
-									<ButtonStyle
-										style={{ marginBottom: "auto" }}
-										big="true"
-										label="COMMANDER"
-									/>
-								</ContainerCard>
-							);
-						})}
-					</ContainerList>
-				);
-			})}
-		</>
-	);
+                        <ButtonStyle
+                          style={{ marginBottom: "auto" }}
+                          big="true"
+                          label="COMMANDER"
+                        />
+                      </ContainerCard>
+                    );
+                  })
+              )}
+            </ContainerList>
+          );
+        })}
+    </>
+  );
 };
 
 export default CardList;

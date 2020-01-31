@@ -73,58 +73,58 @@ app.get("/getNewToken", async (req, res) => {
 });
 
 // SEARCH AROUNDME
-const searchAroundMe = async () => {
-	const newtoken = await getNewToken();
+const searchAroundMe = async req => {
+  const newtoken = await getNewToken();
 
-	const getSearchId = async () => {
-		return await axios
-			.post(
-				"https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
-				{
-					// données en dur, à remplacer
-					origin: {
-						latitude: 48.8534,
-						longitude: 2.3488,
-					},
-					radius: 1000,
-				},
-				{
-					headers: {
-						// accept: "application/json",
-						Authorization: `Bearer ${newtoken}`,
-						"x-api-key": process.env.API_KEY,
-						"Content-Type": "application/x-www-form-urlencoded",
-					},
-				},
-			)
-			.then((res) => {
-				return res.data.searchId;
-			})
-			.catch((err) => {
-				console.log("Échec searchId ! " + err);
-			});
-	};
+  const getSearchId = async () => {
+    return await axios
+      .post(
+        "https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
+        {
+          // données en dur, à remplacer
+          origin: {
+            latitude: 48.8534,
+            longitude: 2.3488
+          },
+          radius: 1000
+        },
+        {
+          headers: {
+            // accept: "application/json",
+            Authorization: `Bearer ${newtoken}`,
+            "x-api-key": process.env.API_KEY,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      )
+      .then(res => {
+        return res.data.searchId;
+      })
+      .catch(err => {
+        console.log("Échec searchId ! " + err);
+      });
+  };
 
-	const getAroundMeResults = async () => {
-		const searchId = await getSearchId();
-		return await axios
-			.get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
-				headers: {
-					Accept: "application/json",
-					Authorization: `Bearer ${newtoken}`,
-					"Content-Type": "application/json",
-					"x-api-key": process.env.API_KEY,
-				},
-			})
-			.then((res) => {
-				return res.data;
-			})
-			.catch((err) => {
-				console.log("Échec resAroundMe ! " + err);
-			});
-	};
+  const getAroundMeResults = async () => {
+    const searchId = await getSearchId();
+    return await axios
+      .get(`https://api.maas-dev.aws.vsct.fr/enc/search/aroundme/${searchId}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${newtoken}`,
+          "Content-Type": "application/json",
+          "x-api-key": process.env.API_KEY
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        console.log("Échec resAroundMe ! " + err);
+      });
+  };
 
-	return await getAroundMeResults();
+  return await getAroundMeResults(req);
 };
 
 // SEARCH ITINERARY
@@ -217,4 +217,5 @@ app.get("/search/itinerary", async (req, response) => {
 
 app.get("/", (req, res) => {
 	res.send("Hello Back");
+
 });
