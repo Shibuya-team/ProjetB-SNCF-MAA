@@ -72,7 +72,7 @@ const searchAroundMe = async () => {
 	const newtoken = await getNewToken();
 
 	const getSearchId = async () => {
-		await axios
+		return await axios
 			.post(
 				"https://api.maas-dev.aws.vsct.fr/enc/search/aroundme",
 				{
@@ -127,7 +127,7 @@ const searchItinerary = async () => {
 	const newtoken = await getNewToken();
 
 	const getSearchId = async () => {
-		await axios
+		return await axios
 			.post(
 				"https://api.maas-dev.aws.vsct.fr/enc/search/itinerary",
 				{
