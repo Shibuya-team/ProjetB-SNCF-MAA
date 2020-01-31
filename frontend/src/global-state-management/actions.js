@@ -85,6 +85,12 @@ export const departureActions = {
               lat: latLng.lat,
               lng: latLng.lng
             }
+          },
+          itineraryDataFromMaaS: {
+            wish: {},
+            status: "",
+            results: [],
+            searchId: ""
           }
         });
       })
@@ -204,32 +210,56 @@ export const validFormTravelActions = {
       });
     }
 
-    const getManyResultsFromAPI = searchId => {
-      setInterval(
-        axios
-          .get(
-            `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}&searchId=${store.state.itineraryDataFromMaaS.searchId}`
-          )
-          .then(res => {
-            store.setState({ itineraryDataFromMaaS: res.data });
-          })
-          .catch(err => {
-            console.log(
-              "Échec de connexion server pour search/itinerary ! " + err
-            );
-          }),
-        400
-      );
+    const getManyResultsFromAPI = async () => {
+      return await axios
+        .get(
+          `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}&searchId=${store.state.itineraryDataFromMaaS.searchId}`
+        )
+        .then(res => {
+          store.setState({
+            itineraryDataFromMaaS: {
+              wish: res.data.wish,
+              status: res.data.status,
+              results:
+                // [
+                res.data.results,
+              // ...res.data.results,
+              // {
+              //   segments: [
+              //     ...res.data.results.segments,
+              //     {
+              //       proposals: [
+              //         ...store.state.itineraryDataFromMaaS.results.segments.proposals.concat(
+              //           res.data.results.segments.proposals
+              //         )
+              //       ]
+              //     }
+              //   ]
+              // }
+              // ],
+              searchId: res.data.searchId
+            }
+            // store.state.itineraryDataFromMaaS.results.push(
+            //   res.data.results
+          });
+          //   if (
+          //     store.state.itineraryDataFromMaaS.status !== "COMPLETE" ||
+          //     store.state.itineraryDataFromMaaS.status !== "ERROR" ||
+          //     store.state.itineraryDataFromMaaS.results.length <= 20
+          //   ) {
+          //     getManyResultsFromAPI(store.state.itineraryDataFromMaaS.searchId);
+          //   }
+          // })
+        })
+        .catch(err => {
+          console.log(
+            "Échec de connexion server pour search/itinerary ! " + err
+          );
+        });
     };
+
     if (store.state.formTravel.isValid) {
-      if (
-        store.state.itineraryDataFromMaaS.status !== "COMPLETE" ||
-        store.state.itineraryDataFromMaaS.status !== "ERROR"
-      ) {
-        getManyResultsFromAPI(store.state.itineraryDataFromMaaS.searchId);
-      } else {
-        clearInterval(getManyResultsFromAPI);
-      }
+      getManyResultsFromAPI();
     }
   }
 };

@@ -6,6 +6,7 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
+import Bus from "../../images/icones/Mapicones/Bus";
 import Moment from "react-moment";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
@@ -32,15 +33,6 @@ const size = {
   large: "4em",
   xlarge: "5em"
 };
-
-const ContainerTitle = styled.div`
-  text-align: left;
-  color: ${props => props.theme.colors.white};
-  font-family: ${props => props.theme.fonts[0]};
-  font-size: ${props => props.theme.fontSizes.small};
-  padding: 0 20px 0 20px;
-  margin-top: 20px;
-`;
 
 const ContainerList = styled.div`
   display: flex;
@@ -84,6 +76,7 @@ const ContainerTitreLine = styled.div`
 `;
 const ContainerLine = styled.div`
   width: 100%;
+  height: 20 px;
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -108,7 +101,7 @@ const CardList = () => {
   const submission = useGlobal(state => state.formTravel.submitted)[0];
   return (
     <>
-      <ContainerLine>
+      {/* <ContainerLine>
         {submission > 0 ? (
           data.result && data.results.length > 0 ? (
             data.wish && data.wish.searchDate ? (
@@ -124,14 +117,7 @@ const CardList = () => {
         ) : (
           ""
         )}
-      </ContainerLine>
-
-      {/* <ContainerTitle>
-        <ul>
-          <li>DEPART:</li>
-          <li>ARRIVEE:</li>
-        </ul>
-      </ContainerTitle> */}
+      </ContainerLine> */}
 
       {data.results &&
         data.results.map((results, index) => {
@@ -143,24 +129,64 @@ const CardList = () => {
                   segment.proposals.map((proposal, index) => {
                     return (
                       <ContainerCard key={index + "proposal"}>
-                        <ContainerTitreLine>
-                          {proposal.fleetType === "VTC" ? (
-                            <Vtc size={size.medium} color={color.white} />
-                          ) : (
-                            <Taxi size={size.medium} color={color.white} />
-                          )}
-                        </ContainerTitreLine>
-                        <ContainerLine>
-                          {proposal.carWithDriverAttributes.passengerCapacity}
-                          <Travellers size={size.small} color={color.purple} />
-                        </ContainerLine>
-                        {proposal.carWithDriverAttributes.luggageCapacity ? (
-                          <ContainerLine>
-                            {proposal.carWithDriverAttributes.luggageCapacity}
-                            <Luggage size={size.small} color={color.purple} />
-                          </ContainerLine>
+                        {proposal.fleetType ? (
+                          <ContainerTitreLine>
+                            {proposal.fleetType === "VTC" ? (
+                              <Vtc size={size.medium} color={color.white} />
+                            ) : proposal.fleetType === "TAXI" ? (
+                              <Taxi size={size.medium} color={color.white} />
+                            ) : (
+                              <Bus size={size.medium} color={color.white} />
+                            )}
+                          </ContainerTitreLine>
+                        ) : proposal.mobilityType ? (
+                          <ContainerTitreLine>
+                            {proposal.mobilityType === "BUS" ? (
+                              <Bus size={size.medium} color={color.white} />
+                            ) : (
+                              ""
+                            )}
+                          </ContainerTitreLine>
                         ) : (
                           ""
+                        )}
+                        {proposal.carWithDriverAttributes ? (
+                          proposal.carWithDriverAttributes.passengerCapacity ? (
+                            <ContainerLine>
+                              {
+                                proposal.carWithDriverAttributes
+                                  .passengerCapacity
+                              }
+                              <Travellers
+                                size={size.small}
+                                color={color.purple}
+                              />
+                            </ContainerLine>
+                          ) : (
+                            <ContainerLine>
+                              <span style={{ height: "32.5px" }} />
+                            </ContainerLine>
+                          )
+                        ) : (
+                          <ContainerLine>
+                            <span style={{ height: "32.5px" }} />{" "}
+                          </ContainerLine>
+                        )}
+                        {proposal.carWithDriverAttributes ? (
+                          proposal.carWithDriverAttributes.luggageCapacity ? (
+                            <ContainerLine>
+                              {proposal.carWithDriverAttributes.luggageCapacity}
+                              <Luggage size={size.small} color={color.purple} />
+                            </ContainerLine>
+                          ) : (
+                            <ContainerLine>
+                              <span style={{ height: "32.5px" }} />{" "}
+                            </ContainerLine>
+                          )
+                        ) : (
+                          <ContainerLine>
+                            <span style={{ height: "32.5px" }} />{" "}
+                          </ContainerLine>
                         )}
 
                         <ContainerPrice>
