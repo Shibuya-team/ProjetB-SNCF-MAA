@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import axios from "../../../backend/node_modules/axios";
+import interval from "interval-promise";
 
 export const googleApiScriptActions = {
   handleScriptError: store => {
@@ -157,6 +158,14 @@ export const validFormTravelActions = {
             : ""
         }
       });
+      store.setState({
+        itineraryDataFromMaaS: {
+          wish: {},
+          status: "",
+          results: [],
+          searchId: ""
+        }
+      });
     } else if (
       departureISValid &&
       arrivalIsValid &&
@@ -186,6 +195,14 @@ export const validFormTravelActions = {
           searchDate: ""
         }
       });
+      store.setState({
+        itineraryDataFromMaaS: {
+          wish: {},
+          status: "",
+          results: [],
+          searchId: ""
+        }
+      });
     } else {
       store.setState({
         formTravel: {
@@ -210,46 +227,30 @@ export const validFormTravelActions = {
       });
     }
 
-    const getManyResultsFromAPI = async () => {
+    const loopResultsFromAPI = async () => {
       return await axios
         .get(
           `http://localhost:5000/search/itinerary?destLat=${store.state.infosToAPIMaaS.destination.lat}&destLng=${store.state.infosToAPIMaaS.destination.lng}&oriLat=${store.state.infosToAPIMaaS.origin.lat}&oriLng=${store.state.infosToAPIMaaS.origin.lng}&searchDate=${store.state.infosToAPIMaaS.searchDate}&searchId=${store.state.itineraryDataFromMaaS.searchId}`
         )
         .then(res => {
-          store.setState({
-            itineraryDataFromMaaS: {
-              wish: res.data.wish,
-              status: res.data.status,
-              results:
-                // [
-                res.data.results,
-              // ...res.data.results,
-              // {
-              //   segments: [
-              //     ...res.data.results.segments,
-              //     {
-              //       proposals: [
-              //         ...store.state.itineraryDataFromMaaS.results.segments.proposals.concat(
-              //           res.data.results.segments.proposals
-              //         )
-              //       ]
-              //     }
-              //   ]
-              // }
-              // ],
-              searchId: res.data.searchId
-            }
-            // store.state.itineraryDataFromMaaS.results.push(
-            //   res.data.results
-          });
-          //   if (
-          //     store.state.itineraryDataFromMaaS.status !== "COMPLETE" ||
-          //     store.state.itineraryDataFromMaaS.status !== "ERROR" ||
-          //     store.state.itineraryDataFromMaaS.results.length <= 20
-          //   ) {
-          //     getManyResultsFromAPI(store.state.itineraryDataFromMaaS.searchId);
-          //   }
-          // })
+          if (store.state.itineraryDataFromMaaS.searchId === "") {
+            store.setState({
+              itineraryDataFromMaaS: {
+                wish: res.data.wish,
+                status: res.data.status,
+                results: res.data.results,
+                searchId: res.data.searchId
+              }
+            });
+          } else {
+            store.setState({
+              itineraryDataFromMaaS: {
+                ...store.state.itineraryDataFromMaaS,
+                status: res.data.status,
+                results: res.data.results
+              }
+            });
+          }
         })
         .catch(err => {
           console.log(
@@ -258,9 +259,16 @@ export const validFormTravelActions = {
         });
     };
 
-    if (store.state.formTravel.isValid) {
-      getManyResultsFromAPI();
-    }
+    interval(async (iterations, stop) => {
+      if (
+        store.state.itineraryDataFromMaaS.status === "COMPLETE" ||
+        store.state.itineraryDataFromMaaS.status === "ERROR" ||
+        iterations === 15
+      ) {
+        stop();
+      }
+      await loopResultsFromAPI();
+    }, 200);
   }
 };
 
