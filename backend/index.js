@@ -77,9 +77,17 @@ app.get("/getNewToken", async (req, res) => {
     
   )
 	Token.findOne({}).then(async (tokenCreate) => {
-    console.log("hell2")
+    console.log("helleee2", tokenCreate)
+
+    if(tokenCreate === null) {
+      console.log("New create !")
+      Token.create({
+        token: await getNewToken(),
+      })
+    }
    
 		if (tokenCreate) {
+      console.log("Create ", tokenCreate)
       if(!tokenCreate.token) {
         const tok = await getNewToken();
         console.log("hello3", tok)
