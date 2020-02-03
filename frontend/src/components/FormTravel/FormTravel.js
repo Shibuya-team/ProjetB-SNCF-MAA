@@ -24,6 +24,7 @@ function FormTravel() {
     state => state.itinerary.departure,
     actions => actions.departureActions
   );
+
   return (
     <Container>
       <Departure />
