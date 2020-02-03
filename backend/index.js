@@ -6,6 +6,25 @@ const sequelize = require("./database/config/connect");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
 const cors = require("cors");
+const {Client} = require("pg");
+const axios = require("axios");
+
+
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+})
+client.connect();
+
+client.query('SELECT table_schema, table_name FROM information_schema.tables;', (err, res)=> {
+  if(err) throw err;
+  for(let row of res.rows) {
+    console.log(JSON.stringify(row))
+  }
+  client.end();
+})
+
 
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
 
@@ -45,25 +64,50 @@ const getNewToken = async () => {
 };
 
 app.get("/getNewToken", async (req, res) => {
+  console.log("helol1")
+  console.log({
+    username: process.env.DB_USER,
+		password: process.env.DB_PASS,
+		database: process.env.DB_NAME,
+		host: process.env.DB_HOST,
+		url: process.env.DATABASE_URL,
+		dialect: "postgres",
+		"use_env_variable": process.env.DATABASE_URL,
+  }
+    
+  )
 	Token.findOne({}).then(async (tokenCreate) => {
-		if (!tokenCreate) {
-			Token.create({
-				token: await getNewToken(),
-			});
+    console.log("hell2")
+   
+		if (tokenCreate) {
+      if(!tokenCreate.token) {
+        const tok = await getNewToken();
+        console.log("hello3", tok)
+        Token.create({
+          token: await getNewToken(),
+        });
+      }
+     
 		}
 
 		if (tokenCreate && tokenCreate.createdAt) {
+      console.log("hello4")
 			const result = Math.round(
 				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
 			);
 			if (result >= 3600) {
+        console.log("Hello5")
 				Token.destroy({
 					where: {},
 				});
 			}
-		}
-	});
-	res.sendStatus(200);
+    }
+    res.sendStatus(200);
+    console.log("hello6")
+
+  });
+  console.log("Helloo7")
+	
 });
 
 // SEARCH AROUNDME
@@ -193,5 +237,5 @@ app.get("/search/itinerary", async (req, response) => {
 });
 
 app.get("/", (req, res) => {
-	res.send("Hello Back");
+	res.send("Hello Backend");
 });

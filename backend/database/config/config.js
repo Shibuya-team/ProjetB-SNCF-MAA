@@ -2,24 +2,31 @@ require("dotenv").config();
 
 module.exports = {
 	development: {
-		username: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME,
-		host: process.env.DB_HOST,
+		username: "mmljjgqggjdxwb",
+		password: "407d7b1ac03e572466547e787a51814a292c8a089e038c304ddba2a599585dfe",
+		database: "d4hkribosg33rj",
+		host: "ec2-18-204-232-57.compute-1.amazonaws.com",
+		url: process.env.DATABASE_URL,
 		dialect: "postgres",
+		"use_env_variable": process.env.DATABASE_URL,
+	
 	},
 	test: {
-		username: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME,
-		host: process.env.DB_HOST,
+		username: "mmljjgqggjdxwb",
+		password: "407d7b1ac03e572466547e787a51814a292c8a089e038c304ddba2a599585dfe",
+		database: "d4hkribosg33rj",
+		host: "ec2-18-204-232-57.compute-1.amazonaws.com",
+		url: process.env.DATABASE_URL,
 		dialect: "postgres",
 	},
 	production: {
-		username: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME,
-		host: process.env.DB_HOST,
+		username: "mmljjgqggjdxwb",
+		password: "407d7b1ac03e572466547e787a51814a292c8a089e038c304ddba2a599585dfe",
+		database: "d4hkribosg33rj",
+		host: "ec2-18-204-232-57.compute-1.amazonaws.com",
+		url: process.env.DATABASE_URL,
 		dialect: "postgres",
-	},
+		  
+	}
+	  
 };
