@@ -6,40 +6,12 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-<<<<<<< Updated upstream
 import Data from "../../Data";
-import Moment from "react-moment";
-<<<<<<< HEAD
-=======
-import Data from "../../Data"; 
 import Moment from 'react-moment';
->>>>>>> Stashed changes
-=======
 import Media from "styled-media-query";
->>>>>>> 9c6894adb12007820abbb89ecb6cb828a2fd57ca
-
-const color = {
-  grey: "#EBE8E8",
-  oldpink: "#F0DBD8",
-  salmon: "#FFCAB8",
-  gold: "#F9C153",
-  purple: "#241F5D",
-  velvet: "#5353A2",
-  plum: "#6767AD",
-  emerald: "#78C4D2",
-  turquoise: "#7ED0DF",
-  asura: "#94DAD5",
-  orange: "#FF8B66",
-  brick: "#EB5933",
-  white: "#FFFFFF"
-};
-
-const size = {
-  small: "1em",
-  medium: "2em",
-  large: "4em",
-  xlarge: "5em"
-};
+import useGlobal from "../../global-state-management/store";
+import color from "../color";
+import size from "../size";
 
 const ContainerTitle = styled.div`
   text-align: left;
