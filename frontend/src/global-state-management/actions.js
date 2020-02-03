@@ -227,6 +227,7 @@ export const validFormTravelActions = {
       });
     }
 
+
     const loopResultsFromAPI = async () => {
       return await axios
         .get(
@@ -251,6 +252,7 @@ export const validFormTravelActions = {
               }
             });
           }
+
         })
         .catch(err => {
           console.log(
@@ -269,6 +271,7 @@ export const validFormTravelActions = {
       }
       await loopResultsFromAPI();
     }, 200);
+
   }
 };
 
