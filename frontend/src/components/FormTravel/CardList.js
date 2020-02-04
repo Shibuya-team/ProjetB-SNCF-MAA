@@ -6,8 +6,6 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-import Data from "../../Data";
-import Moment from 'react-moment';
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
 import color from "../color";
@@ -86,9 +84,9 @@ const ContainerPrice = styled.div`
 const CardList = () => {
   return (
     <>
-      <Moment format="DD-MM-YYYY HH:mm">
+      {/* <Moment format="DD-MM-YYYY HH:mm">
         {Data.results.departureDateTime}
-      </Moment>
+      </Moment> */}
 
       {/* <ContainerTitle>
         <ul>
