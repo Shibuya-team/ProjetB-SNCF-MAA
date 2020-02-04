@@ -4,7 +4,10 @@ import styled from "styled-components";
 import MenuBurger from "./components/Nav/MenuBurger";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer";
+import secrets from "./secrets";
+import Script from "react-load-script";
 import axios from "axios";
+import useGlobal from "./global-state-management/store";
 
 const Container = styled.div`
   max-width: 2440px;
@@ -20,27 +23,42 @@ const Container = styled.div`
   background-color: ${props => props.theme.colors.emerald};
   color: ${props => props.theme.colors.white};
   font-family: ${props => props.theme.fonts[0]};
+  & .footer {
+    align-self: bottom;
+  }
 `;
 
 function App() {
+  //Script loading
+  const [googleApiScript, googleApiScriptActions] = useGlobal(
+    state => state.googleApiScript,
+    actions => actions.googleApiScriptActions
+  );
 
-	useEffect(() => {
-		axios
-			.get("http://localhost:5000/getNewToken")
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err.message));
-	}, []);
+  useEffect(() => {
+    axios
+      .get("https://guarded-earth-54552.herokuapp.com/getNewToken")
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err.message));
+  }, []);
 
-	return (
-		<>
-			<Theme>
-				<Container>
-					<MenuBurger />
+  return (
+    <Theme>
+      <Container>
+        <MenuBurger />
+        <Script
+          url={`https://maps.googleapis.com/maps/api/js?key=${secrets.apiKey}&libraries=places&region=FR`}
+          onError={googleApiScriptActions.handleScriptError}
+          onLoad={googleApiScriptActions.handleScriptLoad}
+        />
+        {googleApiScript.scriptLoaded === true ? (
           <LandingPage />
-        </Container>
-        <Footer />
-      </Theme>
-    </>
+        ) : (
+          <p>Chargement...</p>
+        )}
+        <Footer id="footer" />
+      </Container>
+    </Theme>
   );
 }
 

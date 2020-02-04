@@ -1,9 +1,6 @@
 import React from "react";
-import "../LandingPage/Accordeon.css";
 import ButtonStyle from "../ButtonStyle";
 import styled from "styled-components";
-
-
 const StyledInput = styled.input`
 line-height:  1.2em ;
 width: 250px;
@@ -17,22 +14,14 @@ padding:20px;
 margin:10px;
 background: rgba(255, 255, 255, 0); 
 color: #241F5D;
-
 }
-
 `;
-
-
-function FormArroundMe() {
-	return <>
-	
-			
-        <StyledInput  placeholder='Mon adresse '/>
-
-        <ButtonStyle label='VALIDER'/>
-
-	
-	</>;
+function FormAroundMe() {
+  return (
+    <>
+      <StyledInput placeholder="Mon adresse " />
+      <ButtonStyle label="VALIDER" />
+    </>
+  );
 }
-
-export default FormArroundMe;
+export default FormAroundMe;

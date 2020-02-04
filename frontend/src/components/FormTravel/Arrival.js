@@ -2,21 +2,21 @@ import React from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { connect } from "../../global-state-management/store";
 
-export class Departure extends React.Component {
+export class Arrival extends React.Component {
   render() {
     const { state, actions } = this.props;
     return (
       <PlacesAutocomplete
-        value={state.itinerary.departure.address}
-        onChange={actions.departureActions.handleDeparture}
-        onSelect={actions.departureActions.handleSelect}
-        shouldFetchSuggestions={state.itinerary.departure.address.length > 1}
+        value={state.itinerary.arrival.address}
+        onChange={actions.arrivalActions.handleArrival}
+        onSelect={actions.arrivalActions.handleSelect}
+        shouldFetchSuggestions={state.itinerary.arrival.address.length > 1}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input
               id="departure"
-              placeholder="Adresse de départ"
+              placeholder="Adresse d'arrivée"
               style={{
                 lineHeight: "1.2em",
                 width: "250px",
@@ -93,4 +93,4 @@ export class Departure extends React.Component {
   }
 }
 
-export default connect(Departure);
+export default connect(Arrival);
