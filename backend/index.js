@@ -242,6 +242,8 @@ app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary(req);
   response.send(resItinerary);
 
+});
+
 app.get("/", (req, res) => {
 	res.send("Hello Backend");
 });
