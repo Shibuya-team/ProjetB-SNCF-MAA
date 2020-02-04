@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import axios from "../../../backend/node_modules/axios";
 import interval from "interval-promise";
@@ -227,7 +226,6 @@ export const validFormTravelActions = {
       });
     }
 
-
     const loopResultsFromAPI = async () => {
       return await axios
         .get("http://localhost:5000/search/itinerary", {
@@ -259,7 +257,6 @@ export const validFormTravelActions = {
               }
             });
           }
-
         })
         .catch(err => {
           console.log(
@@ -278,7 +275,6 @@ export const validFormTravelActions = {
       }
       await loopResultsFromAPI();
     }, 200);
-
   }
 };
 

@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React from "react";
 import styled from "styled-components";
 import ButtonStyle from "../ButtonStyle";
@@ -7,7 +6,6 @@ import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
 import Bus from "../../images/icones/Mapicones/Bus";
-import Moment from "react-moment";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
 import color from "../color";
@@ -63,14 +61,14 @@ const ContainerTitreLine = styled.div`
   font-size: ${props => props.theme.fontSizes.small};
 `;
 const ContainerLine = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	flex-direction: row;
-	padding: 10px 0 10px 0;
-	color: ${(props) => props.theme.colors.purple};
-	font-family: ${(props) => props.theme.fonts[0]};
-	font-size: ${(props) => props.theme.fontSizes.medium};
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 10px 0 10px 0;
+  color: ${props => props.theme.colors.purple};
+  font-family: ${props => props.theme.fonts[0]};
+  font-size: ${props => props.theme.fontSizes.medium};
 `;
 const ContainerPrice = styled.div`
   width: 100%;
@@ -85,7 +83,7 @@ const ContainerPrice = styled.div`
 
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
-  
+
   return (
     <>
       {data.results &&
