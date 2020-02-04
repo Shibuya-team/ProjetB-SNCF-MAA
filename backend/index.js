@@ -36,35 +36,35 @@ app.options(
 );
 
 sequelize
-	.authenticate()
-	.then(() => {
-		console.log("La connexion a été établie avec succès.");
-	})
-	.catch((err) => {
-		console.error(
-			"Impossible de se connecter à la base de données :",
-			err.message,
-		);
-	});
+  .authenticate()
+  .then(() => {
+    console.log("La connexion a été établie avec succès.");
+  })
+  .catch(err => {
+    console.error(
+      "Impossible de se connecter à la base de données :",
+      err.message
+    );
+  });
 
 // TOKEN
 const getNewToken = async () => {
-	return await axios
-		.post(
-			"https://auth.maas-dev.aws.vsct.fr/oauth2/token",
-			"grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
-			{
-				headers: {
-					Authorization: process.env.AUTH,
-					"Content-Type": "application/x-www-form-urlencoded",
-					"x-api-key": process.env.API_KEY,
-				},
-			},
-		)
-		.then((res) => {
-			return res.data.access_token;
-		})
-		.catch((err) => console.log(err.message));
+  return await axios
+    .post(
+      "https://auth.maas-dev.aws.vsct.fr/oauth2/token",
+      "grant_type=client_credentials&scope=https%3A%2F%2Fapi.maas-dev.aws.vsct.fr%2F.*%2Fsearch.*%3A.*",
+      {
+        headers: {
+          Authorization: process.env.AUTH,
+          "Content-Type": "application/x-www-form-urlencoded",
+          "x-api-key": process.env.API_KEY
+        }
+      }
+    )
+    .then(res => {
+      return res.data.access_token;
+    })
+    .catch(err => console.log(err.message));
 };
 
 app.get("/getNewToken", async (req, res) => {
@@ -96,11 +96,11 @@ app.get("/getNewToken", async (req, res) => {
     res.sendStatus(200);
 
   });
-	
 });
 
 // SEARCH AROUNDME
-const searchAroundMe = async req => {
+
+const searchAroundMe = async () => {
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {
@@ -150,8 +150,7 @@ const searchAroundMe = async req => {
         console.log("Échec resAroundMe ! " + err);
       });
   };
-
-  return await getAroundMeResults(req);
+  return await getAroundMeResults();
 };
 
 // SEARCH ITINERARY
@@ -241,6 +240,7 @@ app.get("/search/aroundme", async (req, response) => {
 app.get("/search/itinerary", async (req, response) => {
   const resItinerary = await searchItinerary(req);
   response.send(resItinerary);
+});
 
 });
 
