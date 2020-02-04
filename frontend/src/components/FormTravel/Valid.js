@@ -7,6 +7,7 @@ function Valid() {
     state => state.formTravel,
     actions => actions.validFormTravelActions
   );
+
   return (
     <>
       <p style={{ color: "red" }}>
@@ -14,7 +15,7 @@ function Valid() {
       </p>
       <ButtonStyle
         label="VALIDER"
-        onSubmit={validFormTravelActions.handleSubmit}
+        onClick={validFormTravelActions.handleSubmit}
       />
     </>
   );

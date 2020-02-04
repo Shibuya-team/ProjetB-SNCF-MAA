@@ -7,11 +7,13 @@ const initialState = {
   itinerary: {
     departure: { ...placeStateInit },
     arrival: { ...placeStateInit },
-    date: new Date()
+    date: new Date(),
+    dateISO: ""
   },
   formTravel: {
     isValid: false,
-    message: ""
+    message: "",
+    submitted: 0
   },
   aroundme: {
     origin: { ...placeStateInit },
@@ -27,6 +29,23 @@ const initialState = {
       lng: 2.3667
     },
     zoom: 10
+  },
+  infosToAPIMaaS: {
+    destination: {
+      lat: null,
+      lng: null
+    },
+    origin: {
+      lat: null,
+      lng: null
+    },
+    searchDate: ""
+  },
+  itineraryDataFromMaaS: {
+    wish: {},
+    status: "",
+    results: [],
+    searchId: ""
   }
 };
 

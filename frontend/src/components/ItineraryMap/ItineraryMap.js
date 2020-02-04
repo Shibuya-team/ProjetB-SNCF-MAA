@@ -3,9 +3,7 @@ import {
   GoogleMapProvider,
   MapBox,
   Marker,
-  Polyline,
-  OverlayView,
-  InfoWindow
+  Polyline
 } from "@googlemap-react/core";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import CoDriving from "../../images/icones/Mapicones/CoDriving";
