@@ -63,15 +63,14 @@ const ContainerTitreLine = styled.div`
   font-size: ${props => props.theme.fontSizes.small};
 `;
 const ContainerLine = styled.div`
-  width: 100%;
-  height: 20 px;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  padding: 10px 0 10px 0;
-  color: ${props => props.theme.colors.purple};
-  font-family: ${props => props.theme.fonts[0]};
-  font-size: ${props => props.theme.fontSizes.medium};
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding: 10px 0 10px 0;
+	color: ${(props) => props.theme.colors.purple};
+	font-family: ${(props) => props.theme.fonts[0]};
+	font-size: ${(props) => props.theme.fontSizes.medium};
 `;
 const ContainerPrice = styled.div`
   width: 100%;
@@ -86,27 +85,9 @@ const ContainerPrice = styled.div`
 
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
-  const submission = useGlobal(state => state.formTravel.submitted)[0];
+  
   return (
     <>
-      {/* <ContainerLine>
-        {submission > 0 ? (
-          data.result && data.results.length > 0 ? (
-            data.wish && data.wish.searchDate ? (
-              <Moment format="DD-MM-YYYY HH:mm">{data.wish.searchDate}</Moment>
-            ) : !data.wish.searchDate ? (
-              <Moment format="DD-MM-YYYY HH:mm">{data.wish.createdAt}</Moment>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        )}
-      </ContainerLine> */}
-
       {data.results &&
         data.results.map((results, index) => {
           return (

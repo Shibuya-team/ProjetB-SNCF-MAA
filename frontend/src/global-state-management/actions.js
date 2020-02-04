@@ -227,6 +227,7 @@ export const validFormTravelActions = {
       });
     }
 
+
     const loopResultsFromAPI = async () => {
       return await axios
         .get("http://localhost:5000/search/itinerary", {
@@ -258,6 +259,7 @@ export const validFormTravelActions = {
               }
             });
           }
+
         })
         .catch(err => {
           console.log(
@@ -276,6 +278,7 @@ export const validFormTravelActions = {
       }
       await loopResultsFromAPI();
     }, 200);
+
   }
 };
 
