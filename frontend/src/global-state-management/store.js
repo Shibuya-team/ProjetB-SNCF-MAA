@@ -46,7 +46,8 @@ const initialState = {
     status: "",
     results: [],
     searchId: ""
-  }
+  },
+  messageItinerary: ""
 };
 
 const useGlobal = useGlobalHook(React, initialState, actions);

@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ButtonStyle from "../ButtonStyle";
 import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
-import Data from "../../Data";
-import Moment from 'react-moment';
 import Bus from "../../images/icones/Mapicones/Bus";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
@@ -85,9 +83,15 @@ const ContainerPrice = styled.div`
 
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
+  const message = useGlobal(state => state.messageItinerary)[0];
+
+  useEffect(() => {
+    document.getElementById("messageItineraryId").innerHTML = `${message}`;
+  }, [message]);
 
   return (
     <>
+      <ContainerLine id="messageItineraryId">{message}</ContainerLine>
       {data.results &&
         data.results.map((results, index) => {
           return (

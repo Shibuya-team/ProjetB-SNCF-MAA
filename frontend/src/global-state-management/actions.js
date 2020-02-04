@@ -230,12 +230,12 @@ export const validFormTravelActions = {
       return await axios
         .get("http://localhost:5000/search/itinerary", {
           params: {
-            destLat: `${store.state.infosToAPIMaaS.destination.lat}`,
-            destLng: `${store.state.infosToAPIMaaS.destination.lng}`,
-            oriLat: `${store.state.infosToAPIMaaS.origin.lat}`,
-            oriLng: `${store.state.infosToAPIMaaS.origin.lng}`,
-            searchDate: `${store.state.infosToAPIMaaS.searchDate}`,
-            searchId: `${store.state.itineraryDataFromMaaS.searchId}`
+            destLat: store.state.infosToAPIMaaS.destination.lat,
+            destLng: store.state.infosToAPIMaaS.destination.lng,
+            oriLat: store.state.infosToAPIMaaS.origin.lat,
+            oriLng: store.state.infosToAPIMaaS.origin.lng,
+            searchDate: store.state.infosToAPIMaaS.searchDate,
+            searchId: store.state.itineraryDataFromMaaS.searchId
           }
         })
         .then(res => {
@@ -274,6 +274,29 @@ export const validFormTravelActions = {
         stop();
       }
       await loopResultsFromAPI();
+
+      if (
+        store.state.itineraryDataFromMaaS.status === "COMPLETE" &&
+        store.state.itineraryDataFromMaaS.results.length === 0
+      ) {
+        store.setState({
+          messageItinerary:
+            "Désolé, il semblerait que nous ne puissions vous proposer de transport pour ce trajet."
+        });
+      } else if (store.state.itineraryDataFromMaaS.status === "ERROR") {
+        store.setState({
+          messageItinerary:
+            "Oups ! une erreur s'est produite. voulez-vous ressayer ?"
+        });
+      } else if (store.state.itineraryDataFromMaaS.status === "IN_PROGRESS") {
+        await store.setState({
+          messageItinerary: "Chargement..."
+        });
+      } else {
+        store.setState({
+          messageItinerary: ""
+        });
+      }
     }, 200);
   }
 };
