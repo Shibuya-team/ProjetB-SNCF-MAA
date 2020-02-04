@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import ButtonStyle from "../ButtonStyle";
 import Luggage from "../../images/icones/Luggage";
@@ -85,13 +85,9 @@ const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
   const message = useGlobal(state => state.messageItinerary)[0];
 
-  useEffect(() => {
-    document.getElementById("messageItineraryId").innerHTML = `${message}`;
-  }, [message]);
-
   return (
     <>
-      <ContainerLine id="messageItineraryId">{message}</ContainerLine>
+      <ContainerLine>{message}</ContainerLine>
       {data.results &&
         data.results.map((results, index) => {
           return (
