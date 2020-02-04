@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getNewToken")
+      .get("https://guarded-earth-54552.herokuapp.com/getNewToken")
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
   }, []);
