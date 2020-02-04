@@ -10,7 +10,6 @@ const {Client} = require("pg");
 const axios = require("axios");
 
 
-
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true
@@ -64,57 +63,34 @@ const getNewToken = async () => {
 };
 
 app.get("/getNewToken", async (req, res) => {
-  console.log("helol1")
-  console.log({
-    username: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME,
-		host: process.env.DB_HOST,
-		url: process.env.DATABASE_URL,
-		dialect: "postgres",
-		"use_env_variable": process.env.DATABASE_URL,
-  }
-    
-  )
 	Token.findOne({}).then(async (tokenCreate) => {
-    console.log("helleee2", tokenCreate)
-
     if(tokenCreate === null) {
-      console.log("New create !")
       Token.create({
         token: await getNewToken(),
       })
     }
-   
+
 		if (tokenCreate) {
-      console.log("Create ", tokenCreate)
       if(!tokenCreate.token) {
-        const tok = await getNewToken();
-        console.log("hello3", tok)
         Token.create({
           token: await getNewToken(),
         });
       }
-     
 		}
 
 		if (tokenCreate && tokenCreate.createdAt) {
-      console.log("hello4")
 			const result = Math.round(
 				(Date.now() - Date.parse(tokenCreate.createdAt)) / 1000,
 			);
 			if (result >= 3600) {
-        console.log("Hello5")
 				Token.destroy({
 					where: {},
 				});
 			}
     }
     res.sendStatus(200);
-    console.log("hello6")
 
   });
-  console.log("Helloo7")
 	
 });
 
