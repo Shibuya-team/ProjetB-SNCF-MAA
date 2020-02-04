@@ -75,7 +75,6 @@ app.get("/getNewToken", async (req, res) => {
 // SEARCH AROUNDME
 
 const searchAroundMe = async () => {
-
   const newtoken = await getNewToken();
 
   const getSearchId = async () => {
@@ -126,7 +125,6 @@ const searchAroundMe = async () => {
       });
   };
   return await getAroundMeResults();
-
 };
 
 // SEARCH ITINERARY
@@ -219,5 +217,5 @@ app.get("/search/itinerary", async (req, response) => {
 });
 
 app.get("/", (req, res) => {
-	res.send("Hello Back");
+  res.send("Hello Back");
 });
