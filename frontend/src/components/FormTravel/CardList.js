@@ -5,6 +5,7 @@ import Luggage from "../../images/icones/Luggage";
 import Travellers from "../../images/icones/Travellers";
 import Taxi from "../../images/icones/Mapicones/Taxi";
 import Vtc from "../../images/icones/Mapicones/Vtc";
+import Bus from "../../images/icones/Mapicones/Bus";
 import Media from "styled-media-query";
 import useGlobal from "../../global-state-management/store";
 import color from "../color";
@@ -82,9 +83,11 @@ const ContainerPrice = styled.div`
 
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
+  const message = useGlobal(state => state.messageItinerary)[0];
 
   return (
     <>
+      <ContainerLine>{message}</ContainerLine>
       {data.results &&
         data.results.map((results, index) => {
           return (
