@@ -7,6 +7,7 @@ const sequelize = require("./database/config/connect");
 const User = require("./database/models/").User;
 const Token = require("./database/models/").Token;
 const cors = require("cors");
+const { Client } = require("pg");
 
 app.listen(PORT, console.log(`Ecoute sur le port ${PORT}`));
 
@@ -16,6 +17,23 @@ app.options(
   cors({
     origin: "http://localhost:3000"
   })
+);
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+client.connect();
+
+client.query(
+  "SELECT table_schema, table_name FROM information_schema.tables;",
+  (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      console.log(JSON.stringify(row));
+    }
+    client.end();
+  }
 );
 
 sequelize
@@ -52,10 +70,17 @@ const getNewToken = async () => {
 
 app.get("/getNewToken", async (req, res) => {
   Token.findOne({}).then(async tokenCreate => {
-    if (!tokenCreate) {
+    if (tokenCreate === null) {
       Token.create({
         token: await getNewToken()
       });
+    }
+    if (tokenCreate) {
+      if (!tokenCreate.token) {
+        Token.create({
+          token: await getNewToken()
+        });
+      }
     }
 
     if (tokenCreate && tokenCreate.createdAt) {
