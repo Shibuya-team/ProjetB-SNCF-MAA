@@ -17,30 +17,31 @@ const Container = styled.div`
 `;
 
 function FormTravel() {
-	const [itineraryArrival, arrivalActions] = useGlobal(
-		(state) => state.itinerary.arrival,
-		(actions) => actions.arrivalActions,
-	);
-	const [itineraryDeparture, departureActions] = useGlobal(
-		(state) => state.itinerary.departure,
-		(actions) => actions.departureActions,
-	);
-	return (
-		<Container>
-			<Departure />
-			<Arrival />
-			<Datepicker />
-			<Valid />
-			{itineraryDeparture.lat !== 0 && itineraryArrival.lat !== 0 ? (
-				<>
-					<ItineraryMap />
-					<CardList />
-				</>
-			) : (
-				<></>
-			)}
-		</Container>
-	);
+  const [itineraryArrival, arrivalActions] = useGlobal(
+    state => state.itinerary.arrival,
+    actions => actions.arrivalActions
+  );
+  const [itineraryDeparture, departureActions] = useGlobal(
+    state => state.itinerary.departure,
+    actions => actions.departureActions
+  );
+
+  return (
+    <Container>
+      <Departure />
+      <Arrival />
+      <Datepicker />
+      <Valid />
+      {itineraryDeparture.lat !== 0 && itineraryArrival.lat !== 0 ? (
+        <>
+          <ItineraryMap />
+          <CardList />
+        </>
+      ) : (
+        <></>
+      )}
+    </Container>
+  );
 }
 
 export default FormTravel;
