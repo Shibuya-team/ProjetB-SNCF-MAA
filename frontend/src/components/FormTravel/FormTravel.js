@@ -10,9 +10,10 @@ import ItineraryMap from "../ItineraryMap/ItineraryMap";
 import useGlobal from "../../global-state-management/store";
 
 const Container = styled.div`
-  .gm-ui-hover-effect {
-    opacity: 0;
-  }
+	.gm-ui-hover-effect {
+		opacity: 0;
+		background-color: ${(props) => props.theme.colors.sky};
+	}
 `;
 
 function FormTravel() {

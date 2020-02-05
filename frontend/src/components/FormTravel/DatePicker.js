@@ -5,12 +5,31 @@ import useGlobal from "../../global-state-management/store";
 import * as momentTz from "moment-timezone";
 
 const StyledInput = styled.div`
-  font-size: 2em;
-  color: #241f5d;
-  padding: 10px;
+	font-size: 1.5em;
+	color: #5353a2;
+	padding: 10px;
 `;
 
 function DatePicker() {
+<<<<<<< HEAD
+	const [date, datePickerActions] = useGlobal(
+		(state) => state.itinerary.date,
+		(actions) => actions.datePickerActions,
+	);
+	return (
+		<StyledInput>
+			<DateTimePicker
+				value={date}
+				onChange={datePickerActions.handleDateTime}
+				showLeadingZeros={true}
+				required={true}
+				disableClock={true}
+				minDate={new Date()}
+				clearIcon={false}
+			/>
+		</StyledInput>
+	);
+=======
   const [date, datePickerActions] = useGlobal(
     state => state.itinerary.date,
     actions => actions.datePickerActions
@@ -41,6 +60,7 @@ function DatePicker() {
       />
     </StyledInput>
   );
+>>>>>>> 33a527f34cd7a8ee80b8177f79d6676b739dd342
 }
 
 export default DatePicker;

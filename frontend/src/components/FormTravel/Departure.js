@@ -11,6 +11,7 @@ export class Departure extends React.Component {
         onChange={actions.departureActions.handleDeparture}
         onSelect={actions.departureActions.handleSelect}
         shouldFetchSuggestions={state.itinerary.departure.address.length > 1}
+       
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>

@@ -5,8 +5,6 @@ import {
   Marker,
   Polyline
 } from "@googlemap-react/core";
-import Taxi from "../../images/icones/Mapicones/Taxi";
-import CoDriving from "../../images/icones/Mapicones/CoDriving";
 import secrets from "../../secrets";
 import useGlobal from "../../global-state-management/store";
 
@@ -74,7 +72,8 @@ export const ItineraryMap = props => {
               { lat: itineraryDeparture.lat, lng: itineraryDeparture.lng },
               { lat: itineraryArrival.lat, lng: itineraryArrival.lng }
             ],
-            strokeColor: "orange"
+			strokeColor: "orange",
+			strokeWeight: 5
           }}
         />
       </GoogleMapProvider>
