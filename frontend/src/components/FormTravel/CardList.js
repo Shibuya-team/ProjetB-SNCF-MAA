@@ -66,6 +66,13 @@ const ContainerPrice = styled.div`
   font-size: ${props => props.theme.fontSizes.large};
 `;
 
+const Valider = styled.div`
+    text-align: right;
+    color: ${(props) => props.theme.colors.purple};
+    font-family: ${(props) => props.theme.fonts[0]};
+    font-size: ${(props) => props.theme.fontSizes.small};
+`;
+
 const CardList = () => {
   const data = useGlobal(state => state.itineraryDataFromMaaS)[0];
   const message = useGlobal(state => state.messageItinerary)[0];
