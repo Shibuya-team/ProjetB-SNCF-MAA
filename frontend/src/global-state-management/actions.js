@@ -228,19 +228,16 @@ export const validFormTravelActions = {
 
     const loopResultsFromAPI = async () => {
       return await axios
-        .get(
-          "http://guarded-earth-54552.herokuapp.com/git add .search/itinerary",
-          {
-            params: {
-              destLat: store.state.infosToAPIMaaS.destination.lat,
-              destLng: store.state.infosToAPIMaaS.destination.lng,
-              oriLat: store.state.infosToAPIMaaS.origin.lat,
-              oriLng: store.state.infosToAPIMaaS.origin.lng,
-              searchDate: store.state.infosToAPIMaaS.searchDate,
-              searchId: store.state.itineraryDataFromMaaS.searchId
-            }
+        .get("http://guarded-earth-54552.herokuapp.com/search/itinerary", {
+          params: {
+            destLat: store.state.infosToAPIMaaS.destination.lat,
+            destLng: store.state.infosToAPIMaaS.destination.lng,
+            oriLat: store.state.infosToAPIMaaS.origin.lat,
+            oriLng: store.state.infosToAPIMaaS.origin.lng,
+            searchDate: store.state.infosToAPIMaaS.searchDate,
+            searchId: store.state.itineraryDataFromMaaS.searchId
           }
-        )
+        })
         .then(res => {
           if (store.state.itineraryDataFromMaaS.searchId === "") {
             store.setState({
