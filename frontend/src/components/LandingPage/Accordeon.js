@@ -9,6 +9,7 @@ import {
 import "./Accordeon.css";
 import Quotes from "../../images/icones/Quotes";
 import Transportation from "../../images/Transportation";
+import SliderHome from "./SliderHome";
 import styled from "styled-components";
 import MobiliteFirstLogo from "../../images/MobiliteFirstLogo";
 import FormAroundMe from "../FormAroundMe/FormAroundMe";
@@ -47,7 +48,7 @@ export default function Accordeon() {
 						<Quotes />
 						<h2>COMMANDEZ</h2>
 						<p>votre trajet multi-modal</p>
-						<Transportation />
+						<SliderHome />
 					</Container>
 				</AccordionItemPanel>
 			</AccordionItem>
