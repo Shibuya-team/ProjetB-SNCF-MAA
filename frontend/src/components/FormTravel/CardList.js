@@ -117,9 +117,9 @@ const CardList = () => {
                           proposal.carWithDriverAttributes.passengerCapacity ? 
               
                               
-                                proposal.carWithDriverAttributes.passengerCapacity
+                               (<> {proposal.carWithDriverAttributes.passengerCapacity}
                               
-                             (<><Travellers
+                             <Travellers
                                 size={size.small}
 								color={color.purple}
 								style={{ paddingRight: "10px" }}
@@ -139,10 +139,10 @@ const CardList = () => {
                         {proposal.carWithDriverAttributes ? (
                           proposal.carWithDriverAttributes.luggageCapacity ? 
                             
-                              proposal.carWithDriverAttributes.luggageCapacity
-                             ( <Luggage size={size.small} color={color.purple} style={{ paddingRight: "10px" }} />
+                             (<> {proposal.carWithDriverAttributes.luggageCapacity}
+                              <Luggage size={size.small} color={color.purple} style={{ paddingRight: "10px" }} />
                           
-                          ) : (
+                          </>) : (
                            
                               <span style={{ width: "20px" }} />
   
