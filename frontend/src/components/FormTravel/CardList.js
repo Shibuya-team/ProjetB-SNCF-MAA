@@ -120,43 +120,47 @@ const CardList = () => {
                               )
                             ) : (
                               ""
-                            )
-                     
-                        ) : (
-                          ""
-						)}
-							<span style={{ paddingRight: "10px" }} />
-                        {proposal.carWithDriverAttributes ? (
-                          proposal.carWithDriverAttributes.passengerCapacity ? 
-              
-                              
-                               (<> {proposal.carWithDriverAttributes.passengerCapacity}
-                              
-                             <Travellers
-                                size={size.small}
-								color={color.purple}
-								style={{ paddingRight: "10px" }}
-                              />
-							  	<span style={{ paddingRight: "10px" }} />
-                           
-                          </>) : (
-                           
+                            )}
+                            <span style={{ paddingRight: "10px" }} />
+                            {proposal.carWithDriverAttributes ? (
+                              proposal.carWithDriverAttributes
+                                .passengerCapacity ? (
+                                <>
+                                  {
+                                    proposal.carWithDriverAttributes
+                                      .passengerCapacity
+                                  }
+                                  <Travellers
+                                    size={size.small}
+                                    color={color.purple}
+                                    style={{ paddingRight: "10px" }}
+                                  />
+                                  <span style={{ paddingRight: "10px" }} />
+                                </>
+                              ) : (
+                                <span style={{ width: "20px" }} />
+                              )
+                            ) : (
                               <span style={{ width: "20px" }} />
-           
-                          )
-                        ) : (
-                          
-                           <span style={{ width: "20px" }} />
-                          
-                        )}
-                        {proposal.carWithDriverAttributes ? (
-                          proposal.carWithDriverAttributes.luggageCapacity ? 
-                            
-                             (<> {proposal.carWithDriverAttributes.luggageCapacity}
-                              <Luggage size={size.small} color={color.purple} style={{ paddingRight: "10px" }} />
-                          
-                          </>) : (
-                           
+                            )}
+                            {proposal.carWithDriverAttributes ? (
+                              proposal.carWithDriverAttributes
+                                .luggageCapacity ? (
+                                <>
+                                  {
+                                    proposal.carWithDriverAttributes
+                                      .luggageCapacity
+                                  }
+                                  <Luggage
+                                    size={size.small}
+                                    color={color.purple}
+                                    style={{ paddingRight: "10px" }}
+                                  />
+                                </>
+                              ) : (
+                                <span style={{ width: "20px" }} />
+                              )
+                            ) : (
                               <span style={{ width: "20px" }} />
                             )}
 
