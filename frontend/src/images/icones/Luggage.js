@@ -7,7 +7,7 @@ const Luggage = (props) => (
 		strokeLinejoin="round"
 		strokeMiterlimit="2"
 		clipRule="evenodd"
-		viewBox="0 0 5 5"
+		viewBox="0 -1 5 5"
 		width={props.size}
 	>
 		<path fill="none" d="M0 0H4.031V4.049H0z"></path>
