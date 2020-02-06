@@ -11,38 +11,38 @@ import color from "../color";
 import size from "../size";
 
 const ContainerTitle = styled.div`
-	color: ${(props) => props.theme.colors.white};
-	font-family: ${(props) => props.theme.fonts[0]};
-	font-size: ${(props) => props.theme.fontSizes.small};
-	background-color: ${(props) => props.theme.colors.asura};
-	${Media.greaterThan("large")`width=50%;`}
+  color: ${props => props.theme.colors.white};
+  font-family: ${props => props.theme.fonts[0]};
+  font-size: ${props => props.theme.fontSizes.small};
+  background-color: ${props => props.theme.colors.asura};
+  ${Media.greaterThan("large")`width=50%;`}
 `;
 
 const ContainerList = styled.div`
-	padding: 5px 0 5px 0;
-	background-color: ${(props) => props.theme.colors.asura};
-	${Media.greaterThan("large")`width=50%;`}
+  padding: 5px 0 5px 0;
+  background-color: ${props => props.theme.colors.asura};
+  ${Media.greaterThan("large")`width=50%;`}
 `;
 
 const ContainerCard = styled.div`
-	display: flex;
-	margin: 5px 0 5px 0;
-	justify-content: space-between;
-	padding: 10px;
-	width: auto;
-	background-color: ${(props) => props.theme.colors.sky};
-	color: ${(props) => props.theme.colors.white};
-	font-family: ${(props) => props.theme.fonts[0]};
-	animation: slide 0.1s ease-in-out;
-	${Media.greaterThan("large")`width=50%;`}
-	@keyframes slide {
-		0% {
-			transform: translate(0px, 100px);
-		}
-		100% {
-			transform: translate(0px, 0px);
-		}
-	}
+  display: flex;
+  margin: 5px 0 5px 0;
+  justify-content: space-between;
+  padding: 10px;
+  width: auto;
+  background-color: ${props => props.theme.colors.sky};
+  color: ${props => props.theme.colors.white};
+  font-family: ${props => props.theme.fonts[0]};
+  animation: slide 0.1s ease-in-out;
+  ${Media.greaterThan("large")`width=50%;`}
+  @keyframes slide {
+    0% {
+      transform: translate(0px, 100px);
+    }
+    100% {
+      transform: translate(0px, 0px);
+    }
+  }
 `;
 
 const ContainerLine = styled.div`
@@ -67,10 +67,10 @@ const ContainerPrice = styled.div`
 `;
 
 const Valider = styled.div`
-    text-align: right;
-    color: ${(props) => props.theme.colors.purple};
-    font-family: ${(props) => props.theme.fonts[0]};
-    font-size: ${(props) => props.theme.fontSizes.small};
+  text-align: right;
+  color: ${props => props.theme.colors.purple};
+  font-family: ${props => props.theme.fonts[0]};
+  font-size: ${props => props.theme.fontSizes.small};
 `;
 
 const CardList = () => {
@@ -89,89 +89,97 @@ const CardList = () => {
                   segment.proposals &&
                   segment.proposals.map((proposal, index) => {
                     return (
-						<ContainerTitle>
-                      <ContainerCard key={index + "proposal"}>              
-                          <ContainerLine>{proposal.fleetType ? ( 
-						  
-                            proposal.fleetType === "VTC" ? (
-                              <Vtc size={size.medium} color={color.white} style={{ marginingRight: "10px" }}/>
-                            ) : proposal.fleetType === "TAXI" ? (
-                              <Taxi size={size.medium} color={color.white} style={{ marginingRight: "10px" }} />
-                            ) : (
-                              <Bus size={size.medium} color={color.white} style={{ marginingRight: "10px" }}/>
-                            )
-                         
-                        ) : proposal.mobilityType ? (
-                         
-                            proposal.mobilityType === "BUS" ? (
-                              <Bus size={size.medium} color={color.white} />
+                      <ContainerTitle>
+                        <ContainerCard key={index + "proposal"}>
+                          <ContainerLine>
+                            {proposal.fleetType ? (
+                              proposal.fleetType === "VTC" ? (
+                                <Vtc
+                                  size={size.medium}
+                                  color={color.white}
+                                  style={{ marginingRight: "10px" }}
+                                />
+                              ) : proposal.fleetType === "TAXI" ? (
+                                <Taxi
+                                  size={size.medium}
+                                  color={color.white}
+                                  style={{ marginingRight: "10px" }}
+                                />
+                              ) : (
+                                <Bus
+                                  size={size.medium}
+                                  color={color.white}
+                                  style={{ marginingRight: "10px" }}
+                                />
+                              )
+                            ) : proposal.mobilityType ? (
+                              proposal.mobilityType === "BUS" ? (
+                                <Bus size={size.medium} color={color.white} />
+                              ) : (
+                                ""
+                              )
                             ) : (
                               ""
-                            )
-                     
-                        ) : (
-                          ""
-						)}
-							<span style={{ paddingRight: "10px" }} />
-                        {proposal.carWithDriverAttributes ? (
-                          proposal.carWithDriverAttributes.passengerCapacity ? 
-              
-                              
-                                proposal.carWithDriverAttributes.passengerCapacity
-                              
-                             (<><Travellers
-                                size={size.small}
-								color={color.purple}
-								style={{ paddingRight: "10px" }}
-                              />
-							  	<span style={{ paddingRight: "10px" }} />
-                           
-                          </>) : (
-                           
+                            )}
+                            <span style={{ paddingRight: "10px" }} />
+                            {proposal.carWithDriverAttributes ? (
+                              proposal.carWithDriverAttributes
+                                .passengerCapacity ? (
+                                proposal.carWithDriverAttributes.passengerCapacity(
+                                  <>
+                                    <Travellers
+                                      size={size.small}
+                                      color={color.purple}
+                                      style={{ paddingRight: "10px" }}
+                                    />
+                                    <span style={{ paddingRight: "10px" }} />
+                                  </>
+                                )
+                              ) : (
+                                <span style={{ width: "20px" }} />
+                              )
+                            ) : (
                               <span style={{ width: "20px" }} />
-           
-                          )
-                        ) : (
-                          
-                           <span style={{ width: "20px" }} />
-                          
-                        )}
-                        {proposal.carWithDriverAttributes ? (
-                          proposal.carWithDriverAttributes.luggageCapacity ? 
-                            
-                              proposal.carWithDriverAttributes.luggageCapacity
-                             ( <Luggage size={size.small} color={color.purple} style={{ paddingRight: "10px" }} />
-                          
-                          ) : (
-                           
+                            )}
+                            {proposal.carWithDriverAttributes ? (
+                              proposal.carWithDriverAttributes
+                                .luggageCapacity ? (
+                                proposal.carWithDriverAttributes.luggageCapacity(
+                                  <Luggage
+                                    size={size.small}
+                                    color={color.purple}
+                                    style={{ paddingRight: "10px" }}
+                                  />
+                                )
+                              ) : (
+                                <span style={{ width: "20px" }} />
+                              )
+                            ) : (
                               <span style={{ width: "20px" }} />
-  
-                          )
-                        ) : (
-                          
-                            <span style={{ width: "20px" }} />
-                         
-                        )}
+                            )}
 
-                        <span>
-                          {`${proposal.price.amount
-                            .toString()
-                            .slice(
-                              0,
-                              -2
-                            )},${proposal.price.amount.toString().slice(-2)}`}
-                          <span>€</span>
-						  </span>
-						 
-						  
-						<Valider
-											style={({ textAlign: "right" }, { color: "white" })}
-										>
-											> Commander
-										</Valider>
-										</ContainerLine>
-                      </ContainerCard>
-					  </ContainerTitle> 
+                            <span>
+                              {`${proposal.price.amount
+                                .toString()
+                                .slice(
+                                  0,
+                                  -2
+                                )},${proposal.price.amount
+                                .toString()
+                                .slice(-2)}`}
+                              <span>€</span>
+                            </span>
+
+                            <Valider
+                              style={
+                                ({ textAlign: "right" }, { color: "white" })
+                              }
+                            >
+                              > Commander
+                            </Valider>
+                          </ContainerLine>
+                        </ContainerCard>
+                      </ContainerTitle>
                     );
                   })
               )}

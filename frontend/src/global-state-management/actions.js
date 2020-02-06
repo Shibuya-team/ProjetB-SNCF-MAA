@@ -228,7 +228,7 @@ export const validFormTravelActions = {
 
     const loopResultsFromAPI = async () => {
       return await axios
-        .get("http://guarded-earth-54552.herokuapp.com/search/itinerary", {
+        .get("http://localhost:5000/search/itinerary", {
           params: {
             destLat: store.state.infosToAPIMaaS.destination.lat,
             destLng: store.state.infosToAPIMaaS.destination.lng,
